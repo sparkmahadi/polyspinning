@@ -2,6 +2,7 @@ import React from 'react';
 import {
     ArrowPathIcon,
     Bars3Icon,
+    ChartBarIcon,
     CloudArrowUpIcon,
     CogIcon,
     LockClosedIcon,
@@ -10,15 +11,17 @@ import {
     XMarkIcon,
   } from '@heroicons/react/24/outline'
   import { ArrowTopRightOnSquareIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
+import { Link } from 'react-router-dom';
 
 const GridFeatures = () => {
           {/* Feature section with grid */}
 
           const features = [
             {
-              name: 'Push to Deploy',
-              description: 'Ac tincidunt sapien vehicula erat auctor pellentesque rhoncus. Et magna sit morbi vitae lobortis.',
-              icon: CloudArrowUpIcon,
+              name: 'Current Floor Status',
+              description: 'Explore Latest DTY Floor Status with details of materials and production flow',
+              icon: ChartBarIcon,
+              link: "/dtyFloorStatus"
             },
             {
               name: 'SSL Certificates',
@@ -62,7 +65,7 @@ const GridFeatures = () => {
               <div className="mt-12">
                 <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
                   {features.map((feature) => (
-                    <div key={feature.name} className="pt-6">
+                    <Link to={feature.link} key={feature.name} className="pt-6">
                       <div className="flow-root rounded-lg bg-gray-50 px-6 pb-8">
                         <div className="-mt-6">
                           <div>
@@ -74,7 +77,7 @@ const GridFeatures = () => {
                           <p className="mt-5 text-base text-gray-500">{feature.description}</p>
                         </div>
                       </div>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               </div>

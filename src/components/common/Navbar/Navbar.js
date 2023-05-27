@@ -18,7 +18,7 @@ const Navbar = () => {
               <div className="flex flex-1 items-center">
                 <div className="flex w-full items-center justify-between md:w-auto">
                   <a href="#">
-                    <span className="sr-only">Your Company</span>
+                    <span className="sr-only">PolySpinning</span>
                     <img
                       className="h-8 w-auto sm:h-10"
                       src={logo}
@@ -67,13 +67,13 @@ const Navbar = () => {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <Popover.Panel focus className="absolute inset-x-0 top-0 origin-top transform p-2 transition md:hidden">
+            <Popover.Panel focus className="absolute inset-x-0 top-0 origin-top transform p-2 transition md:hidden z-10">
               <div className="overflow-hidden rounded-lg bg-white shadow-md ring-1 ring-black ring-opacity-5">
                 <div className="flex items-center justify-between px-5 pt-4">
                   <div>
                     <img
                       className="h-8 w-auto"
-                      src="https://tailwindui.com/img/logos/mark.svg?from-color=teal&from-shade=500&to-color=cyan&to-shade=600&toShade=600"
+                      src={logo}
                       alt=""
                     />
                   </div>

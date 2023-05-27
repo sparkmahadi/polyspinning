@@ -27,8 +27,7 @@ const Header = () => {
                       </span>
                     </h1>
                     <p className="text-base text-gray-300 sm:text-xl lg:text-lg xl:text-xl">
-                      Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui Lorem cupidatat commodo. Elit
-                      sunt amet fugiat veniam occaecat fugiat.
+                    Smart Approach to Production planning and quality control, key to efficient manufacturing and superior product quality.
                     </p>
                     <div className="mt-10 sm:mt-12">
                       <form action="#" className="sm:mx-auto sm:max-w-xl lg:mx-0">
@@ -49,12 +48,12 @@ const Header = () => {
                               type="submit"
                               className="block w-full rounded-md bg-gradient-to-r from-teal-500 to-cyan-600 py-3 px-4 font-medium text-white shadow hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900"
                             >
-                              Start free trial
+                              Create Account
                             </button>
                           </div>
                         </div>
                         <p className="mt-3 text-sm text-gray-300 sm:mt-4">
-                          Start your free 14-day trial, no credit card necessary. By providing your email, you agree to
+                          You cannot use our tools without an account. By providing your email, you agree to
                           our{' '}
                           <a href="#" className="font-medium text-white">
                             terms of service
