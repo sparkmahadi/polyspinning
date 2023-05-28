@@ -17,7 +17,7 @@ const Navbar = () => {
             <nav className="relative mx-auto flex max-w-7xl items-center justify-between px-6" aria-label="Global">
               <div className="flex flex-1 items-center">
                 <div className="flex w-full items-center justify-between md:w-auto">
-                  <a href="#">
+                  <a href="/">
                     <span className="sr-only">PolySpinning</span>
                     <img
                       className="h-8 w-auto sm:h-10"

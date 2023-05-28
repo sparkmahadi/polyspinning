@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Main from "../layouts/Main";
 import Home from "../pages/Home/Home/Home";
 import DtyFloorLayout from "../pages/FloorLayout/DtyFloorLayout";
+import DtyMachineDetails from "../pages/Machines/DtyMachineDetails";
 
 export const router = createBrowserRouter([
     {
@@ -15,7 +16,11 @@ export const router = createBrowserRouter([
             {
                 path: "/dtyFloorStatus",
                 element: <DtyFloorLayout/>
-            }
+            },
+            {
+                path: "/dtyFloorStatus/dtyMachine/:machineNo",
+                element: <DtyMachineDetails/>
+            },
         ]
     }
 ])
