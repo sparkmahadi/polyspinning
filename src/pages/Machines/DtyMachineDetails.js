@@ -1,59 +1,69 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLoaderData } from 'react-router-dom';
 
 const DtyMachineDetails = () => {
-    const machine = {
-        machineNo: 2,
-        params: {
-            processSpeed: 700,
-            sof: 6.80,
-            takup: 4.60,
-            dyA: 1.580,
-            dyB: 1.580,
-            shaft2B: "off",
-            cpm: 315,
-            addDeviCpm: 25,
-            T1: 43,
-            T2: 72,
-            T3: 50,
-            drawRatioA: 1.705,
-            drawRatioB: 1.705,
-            oilerRpm: 4.3,
-            airPressure: 0,
-            intJetBrand: "None",
-            intJetModel: "None",
-            intType: "NIM",
-            intJetOrifice: 0
-        },
-        mcInfo: {
-            brand: "Bhagat",
-            status: "Running",
-            totalSpindles: 288
-        },
-        dtyInfo: {
-            dtyType: "150/96/NIM",
-            dtyDenier: 150,
-            filaments: 96,
-            dtyBobbin: "Old Dot Print",
-            spandex: "None",
-            lotNo: 10800234,
-            poyShortPositions: 20,
-            doubling: "No"
-        },
-        poyInfo: {
-            poyType: "246/96",
-            poyDenier: 246,
-            filaments: 96,
-            chips: "RECRON SD",
-            color: "Raw",
-            stdDrawForce: 80,
-            totalWinder: 4,
-            endsPerWinder: 10,
-            poyProcessSpeed: 300,
-            poyLine: 2,
-            poyBobbin: "Old Stripe"
-        }
-    };
+    // const [machine, setMachine] = useState({});
+    // const machine = {
+    //     params: {
+    //         processSpeed: 700,
+    //         sof: 6.80,
+    //         takup: 4.60,
+    //         dyA: 1.580,
+    //         dyB: 1.580,
+    //         shaft2B: "off",
+    //         cpm: 315,
+    //         addDeviCpm: 25,
+    //         T1: 43,
+    //         T2: 72,
+    //         T3: 50,
+    //         drawRatioA: 1.705,
+    //         drawRatioB: 1.705,
+    //         oilerRpm: 4.3,
+    //         airPressure: 0,
+    //         intJetBrand: "None",
+    //         intJetModel: "None",
+    //         intType: "NIM",
+    //         intJetOrifice: 0
+    //     },
+    //     mcInfo: {
+    //         machineNo: 2,
+    //         brand: "Bhagat",
+    //         status: "Running",
+    //         totalSpindles: 288
+    //     },
+    //     dtyInfo: {
+    //         dtyType: "150/96/NIM",
+    //         dtyDenier: 150,
+    //         filaments: 96,
+    //         dtyBobbin: "Old Dot Print",
+    //         spandex: "None",
+    //         lotNo: 10800234,
+    //         poyShortPositions: 20,
+    //         doubling: "No"
+    //     },
+    //     poyInfo: {
+    //         poyType: "246/96",
+    //         poyDenier: 246,
+    //         filaments: 96,
+    //         chips: "RECRON SD",
+    //         color: "Raw",
+    //         stdDrawForce: 80,
+    //         totalWinder: 4,
+    //         endsPerWinder: 10,
+    //         poyProcessSpeed: 300,
+    //         poyLine: 2,
+    //         poyBobbin: "Old Stripe"
+    //     }
+    // };
+
+    const machine = useLoaderData();
+
+    useEffect(() => {
+
+    }, [])
+
+    const machineInfoCategories = Object.entries(machine);
+    // (machineInfoCategories.map(m=>console.log(m)));
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -73,59 +83,39 @@ const DtyMachineDetails = () => {
 
         // console.log(form.machineNo.value);
         console.log(newMachineData);
-    }
+    };
 
     return (
-        <div className="relative bg-gray-50 py-16 sm:py-24 lg:py-32">
-            <div className="overflow-x-auto">
-                <table className="table w-full max-w-sm mx-auto">
-                    {/* head */}
-                    <thead>
-                        <tr>
-                            <th>Specs</th>
-                            <th>Details</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {/* parameters */}
-                        {
-                            Object.entries(machine.params).map(m =>
-                                <tr>
-                                    <td>{m[0]}</td>
-                                    <td>{m[1]}</td>
-                                </tr>
-                            )
-                        }
-                        {/* mcinfo */}
-                        {
-                            Object.entries(machine.mcInfo).map(m =>
-                                <tr>
-                                    <td>{m[0]}</td>
-                                    <td>{m[1]}</td>
-                                </tr>
-                            )
-                        }
-                        {/* dtyinfo */}
-                        {
-                            Object.entries(machine.dtyInfo).map(m =>
-                                <tr>
-                                    <td>{m[0]}</td>
-                                    <td>{m[1]}</td>
-                                </tr>
-                            )
-                        }
-                        {/* poyinfo */}
-                        {
-                            Object.entries(machine.poyInfo).map(m =>
-                                <tr>
-                                    <td>{m[0]}</td>
-                                    <td>{m[1]}</td>
-                                </tr>
-                            )
-                        }
-                    </tbody>
-                </table>
-            </div>
+        <div className="relative bg-gray-50 py-16 sm:py-24 lg:py-32 lg:grid grid-cols-4">
+            {
+                machineInfoCategories.map((categories, i) =>
+                    typeof categories[1] === 'object' ?
+                        <div key={i} className="overflow-x-auto">
+                            <h3 className='text-center text-gray-700 lg:text-lg uppercase'>{categories[0]}</h3>
+                            <table className="table w-full max-w-sm mx-auto">
+                                {/* head */}
+                                <thead>
+                                    <tr>
+                                        <th>Specs</th>
+                                        <th>Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        Object.entries(categories[1]).map((specs, i) =>
+                                            <tr key={i}>
+                                                <td>{specs[0]}</td>
+                                                <td>{specs[1]}</td>
+                                            </tr>
+                                        )
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        :
+                        undefined
+                )
+            }
 
             <label htmlFor="dtyMachineModal" className='btn btn-success'>Update Details</label>
 
@@ -138,16 +128,20 @@ const DtyMachineDetails = () => {
 
                     <form onSubmit={handleSubmit}>
                         {
-                            Object.entries(machine).map(m =>
+                            machineInfoCategories.map((categories, i) =>
+                                <div key={i}>
+                                    {
+                                        Object.entries(categories[1]).map((specs, i) =>
+                                            <div key={i} className='flex justify-between items-center mb-3'>
+                                                <label>{specs[0]} :</label>
+                                                <input name={specs[0]} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" defaultValue={specs[1]} />
+                                            </div>
 
-                                <div className='flex justify-between items-center mb-3'>
-                                    <label>{m[0]} :</label>
-                                    <input name={m[0]} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" defaultValue={m[1]} />
+                                        )
+                                    }
                                 </div>
-
                             )
                         }
-
                         <button type='submit' className='btn btn-secondary'>Submit</button>
                     </form>
                 </div>

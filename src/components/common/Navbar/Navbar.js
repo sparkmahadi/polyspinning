@@ -2,6 +2,7 @@ import { Popover, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import React, { Fragment } from 'react';
 import logo from "../../../images/polyspinning logo.png"
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
     const navigation = [
@@ -48,12 +49,12 @@ const Navbar = () => {
                 <a href="#" className="text-base font-medium text-white hover:text-gray-300">
                   Log in
                 </a>
-                <a
-                  href="#"
+                <Link
+                  to={'/upload/excel'}
                   className="inline-flex items-center rounded-md border border-transparent bg-gray-600 px-4 py-2 text-base font-medium text-white hover:bg-gray-700"
                 >
-                  Start free trial
-                </a>
+                  Upload File
+                </Link>
               </div>
             </nav>
           </div>

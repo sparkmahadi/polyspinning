@@ -3,6 +3,8 @@ import Main from "../layouts/Main";
 import Home from "../pages/Home/Home/Home";
 import DtyFloorLayout from "../pages/FloorLayout/DtyFloorLayout";
 import DtyMachineDetails from "../pages/Machines/DtyMachineDetails";
+import InputExcelData from "../pages/InputExcelData/InputExcelData";
+import AddNewDtyMachine from "../pages/Machines/AddNewDtyMachine";
 
 export const router = createBrowserRouter([
     {
@@ -14,12 +16,21 @@ export const router = createBrowserRouter([
                 element: <Home></Home>
             },
             {
-                path: "/dtyFloorStatus",
+                path: "/dty-floor-status",
                 element: <DtyFloorLayout/>
             },
             {
-                path: "/dtyFloorStatus/dtyMachine/:machineNo",
-                element: <DtyMachineDetails/>
+                path: "/dty-floor-status/dty-machines/:machineNo",
+                element: <DtyMachineDetails/>,
+                loader: ({params})=>fetch(`http://localhost:5000/dtyMachines/${params.machineNo}`),
+            },
+            {
+                path: "/dty-floor-status/dty-machine/new-machine",
+                element: <AddNewDtyMachine/>
+            },
+            {
+                path: "/upload/excel",
+                element: <InputExcelData/>
             },
         ]
     }

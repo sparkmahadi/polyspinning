@@ -21,7 +21,7 @@ const GridFeatures = () => {
               name: 'Current Floor Status',
               description: 'Explore Latest DTY Floor Status with details of materials and production flow',
               icon: ChartBarIcon,
-              link: "/dtyFloorStatus"
+              link: "/dty-floor-status"
             },
             {
               name: 'SSL Certificates',
