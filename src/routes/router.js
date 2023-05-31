@@ -5,6 +5,7 @@ import DtyFloorLayout from "../pages/FloorLayout/DtyFloorLayout";
 import DtyMachineDetails from "../pages/Machines/DtyMachineDetails";
 import InputExcelData from "../pages/InputExcelData/InputExcelData";
 import AddNewDtyMachine from "../pages/Machines/AddNewDtyMachine";
+import DtyPresentLotAndTransfer from "../pages/FloorLayout/DtyPresentLotAndTransfer";
 
 export const router = createBrowserRouter([
     {
@@ -17,20 +18,24 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/dty-floor-status",
-                element: <DtyFloorLayout/>
+                element: <DtyFloorLayout />
             },
             {
                 path: "/dty-floor-status/dty-machines/:machineNo",
-                element: <DtyMachineDetails/>,
-                loader: ({params})=>fetch(`http://localhost:5000/dtyMachines/${params.machineNo}`),
+                element: <DtyMachineDetails />,
+                loader: ({ params }) => fetch(`http://localhost:5000/dtyMachines/${params.machineNo}`),
             },
             {
                 path: "/dty-floor-status/dty-machine/new-machine",
-                element: <AddNewDtyMachine/>
+                element: <AddNewDtyMachine />
+            },
+            {
+                path: "/dty-floor-status/present-lot-and-transfer-area",
+                element: <DtyPresentLotAndTransfer />
             },
             {
                 path: "/upload/excel",
-                element: <InputExcelData/>
+                element: <InputExcelData />
             },
         ]
     }
