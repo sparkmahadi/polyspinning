@@ -10,10 +10,9 @@ const DtyPresentLotAndTransfer = () => {
     }, []);
     console.log(data);
 
-    // const formattedDate = format(new Date(data.uploadedAt), "PPpp");
     return (
         <div className="overflow-x-auto">
-            <h5 className='lg:text-xl font-semibold text-center py-5'>Uploaded: { }</h5>
+            <h5 className='lg:text-xl font-semibold text-center py-5'>Uploaded: {data.uploadedAt}</h5>    
             <table className="table w-full max-w-sm mx-auto">
                 {/* head */}
                 <thead>
