@@ -7,6 +7,7 @@ import { extractMcDetails } from '../../logics/justifyDtyLotUpdates';
 
 const InputExcelData = () => {
   const [excelData, setExcelData] = useState([]);
+
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
@@ -20,7 +21,6 @@ const InputExcelData = () => {
       // console.log(data); // Output the extracted data
       setExcelData(data)
     };
-
     reader.readAsBinaryString(file);
   };
 

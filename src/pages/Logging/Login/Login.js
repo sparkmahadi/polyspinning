@@ -1,18 +1,16 @@
 import React, { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../../contexts/UserContext';
-import { FcGoogle } from 'react-icons/fc';
-import useSetToken from '../../../hooks/useSetToken';
-import Spinner from '../../../components/Spinner/Spinner';
 import { useEffect } from 'react';
-import { Toaster } from 'react-hot-toast';
-import { Helmet } from 'react-helmet-async';
+// import { Toaster } from 'react-hot-toast';
+import { FcGoogle } from 'react-icons/fc';
+import { AuthContext } from '../../../contexts/UserContext';
+import Spinner from '../../../components/Spinner/Spinner';
 
 const Login = () => {
     const [error, setError] = useState('');
     const { logIn, logInWithGoogle, loading, setLoading } = useContext(AuthContext);
     const [userEmail, setUserEmail] = useState('');
-    const [token] = useSetToken(userEmail);
+    // const [token] = useSetToken(userEmail);
     const location = useLocation();
     const navigate = useNavigate();
     const from = location.state?.from?.pathname || '/';
@@ -22,6 +20,8 @@ const Login = () => {
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
+
+        console.log(email, password);
 
         logIn(email, password)
             .then(r => {
@@ -39,6 +39,7 @@ const Login = () => {
                 setLoading(false);
             })
     }
+
     const handleGoogleLogin = () => {
         logInWithGoogle()
             .then(r => {
@@ -73,22 +74,18 @@ const Login = () => {
             })
     }
 
-    useEffect(() => {
-        if (token) {
-            navigate(from, { replace: true });
-        }
-    }, [token, userEmail])
+    // useEffect(() => {
+    //     if (token) {
+    //         navigate(from, { replace: true });
+    //     }
+    // }, [token, userEmail])
 
     return (
         <div className='min-h-screen'>
-            <Helmet>
-                <title>NextRep | Login</title>
-            </Helmet>
-            <Toaster />
-            <h2 className='bg-secondary p-2 text-white text-center text-xl lg:text-2xl font-semibold uppercase'>Log In</h2>
+            <h2 className='bg-sky-300 p-2 text-white text-center text-xl lg:text-2xl font-semibold uppercase'>Log In</h2>
             {
                 loading &&
-                <div className='custom-align'><Spinner /></div>
+                <Spinner></Spinner>
             }
 
             <form onSubmit={handleSubmit} className='container mx-auto bg-white px-5 lg:px-10 py-10 rounded-lg text-gray-900 md:w-2/3 lg:w-1/2'>
@@ -104,7 +101,7 @@ const Login = () => {
                 <p className='text-red-600 mb-2'>{error}</p>
                 <p className='pb-2'>New to the site? Please <Link className='text-secondary font-semibold' to='/register'>Register</Link> Now!</p>
 
-                <button type="submit" className="text-white bg-secondary hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5">Login</button>
+                <button type="submit" className="btn btn-primary btn-sm normal-case">Login</button>
                 <p className='py-2 text-center'>Forgot Password? <Link to='/reset-password' className='text-secondary font-semibold'>Reset</Link> Your Password.</p>
                 <div>
                     <div onClick={handleGoogleLogin} className='cursor-pointer flex bg-gray-200 justify-center p-2 rounded-md mt-2 lg:w-1/2 mx-auto'>

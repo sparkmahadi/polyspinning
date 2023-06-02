@@ -11,7 +11,7 @@ const DtyFloorLayout = () => {
   const [machines, setMachines] = useState([]);
   console.log(machines);
   useEffect(() => {
-    axios.get("http://localhost:5000/dtyMachines").then(res => setMachines(res.data));
+    // axios.get("http://localhost:5000/dtyMachines").then(res => setMachines(res.data));
   }, []);
 
   return (
@@ -24,7 +24,7 @@ const DtyFloorLayout = () => {
         </div>
 
         <div className="mx-auto mt-12 grid max-w-md gap-8 px-6 sm:max-w-lg lg:max-w-7xl lg:grid-cols-3 lg:px-8">
-          {machines.map(({mcInfo, dtyInfo, poyInfo, params}, i) => (
+          {machines.map(({ mcInfo, dtyInfo, poyInfo, params }, i) => (
             //   carddddd
             <div key={i} className="flex flex-col overflow-hidden rounded-lg shadow-lg">
               <div className="flex-shrink-0">
@@ -36,7 +36,7 @@ const DtyFloorLayout = () => {
                     POY {poyInfo.poyDenier}/{poyInfo.filaments} to DTY {dtyInfo.dtyDenier}/{dtyInfo.filaments}/{dtyInfo.intType}, ({dtyInfo.lotNo})
                   </p>
                   <a href='' className="mt-2 block">
-                    <p className="text-xl font-semibold text-gray-900">Machine #{mcInfo.machineNo} | {mcInfo.brand} | {parseInt((poyInfo.poyDenier*mcInfo.totalSpindles*params.processSpeed*0.00016)/params.drawRatioA)} kg/day</p>
+                    <p className="text-xl font-semibold text-gray-900">Machine #{mcInfo.machineNo} | {mcInfo.brand} | {parseInt((poyInfo.poyDenier * mcInfo.totalSpindles * params.processSpeed * 0.00016) / params.drawRatioA)} kg/day</p>
                     <p className="mt-3 text-base text-gray-500">
                       Speed : {params.processSpeed} MPM,
                       T1 : {params.T1},
@@ -76,6 +76,8 @@ const DtyFloorLayout = () => {
 
         <Link to={'dty-machines/new-machine'}><button className='btn btn-primary block mx-auto mt-10'>Add New Machine</button></Link>
       </div>
+
+      <Link to={'dty-machines'}><button className='btn btn-primary block mx-auto mt-10'>All Machines With Present Lot</button></Link>
     </div>
   );
 };

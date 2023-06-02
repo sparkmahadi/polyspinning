@@ -6,6 +6,10 @@ import DtyMachineDetails from "../pages/Machines/DtyMachineDetails";
 import InputExcelData from "../pages/InputExcelData/InputExcelData";
 import AddNewDtyMachine from "../pages/Machines/AddNewDtyMachine";
 import DtyPresentLotAndTransfer from "../pages/FloorLayout/DtyPresentLotAndTransfer";
+import DtyMachinesFromPresentLot from "../pages/FloorLayout/DtyMachinesFromPresentLot";
+import Login from "../pages/Logging/Login/Login";
+import Register from './../pages/Logging/Register/Register';
+import ResetPassword from "../pages/Logging/ResetPassword/ResetPassword";
 
 export const router = createBrowserRouter([
     {
@@ -19,6 +23,10 @@ export const router = createBrowserRouter([
             {
                 path: "/dty-floor-status",
                 element: <DtyFloorLayout />
+            },
+            {
+                path: "/dty-floor-status/dty-machines",
+                element: <DtyMachinesFromPresentLot />
             },
             {
                 path: "/dty-floor-status/dty-machines/:machineNo",
@@ -36,6 +44,18 @@ export const router = createBrowserRouter([
             {
                 path: "/upload/excel",
                 element: <InputExcelData />
+            },
+            {
+                path: "/login",
+                element: <Login />
+            },
+            {
+                path: "/register",
+                element: <Register />
+            },
+            {
+                path: "/reset-password",
+                element: <ResetPassword />
             },
         ]
     }

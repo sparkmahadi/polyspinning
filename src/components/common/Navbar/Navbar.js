@@ -1,16 +1,24 @@
 import { Popover, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import logo from "../../../images/polyspinning logo.png"
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../contexts/UserContext';
+import Spinner from '../../Spinner/Spinner';
 
 const Navbar = () => {
+  const { user, loading, logOut } = useContext(AuthContext);
+
   const navigation = [
     { name: 'DTY', href: '/dty-floor-status/present-lot-and-transfer-area' },
     { name: 'Features', href: '#' },
     { name: 'Marketplace', href: '#' },
     { name: 'Company', href: '#' },
   ]
+
+  if (loading) {
+    return <Spinner></Spinner>
+  }
 
   return (
     <Popover as="header" className="relative">
@@ -46,9 +54,14 @@ const Navbar = () => {
             </div>
           </div>
           <div className="hidden md:flex md:items-center md:space-x-6">
-            <a href="#" className="text-base font-medium text-white hover:text-gray-300">
-              Log in
-            </a>
+            {
+              user?.uid ?
+                <button onClick={logOut} className="text-base font-medium text-white hover:text-gray-300">Log Out</button>
+                :
+                <Link to={'/login'} className="text-base font-medium text-white hover:text-gray-300">
+                  Log in
+                </Link>
+            }
             <Link
               to={'/upload/excel'}
               className="inline-flex items-center rounded-md border border-transparent bg-gray-600 px-4 py-2 text-base font-medium text-white hover:bg-gray-700"
@@ -98,19 +111,26 @@ const Navbar = () => {
                 ))}
               </div>
               <div className="mt-6 px-5">
-                <a
-                  href="#"
+                <Link
+                  to={'/upload/excel'}
                   className="block w-full rounded-md bg-gradient-to-r from-teal-500 to-cyan-600 py-3 px-4 text-center font-medium text-white shadow hover:from-teal-600 hover:to-cyan-700"
                 >
-                  Start free trial
-                </a>
+                  Upload File
+                </Link>
+
               </div>
               <div className="mt-6 px-5">
                 <p className="text-center text-base font-medium text-gray-500">
                   Existing customer?{' '}
-                  <a href="#" className="text-gray-900 hover:underline">
-                    Login
-                  </a>
+                  {
+                    user?.uid ?
+                      <button onClick={logOut} className="text-gray-900 hover:underline">Log Out</button>
+                      :
+                      <Link to={'/login'} className="text-gray-900 hover:underline">
+                        Login
+                      </Link>
+                  }
+
                 </p>
               </div>
             </div>
