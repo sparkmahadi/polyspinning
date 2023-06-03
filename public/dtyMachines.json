@@ -1,0 +1,446 @@
+[
+    {
+        "_id": {
+            "$oid": "6476e3a23d9aa9fed3b5d160"
+        },
+        "mcInfo": {
+            "machineNo": {
+                "$numberInt": "4"
+            },
+            "brand": "Bhagat",
+            "status": "Running",
+            "totalSpindles": {
+                "$numberInt": "288"
+            }
+        },
+        "params": {
+            "processSpeed": {
+                "$numberInt": "700"
+            },
+            "sof": {
+                "$numberDouble": "6.8"
+            },
+            "takup": {
+                "$numberDouble": "4.6"
+            },
+            "dyA": {
+                "$numberDouble": "1.58"
+            },
+            "dyB": {
+                "$numberDouble": "1.58"
+            },
+            "shaft2B": "off",
+            "cpm": {
+                "$numberInt": "315"
+            },
+            "addDeviCpm": {
+                "$numberInt": "25"
+            },
+            "T1": {
+                "$numberInt": "43"
+            },
+            "T2": {
+                "$numberInt": "72"
+            },
+            "T3": {
+                "$numberInt": "50"
+            },
+            "drawRatioA": {
+                "$numberDouble": "1.705"
+            },
+            "drawRatioB": {
+                "$numberDouble": "1.705"
+            },
+            "oilerRpm": {
+                "$numberDouble": "4.3"
+            },
+            "airPressure": {
+                "$numberInt": "0"
+            },
+            "intJetBrand": "None",
+            "intJetModel": "None",
+            "intType": "NIM",
+            "intJetOrifice": {
+                "$numberInt": "0"
+            }
+        },
+        "dtyInfo": {
+            "dtyType": "150/96/NIM",
+            "dtyDenier": {
+                "$numberInt": "150"
+            },
+            "filaments": {
+                "$numberInt": "96"
+            },
+            "dtyBobbin": "Old Dot Print",
+            "spandex": "None",
+            "lotNo": {
+                "$numberInt": "10800234"
+            },
+            "poyShortPositions": {
+                "$numberInt": "20"
+            },
+            "doubling": "No"
+        },
+        "poyInfo": {
+            "poyType": "246/96",
+            "poyDenier": {
+                "$numberInt": "246"
+            },
+            "filaments": {
+                "$numberInt": "96"
+            },
+            "chips": "RECRON SD",
+            "color": "Raw",
+            "stdDrawForce": {
+                "$numberInt": "80"
+            },
+            "totalWinder": {
+                "$numberInt": "4"
+            },
+            "endsPerWinder": {
+                "$numberInt": "10"
+            },
+            "poyProcessSpeed": {
+                "$numberInt": "300"
+            },
+            "poyLine": {
+                "$numberInt": "2"
+            },
+            "poyBobbin": "Old Stripe"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "6476e3a23d9aa9fed3b5d15f"
+        },
+        "mcInfo": {
+            "machineNo": {
+                "$numberInt": "3"
+            },
+            "brand": "Bhagat",
+            "status": "Running",
+            "totalSpindles": {
+                "$numberInt": "288"
+            }
+        },
+        "params": {
+            "processSpeed": {
+                "$numberInt": "700"
+            },
+            "sof": {
+                "$numberDouble": "6.8"
+            },
+            "takup": {
+                "$numberDouble": "4.6"
+            },
+            "dyA": {
+                "$numberDouble": "1.58"
+            },
+            "dyB": {
+                "$numberDouble": "1.58"
+            },
+            "shaft2B": "off",
+            "cpm": {
+                "$numberInt": "315"
+            },
+            "addDeviCpm": {
+                "$numberInt": "25"
+            },
+            "T1": {
+                "$numberInt": "43"
+            },
+            "T2": {
+                "$numberInt": "72"
+            },
+            "T3": {
+                "$numberInt": "50"
+            },
+            "drawRatioA": {
+                "$numberDouble": "1.705"
+            },
+            "drawRatioB": {
+                "$numberDouble": "1.705"
+            },
+            "oilerRpm": {
+                "$numberDouble": "4.3"
+            },
+            "airPressure": {
+                "$numberInt": "0"
+            },
+            "intJetBrand": "None",
+            "intJetModel": "None",
+            "intType": "NIM",
+            "intJetOrifice": {
+                "$numberInt": "0"
+            }
+        },
+        "dtyInfo": {
+            "dtyType": "150/96/NIM",
+            "dtyDenier": {
+                "$numberInt": "150"
+            },
+            "filaments": {
+                "$numberInt": "96"
+            },
+            "dtyBobbin": "Old Dot Print",
+            "spandex": "None",
+            "lotNo": {
+                "$numberInt": "10800234"
+            },
+            "poyShortPositions": {
+                "$numberInt": "20"
+            },
+            "doubling": "No"
+        },
+        "poyInfo": {
+            "poyType": "246/96",
+            "poyDenier": {
+                "$numberInt": "246"
+            },
+            "filaments": {
+                "$numberInt": "96"
+            },
+            "chips": "RECRON SD",
+            "color": "Raw",
+            "stdDrawForce": {
+                "$numberInt": "80"
+            },
+            "totalWinder": {
+                "$numberInt": "4"
+            },
+            "endsPerWinder": {
+                "$numberInt": "10"
+            },
+            "poyProcessSpeed": {
+                "$numberInt": "300"
+            },
+            "poyLine": {
+                "$numberInt": "2"
+            },
+            "poyBobbin": "Old Stripe"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "6476e3a23d9aa9fed3b5d15d"
+        },
+        "mcInfo": {
+            "machineNo": {
+                "$numberInt": "1"
+            },
+            "brand": "Bhagat",
+            "status": "Stopped",
+            "totalSpindles": {
+                "$numberInt": "288"
+            }
+        },
+        "params": {
+            "processSpeed": {
+                "$numberInt": "700"
+            },
+            "sof": {
+                "$numberDouble": "6.8"
+            },
+            "takup": {
+                "$numberDouble": "4.6"
+            },
+            "dyA": {
+                "$numberDouble": "1.58"
+            },
+            "dyB": {
+                "$numberDouble": "1.58"
+            },
+            "shaft2B": "off",
+            "cpm": {
+                "$numberInt": "315"
+            },
+            "addDeviCpm": {
+                "$numberInt": "25"
+            },
+            "T1": {
+                "$numberInt": "43"
+            },
+            "T2": {
+                "$numberInt": "72"
+            },
+            "T3": {
+                "$numberInt": "50"
+            },
+            "drawRatioA": {
+                "$numberDouble": "1.705"
+            },
+            "drawRatioB": {
+                "$numberDouble": "1.705"
+            },
+            "oilerRpm": {
+                "$numberDouble": "4.3"
+            },
+            "airPressure": {
+                "$numberInt": "0"
+            },
+            "intJetBrand": "None",
+            "intJetModel": "None",
+            "intType": "NIM",
+            "intJetOrifice": {
+                "$numberInt": "0"
+            }
+        },
+        "dtyInfo": {
+            "dtyType": "150/96/NIM",
+            "dtyDenier": {
+                "$numberInt": "150"
+            },
+            "filaments": {
+                "$numberInt": "96"
+            },
+            "dtyBobbin": "Old Dot Print",
+            "spandex": "None",
+            "lotNo": {
+                "$numberInt": "10800234"
+            },
+            "poyShortPositions": {
+                "$numberInt": "20"
+            },
+            "doubling": "No"
+        },
+        "poyInfo": {
+            "poyType": "246/96",
+            "poyDenier": {
+                "$numberInt": "246"
+            },
+            "filaments": {
+                "$numberInt": "96"
+            },
+            "chips": "RECRON SD",
+            "color": "Raw",
+            "stdDrawForce": {
+                "$numberInt": "80"
+            },
+            "totalWinder": {
+                "$numberInt": "4"
+            },
+            "endsPerWinder": {
+                "$numberInt": "10"
+            },
+            "poyProcessSpeed": {
+                "$numberInt": "300"
+            },
+            "poyLine": {
+                "$numberInt": "2"
+            },
+            "poyBobbin": "Old Stripe"
+        }
+    },
+    {
+        "_id": {
+            "$oid": "6476e3a23d9aa9fed3b5d15d"
+        },
+        "mcInfo": {
+            "machineNo": {
+                "$numberInt": "1"
+            },
+            "brand": "Bhagat",
+            "status": "Stopped",
+            "totalSpindles": {
+                "$numberInt": "288"
+            }
+        },
+        "params": {
+            "processSpeed": {
+                "$numberInt": "700"
+            },
+            "sof": {
+                "$numberDouble": "6.8"
+            },
+            "takup": {
+                "$numberDouble": "4.6"
+            },
+            "dyA": {
+                "$numberDouble": "1.58"
+            },
+            "dyB": {
+                "$numberDouble": "1.58"
+            },
+            "shaft2B": "off",
+            "cpm": {
+                "$numberInt": "315"
+            },
+            "addDeviCpm": {
+                "$numberInt": "25"
+            },
+            "T1": {
+                "$numberInt": "43"
+            },
+            "T2": {
+                "$numberInt": "72"
+            },
+            "T3": {
+                "$numberInt": "50"
+            },
+            "drawRatioA": {
+                "$numberDouble": "1.705"
+            },
+            "drawRatioB": {
+                "$numberDouble": "1.705"
+            },
+            "oilerRpm": {
+                "$numberDouble": "4.3"
+            },
+            "airPressure": {
+                "$numberInt": "0"
+            },
+            "intJetBrand": "None",
+            "intJetModel": "None",
+            "intType": "NIM",
+            "intJetOrifice": {
+                "$numberInt": "0"
+            }
+        },
+        "dtyInfo": {
+            "dtyType": "150/96/NIM",
+            "dtyDenier": {
+                "$numberInt": "150"
+            },
+            "filaments": {
+                "$numberInt": "96"
+            },
+            "dtyBobbin": "Old Dot Print",
+            "spandex": "None",
+            "lotNo": {
+                "$numberInt": "10800234"
+            },
+            "poyShortPositions": {
+                "$numberInt": "20"
+            },
+            "doubling": "No"
+        },
+        "poyInfo": {
+            "poyType": "246/96",
+            "poyDenier": {
+                "$numberInt": "246"
+            },
+            "filaments": {
+                "$numberInt": "96"
+            },
+            "chips": "RECRON SD",
+            "color": "Raw",
+            "stdDrawForce": {
+                "$numberInt": "80"
+            },
+            "totalWinder": {
+                "$numberInt": "4"
+            },
+            "endsPerWinder": {
+                "$numberInt": "10"
+            },
+            "poyProcessSpeed": {
+                "$numberInt": "300"
+            },
+            "poyLine": {
+                "$numberInt": "2"
+            },
+            "poyBobbin": "Old Stripe"
+        }
+    }
+]

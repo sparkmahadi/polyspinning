@@ -2,7 +2,10 @@ import React from 'react';
 
 const Spinner = () => {
     return (
-        <span className="loading loading-infinity loading-lg"></span>
+        <div class="flex justify-center items-center h-screen">
+            <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-gray-900"></div>
+        </div>
+
     );
 };
 

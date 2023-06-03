@@ -1,18 +1,26 @@
-import axios from 'axios';
-import { format } from 'date-fns';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getLotData } from '../../redux/features/dtyPresentLotAndTransfer/dtyPresentLotSlice';
+import Spinner from '../../components/Spinner/Spinner';
 
 const DtyPresentLotAndTransfer = () => {
-    const [data, setData] = useState({});
 
+    const dispatch = useDispatch();
+    const { presentLotData: data, isLoading, isError, error } = useSelector(state => state.dtyPresentLotAndTransfer);
     useEffect(() => {
-        axios.get("http://localhost:5000/present-lot-and-transfer-area").then(data => setData(data.data));
-    }, []);
+        dispatch(getLotData());
+    }, [dispatch]);
+
     console.log(data);
+
+    if (isLoading) {
+        return <Spinner></Spinner>
+    }
 
     return (
         <div className="overflow-x-auto">
-            <h5 className='lg:text-xl font-semibold text-center py-5'>Uploaded: {data.uploadedAt}</h5>    
+            <span className="loading loading-spinner loading-lg z-50"></span>
+            <h5 className='lg:text-xl font-semibold text-center py-5'>Uploaded On: {data.uploadedAt}</h5>
             <table className="table w-full max-w-sm mx-auto">
                 {/* head */}
                 <thead>

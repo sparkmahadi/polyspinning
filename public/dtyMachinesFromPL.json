@@ -1,0 +1,430 @@
+[
+    {
+        "DTYMCNo": "2",
+        "Side": [
+            "A",
+            "B"
+        ],
+        "ProductType": "150/96/NIM",
+        "POYLine": 1,
+        "DTYBobbinColor": "Old Dot Print",
+        "PresentLotNo": 13600302,
+        "AirPress": "-",
+        "INTJet": "-",
+        "InspectionArea": "HimsonGF"
+    },
+    {
+        "DTYMCNo": "3",
+        "Side": [
+            "A",
+            "B"
+        ],
+        "ProductType": "75/36/NIM",
+        "POYLine": 1,
+        "DTYBobbinColor": "Old stripe",
+        "PresentLotNo": 10700316,
+        "AirPress": "-",
+        "INTJet": "-",
+        "InspectionArea": "HimsonGF"
+    },
+    {
+        "DTYMCNo": "4",
+        "Side": [
+            "A",
+            "B"
+        ],
+        "ProductType": "75/36/NIM",
+        "POYLine": 1,
+        "DTYBobbinColor": "Old stripe",
+        "PresentLotNo": 10700316,
+        "AirPress": "-",
+        "INTJet": "-",
+        "InspectionArea": "HimsonGF"
+    },
+    {
+        "DTYMCNo": "5",
+        "Side": [
+            "B"
+        ],
+        "ProductType": "150/108/SIM Ash Melange",
+        "POYLine": "3,10",
+        "DTYBobbinColor": "MPIL Pink",
+        "PresentLotNo": 25920010,
+        "AirPress": "-",
+        "INTJet": "-",
+        "InspectionArea": "-"
+    },
+    {
+        "DTYMCNo": "6",
+        "Side": [
+            "A",
+            "B"
+        ],
+        "ProductType": "75/36/HIM",
+        "POYLine": 4,
+        "DTYBobbinColor": "Old Plaine color",
+        "PresentLotNo": 10810305,
+        "AirPress": 3,
+        "INTJet": "RM124",
+        "InspectionArea": "Himson1st"
+    },
+    {
+        "DTYMCNo": "7",
+        "Side": [
+            "A",
+            "B"
+        ],
+        "ProductType": "75/36/HIM",
+        "POYLine": 4,
+        "DTYBobbinColor": "Old Plaine color",
+        "PresentLotNo": 10810305,
+        "AirPress": 3,
+        "INTJet": "RM124",
+        "InspectionArea": "Himson1st"
+    },
+    {
+        "DTYMCNo": "8",
+        "Side": [
+            "A",
+            "B"
+        ],
+        "ProductType": "75/36/HIM",
+        "POYLine": 4,
+        "DTYBobbinColor": "Old Plaine color",
+        "PresentLotNo": 10810305,
+        "AirPress": 3,
+        "INTJet": "RM124",
+        "InspectionArea": "Himson1st"
+    },
+    {
+        "DTYMCNo": "9",
+        "Side": [
+            "A",
+            "B"
+        ],
+        "ProductType": "150/144/HIM",
+        "POYLine": 10,
+        "DTYBobbinColor": "MPIL Olive",
+        "PresentLotNo": 14110333,
+        "AirPress": 4,
+        "INTJet": "Temco",
+        "InspectionArea": "1st floor"
+    },
+    {
+        "DTYMCNo": "10",
+        "Side": [
+            "A",
+            "B"
+        ],
+        "ProductType": "75/36/NIM",
+        "POYLine": "5,6",
+        "DTYBobbinColor": "MPIL Pink",
+        "PresentLotNo": 10701817,
+        "AirPress": "-",
+        "INTJet": "-",
+        "InspectionArea": "GFloor"
+    },
+    {
+        "DTYMCNo": "11",
+        "Side": [
+            "A",
+            "B"
+        ],
+        "ProductType": "150/48/HIM",
+        "POYLine": "5,6",
+        "DTYBobbinColor": "Old Stripe",
+        "PresentLotNo": 13211826,
+        "AirPress": 4,
+        "INTJet": "P212",
+        "InspectionArea": "GFloor"
+    },
+    {
+        "DTYMCNo": "12",
+        "Side": [
+            "A",
+            "B"
+        ],
+        "ProductType": "150/48/HIM",
+        "POYLine": "5,6",
+        "DTYBobbinColor": "Old Stripe",
+        "PresentLotNo": 13211826,
+        "AirPress": 4,
+        "INTJet": "P212",
+        "InspectionArea": "GFloor"
+    },
+    {
+        "DTYMCNo": "13",
+        "Side": [
+            "A",
+            "B"
+        ],
+        "ProductType": "150/48/HIM Black",
+        "POYLine": 3,
+        "DTYBobbinColor": "Old Stripe",
+        "PresentLotNo": 23210411,
+        "AirPress": "-",
+        "INTJet": "-",
+        "InspectionArea": "GFloor"
+    },
+    {
+        "DTYMCNo": "14",
+        "Side": [
+            "A",
+            "B"
+        ],
+        "ProductType": "150/48/NIM",
+        "POYLine": "5,6",
+        "DTYBobbinColor": "Old Stripe",
+        "PresentLotNo": 13101824,
+        "AirPress": "-",
+        "INTJet": "-",
+        "InspectionArea": "1st floor"
+    },
+    {
+        "DTYMCNo": "15",
+        "Side": [
+            "A"
+        ],
+        "ProductType": "150/96/NIM ",
+        "POYLine": 9,
+        "DTYBobbinColor": "MPIL Black",
+        "PresentLotNo": 13600336,
+        "AirPress": "-",
+        "INTJet": "-",
+        "InspectionArea": "GFloor"
+    },
+    {
+        "DTYMCNo": "16",
+        "Side": [
+            "A",
+            "B"
+        ],
+        "ProductType": "150/96/NIM ",
+        "POYLine": 9,
+        "DTYBobbinColor": "MPIL Black",
+        "PresentLotNo": 13600336,
+        "AirPress": "-",
+        "INTJet": "-",
+        "InspectionArea": "GFloor"
+    },
+    {
+        "DTYMCNo": "17",
+        "Side": [
+            "A",
+            "B"
+        ],
+        "ProductType": "150/96/NIM ",
+        "POYLine": 9,
+        "DTYBobbinColor": "MPIL Black",
+        "PresentLotNo": 13600336,
+        "AirPress": "-",
+        "INTJet": "-",
+        "InspectionArea": "GFloor"
+    },
+    {
+        "DTYMCNo": "18",
+        "Side": [
+            "A",
+            "B"
+        ],
+        "ProductType": "150/48/NIM",
+        "POYLine": "5,6",
+        "DTYBobbinColor": "Old Stripe",
+        "PresentLotNo": 13101824,
+        "AirPress": "-",
+        "INTJet": "-",
+        "InspectionArea": "1st floor"
+    },
+    {
+        "DTYMCNo": "19",
+        "Side": [
+            "A",
+            "B"
+        ],
+        "ProductType": "150/96/SIM",
+        "POYLine": 2,
+        "DTYBobbinColor": "MPIL PINK",
+        "PresentLotNo": 13920340,
+        "AirPress": "-",
+        "INTJet": "-",
+        "InspectionArea": "GFloor"
+    },
+    {
+        "DTYMCNo": "20",
+        "Side": [
+            "A",
+            "B"
+        ],
+        "ProductType": "150/144/HIM",
+        "POYLine": 10,
+        "DTYBobbinColor": "MPIL Orange",
+        "PresentLotNo": 14110322,
+        "AirPress": 3.5,
+        "INTJet": "P212",
+        "InspectionArea": "GFloor"
+    },
+    {
+        "DTYMCNo": "21",
+        "Side": [
+            "A",
+            "B"
+        ],
+        "ProductType": "75/72/SIM",
+        "POYLine": 10,
+        "DTYBobbinColor": "MPIL Leaf Green",
+        "PresentLotNo": 11320327,
+        "AirPress": 1.6,
+        "INTJet": "P212",
+        "InspectionArea": "GFloor"
+    },
+    {
+        "DTYMCNo": "22",
+        "Side": [
+            "A"
+        ],
+        "ProductType": "100/36/HIM",
+        "POYLine": 1,
+        "DTYBobbinColor": "MPIL Black",
+        "PresentLotNo": 12110300,
+        "AirPress": 4,
+        "INTJet": "P212",
+        "InspectionArea": "1st floor"
+    },
+    {
+        "DTYMCNo": "22",
+        "Side": [
+            "B"
+        ],
+        "ProductType": "150/144/HIM",
+        "POYLine": 10,
+        "DTYBobbinColor": "MPIL Violet",
+        "PresentLotNo": 14110320,
+        "AirPress": "-",
+        "INTJet": "Temco",
+        "InspectionArea": "GFloor"
+    },
+    {
+        "DTYMCNo": "23",
+        "Side": [
+            "A",
+            "B"
+        ],
+        "ProductType": "75/36/NIM",
+        "POYLine": 9,
+        "DTYBobbinColor": "MPIL Coffee",
+        "PresentLotNo": 10700312,
+        "AirPress": "-",
+        "INTJet": "-",
+        "InspectionArea": "GFloor"
+    },
+    {
+        "DTYMCNo": "24",
+        "Side": [
+            "A",
+            "B"
+        ],
+        "ProductType": "75/36/NIM",
+        "POYLine": 9,
+        "DTYBobbinColor": "MPIL Coffee",
+        "PresentLotNo": 10700312,
+        "AirPress": "-",
+        "INTJet": "-",
+        "InspectionArea": "GFloor"
+    },
+    {
+        "DTYMCNo": "25",
+        "Side": [
+            "A"
+        ],
+        "ProductType": "75/36/NIM",
+        "POYLine": "5,6",
+        "DTYBobbinColor": "MPIL Pink",
+        "PresentLotNo": 10701817,
+        "AirPress": "-",
+        "INTJet": "-",
+        "InspectionArea": "GFloor"
+    },
+    {
+        "DTYMCNo": "25",
+        "Side": [
+            "B"
+        ],
+        "ProductType": "75/36/NIM",
+        "POYLine": 10,
+        "DTYBobbinColor": "MPIL Sky Blue",
+        "PresentLotNo": 10700331,
+        "AirPress": "-",
+        "INTJet": "-",
+        "InspectionArea": "GFloor"
+    },
+    {
+        "DTYMCNo": "26",
+        "Side": [
+            "A",
+            "B"
+        ],
+        "ProductType": "150/48/NIM",
+        "POYLine": "5,6",
+        "DTYBobbinColor": "Old Stripe",
+        "PresentLotNo": 13101824,
+        "AirPress": "-",
+        "INTJet": "-",
+        "InspectionArea": "1st floor"
+    },
+    {
+        "DTYMCNo": "27",
+        "Side": [
+            "A",
+            "B"
+        ],
+        "ProductType": "75/36/NIM",
+        "POYLine": 10,
+        "DTYBobbinColor": "MPIL Sky Blue",
+        "PresentLotNo": 10700331,
+        "AirPress": "-",
+        "INTJet": "-",
+        "InspectionArea": "GFloor"
+    },
+    {
+        "DTYMCNo": "28",
+        "Side": [
+            "A",
+            "B"
+        ],
+        "ProductType": "75/36/NIM",
+        "POYLine": 4,
+        "DTYBobbinColor": "MPIL Yellow",
+        "PresentLotNo": 10700309,
+        "AirPress": "-",
+        "INTJet": "-",
+        "InspectionArea": "1st floor"
+    },
+    {
+        "DTYMCNo": "29",
+        "Side": [
+            "A",
+            "B"
+        ],
+        "ProductType": "75/36/NIM",
+        "POYLine": 4,
+        "DTYBobbinColor": "MPIL Yellow",
+        "PresentLotNo": 10700309,
+        "AirPress": "-",
+        "INTJet": "-",
+        "InspectionArea": "1st floor"
+    },
+    {
+        "DTYMCNo": "30",
+        "Side": [
+            "A",
+            "B"
+        ],
+        "ProductType": "300/96+40",
+        "POYLine": "-",
+        "DTYBobbinColor": "MPIL Red",
+        "PresentLotNo": 58810053,
+        "AirPress": 3.8,
+        "INTJet": "No3",
+        "InspectionArea": "GFloor"
+    }
+]
