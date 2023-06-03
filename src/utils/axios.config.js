@@ -2,7 +2,6 @@ import axios from "axios";
 
 let URL;
 
-console.log(process.env.REACT_APP_ENVIRONMENT);
 switch (process.env.REACT_APP_ENVIRONMENT) {
     case "DEVELOPMENT":
         URL = "http://localhost:5000/";
