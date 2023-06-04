@@ -7,7 +7,7 @@ switch (process.env.REACT_APP_ENVIRONMENT) {
         URL = "http://localhost:5000/";
         break;
     case "PRODUCTION":
-        URL = "server link";
+        URL = "https://polyspinning-server.vercel.app/";
         break;
     default:
         URL = "http://localhost:5000/";
