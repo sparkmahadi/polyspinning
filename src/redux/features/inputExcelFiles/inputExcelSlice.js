@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 const initialState = {
     fileTypeInfo: "",
     excelData: [],
+    notification: "",
     isLoading: false,
     isError: false,
     error: '',
@@ -22,7 +23,10 @@ const inputExcelSlice = createSlice({
         },
         setExcelData: (state, action) => {
             state.excelData = action.payload;
-        }
+        },
+        setNotification: (state, action) => {
+            state.notification = action.payload;
+        },
     },
     extraReducers: (builder) => {
         // builder.addCase(getLotData.pending, (state, action) => {
@@ -43,5 +47,5 @@ const inputExcelSlice = createSlice({
     }
 })
 
-export const { selectFileType, setExcelData } = inputExcelSlice.actions;
+export const { selectFileType, setExcelData, setNotification } = inputExcelSlice.actions;
 export default inputExcelSlice.reducer;

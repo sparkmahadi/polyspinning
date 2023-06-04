@@ -5,15 +5,15 @@ import gearStopped from "../../images/gear stopped.png";
 import dtyBobbin from "../../images/dty bobbin.jpg";
 import poyBobbin from "../../images/poy bobbin.jpg";
 import { useDispatch, useSelector } from 'react-redux';
-import { getMachineDataFromLot } from '../../redux/features/dtyMachinesFromPresentLot/dtyMCsFromPLotSlice';
 import Spinner from '../../components/Spinner/Spinner';
+import { getMcMergedDataFromLot } from '../../redux/features/dtyMachinesFromPresentLot/dtyMCsFromPLotSlice';
 
 const DtyMachinesFromPresentLot = () => {
     const dispatch = useDispatch();
-    const { machineDataFromLot: machines, isLoading } = useSelector(state => state.dtyMachinesFromLot);
+    const { machineMergedDataFromLot: machines, isLoading } = useSelector(state => state.dtyMachinesFromLot);
     console.log(machines);
     useEffect(() => {
-        dispatch(getMachineDataFromLot());
+        dispatch(getMcMergedDataFromLot());
     }, [dispatch]);
 
     if (isLoading) {

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 export const properties = [
     "DTYMCNo",
@@ -11,7 +12,7 @@ export const properties = [
     "InspectionArea"
 ];
 
-export const extractMcDetails = async (dataArray) => {
+export const extractMcDetails = (dataArray) => {
     const dynamicObjects = [];
 
     for (let i = 0; i < dataArray.length; i++) {
@@ -52,46 +53,47 @@ export const extractMcDetails = async (dataArray) => {
         }
     }
 
-    console.log(dynamicObjects);
+    // console.log(dynamicObjects);
 
-    const existingArr = await axios.get("http://localhost:5000/dty-machine-details-from-present-lot/").then(data => data.data);
-    console.log("received data", existingArr);
     const newArr = dynamicObjects;
-    compareArrays(newArr, existingArr);
+    return newArr;
+    // compareArrays(newArr, existingArr);
 };
 
-const compareArrays = (array1, array2) => {
-
-    for (let i = 0; i < array1.length; i++) {
-        const element1 = array1[i];
+export const compareArrays = (newArr, existingArr) => {
+    for (let i = 0; i < newArr.length; i++) {
+        const element1 = newArr[i];
         const { _id, ...element1WithoutId } = element1;
-        const element2 = array2.find(item => item.DTYMCNo === element1.DTYMCNo && item.Side === element1.Side);
-        // console.log(element2);
+        const element2 = existingArr.find(item => item.DTYMCNo === element1.DTYMCNo && item.Side === element1.Side);
+
         if (!element2) {
             console.log(`inserting new machine. Machine no: ${element1.DTYMCNo}`);
-            //    insert this element1 i.e object in the db; new mc introduced
-            postNewMachine(element1);
+            toast.loading(`inserting new machine. Machine no: # ${element1.DTYMCNo}`, { id: element1.DTYMCNo })
+
+            // postNewMachine(element1);
+            return { message: "Post the new machine", machineData: element1, toastId: element1.DTYMCNo };
         }
         if (element2) {
             const changedProps = compareObjects(element1WithoutId, element2);
             // console.log(changedProps);
             if (changedProps.length === 1 && changedProps[0] === "_id") {
                 console.log('only id changed');
+                return { message: "Only Object ID is changed" };
             }
             else {
                 if (Object.entries(changedProps).length > 0) {
                     // if there is any true changedprops then do this
                     console.log("changed Props of machine No:", element2.DTYMCNo, `(${changedProps})`);
-                    updateMachineDetails(element1, changedProps);
-                    // update the props by finding the object with mc no. and using the prop value from newArr or, arr2
+                    toast.success(`Changed (${changedProps}) of Machine No: ${element2.DTYMCNo}`, { id: element2.DTYMCNo })
+                    return { message: "Update the Machine Details", machineData: element1, changedProps, toastId: element2.DTYMCNo }
+                    // updateMachineDetails(element1, changedProps);
+
                 }
             }
-
         }
 
     }
-
-    return true; // All elements are equal
+    return { message: "All properties of all machines are same" }; // All elements are equal
 };
 
 function compareObjects(object1, object2) {
@@ -115,6 +117,6 @@ const updateMachineDetails = async (oneMCDetails, changedProps) => {
 }
 
 const postNewMachine = async (newMCDetails) => {
-    const data = await axios.post("http://localhost:5000/dty-machine-details-from-present-lot/", newMCDetails);
-    console.log(data.data);
+    // const data = await axios.post("http://localhost:5000/dty-machine-details-from-present-lot/", newMCDetails);
+    // console.log(data.data);
 }

@@ -1,17 +1,21 @@
-
-import axios from 'axios';
 import { format } from 'date-fns';
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { read, utils } from 'xlsx';
-import { extractMcDetails } from '../../logics/justifyDtyLotUpdates';
+import { compareArrays, extractMcDetails } from '../../logics/justifyDtyLotUpdates';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectFileType, setExcelData } from '../../redux/features/inputExcelFiles/inputExcelSlice';
 import DisplayPresentLot from './DisplayPresentLot';
+import { addLotData, togglePostSuccess } from '../../redux/features/dtyPresentLotAndTransfer/dtyPresentLotSlice';
+import Uploading from '../../components/Spinner/Uploading';
+import { toast } from 'react-hot-toast';
+import { addMachine, getMcDataFromLot, updateMachine } from '../../redux/features/dtyMachinesFromPresentLot/dtyMCsFromPLotSlice';
 
 const InputExcelData = () => {
   // const [excelData, setExcelData] = useState([]);
   const dispatch = useDispatch();
-  const { excelData, fileTypeInfo } = useSelector(state => state.inputExcelFiles)
+  const { excelData, fileTypeInfo } = useSelector(state => state.inputExcelFiles);
+  const { machineDataFromLot: existingArr, isLoading, isPosting, isError, error, postMachineSuccess, updateMachineSuccess } = useSelector(state => state.dtyMachinesFromLot);
+  // const { isPosting, postSuccess, updateSuccess } = useSelector(state => state.dtyPresentLotAndTransfer);
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -31,17 +35,34 @@ const InputExcelData = () => {
   };
 
   const specsTitles = excelData[0];
-  console.log(specsTitles);
+  // console.log(specsTitles);
   const specsDetails = excelData.slice(1);
   console.log(specsDetails);
 
 
   const handleUpload = async (specsTitles, specsDetails) => {
     const dateTime = format(new Date(), "Pp");
-    const res = await axios.post("http://localhost:5000/present-lot-and-transfer-area", { specsTitles, specsDetails, uploadedAt: dateTime });
-    console.log(res.data);
+    const lotData = { specsTitles, specsDetails, uploadedAt: dateTime };
+    dispatch(addLotData(lotData));
 
-    extractMcDetails(specsDetails);
+    const newArr = extractMcDetails(specsDetails);
+    if (newArr && existingArr) {
+      const result = compareArrays(newArr, existingArr);
+      console.log(result);
+
+      if (result.message === "All properties of all machines are same") {
+        toast.error("Nothing is changed in new file", { id: "Warning" });
+      }
+
+      if (result.message === "Post the new machine") {
+        dispatch(addMachine(result.machineData));
+      }
+
+      if (result.message === "Update the Machine Details") {
+        const updateInfo = { machineData: result.machineData, changedProps: result.changedProps };
+        dispatch(updateMachine(updateInfo));
+      }
+    }
   }
 
   const handleSelection = (e) => {
@@ -50,6 +71,26 @@ const InputExcelData = () => {
       dispatch(selectFileType(fileType));
     }
   }
+
+  useEffect(() => {
+    if (isPosting) {
+      return <Uploading></Uploading>
+    };
+
+    if (!isPosting && postMachineSuccess) {
+      toast.success("Lot data is uploaded successfully", { id: "addLotData" });
+      dispatch(togglePostSuccess());
+    };
+
+    if (!isPosting && updateMachineSuccess) {
+      toast.success("Lot data is uploaded successfully", { id: "addLotData" });
+      // dispatch(togglePostSuccess());
+    };
+  }, [isPosting, postMachineSuccess, updateMachineSuccess])
+
+  useEffect(() => {
+    dispatch(getMcDataFromLot());
+  }, [dispatch])
 
   return (
     <div className='min-h-screen'>
