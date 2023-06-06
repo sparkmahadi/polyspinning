@@ -1,3 +1,4 @@
+import { toast } from "react-hot-toast";
 import axios from "../../../../utils/axios.config";
 
 export const fetchMcMergedeDataFromLot = async () => {
@@ -12,10 +13,15 @@ export const fetchMceDataFromLot = async () => {
 }
 
 export const postMachine = async (newMCDetails) => {
-    await axios.post("/dty-machine-details-from-present-lot/", newMCDetails);
+    const data = await axios.post("/dty-machine-details-from-present-lot/", newMCDetails);
+    if (data.data.acknowledged) {
+        toast.success(`Inserted New Machine #${newMCDetails.DTYMCNo}`, { id: newMCDetails.DTYMCNo });
+    }
 }
 
 export const modifyMahcineData = async (oneMCDetails, changedProps) => {
     const data = await axios.put("http://localhost:5000/dty-machine-details-from-present-lot/", { oneMCDetails, changedProps });
-    console.log(data);
+    if (data.data.acknowledged) {
+        toast.success(`Updated Machine No. #${oneMCDetails.DTYMCNo}`, { id: "updated" + oneMCDetails.DTYMCNo });
+    }
 }

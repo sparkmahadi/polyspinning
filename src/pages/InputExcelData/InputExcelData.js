@@ -1,10 +1,10 @@
 import { format } from 'date-fns';
 import React, { useEffect } from 'react';
 import { read, utils } from 'xlsx';
-import { compareArrays, extractMcDetails } from '../../logics/justifyDtyLotUpdates';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectFileType, setExcelData } from '../../redux/features/inputExcelFiles/inputExcelSlice';
 import DisplayPresentLot from './DisplayPresentLot';
+import DisplayPOYPresentLot from './DisplayPOYPresentLot';
 import { addLotData, togglePostSuccess } from '../../redux/features/dtyPresentLotAndTransfer/dtyPresentLotSlice';
 import Uploading from '../../components/Spinner/Uploading';
 import { toast } from 'react-hot-toast';
@@ -27,43 +27,16 @@ const InputExcelData = () => {
       const worksheet = workbook.Sheets[worksheetName];
       const data = utils.sheet_to_json(worksheet, { header: 1, });
 
-      // console.log(data); // Output the extracted data
-      // setExcelData(data)
+      console.log(data); // Output the extracted data
       dispatch(setExcelData(data));
+      e.target.value = '';
     };
     reader.readAsBinaryString(file);
   };
 
   const specsTitles = excelData[0];
-  // console.log(specsTitles);
   const specsDetails = excelData.slice(1);
-  console.log(specsDetails);
 
-
-  const handleUpload = async (specsTitles, specsDetails) => {
-    const dateTime = format(new Date(), "Pp");
-    const lotData = { specsTitles, specsDetails, uploadedAt: dateTime };
-    dispatch(addLotData(lotData));
-
-    const newArr = extractMcDetails(specsDetails);
-    if (newArr && existingArr) {
-      const result = compareArrays(newArr, existingArr);
-      console.log(result);
-
-      if (result.message === "All properties of all machines are same") {
-        toast.error("Nothing is changed in new file", { id: "Warning" });
-      }
-
-      if (result.message === "Post the new machine") {
-        dispatch(addMachine(result.machineData));
-      }
-
-      if (result.message === "Update the Machine Details") {
-        const updateInfo = { machineData: result.machineData, changedProps: result.changedProps };
-        dispatch(updateMachine(updateInfo));
-      }
-    }
-  }
 
   const handleSelection = (e) => {
     const fileType = e.target.value;
@@ -72,10 +45,9 @@ const InputExcelData = () => {
     }
   }
 
+
+
   useEffect(() => {
-    if (isPosting) {
-      return <Uploading></Uploading>
-    };
 
     if (!isPosting && postMachineSuccess) {
       toast.success("Lot data is uploaded successfully", { id: "addLotData" });
@@ -83,7 +55,7 @@ const InputExcelData = () => {
     };
 
     if (!isPosting && updateMachineSuccess) {
-      toast.success("Lot data is uploaded successfully", { id: "addLotData" });
+      toast.success("Lot data is updated successfully", { id: "addLotData" });
       // dispatch(togglePostSuccess());
     };
   }, [isPosting, postMachineSuccess, updateMachineSuccess])
@@ -91,6 +63,10 @@ const InputExcelData = () => {
   useEffect(() => {
     dispatch(getMcDataFromLot());
   }, [dispatch])
+
+  if (isPosting) {
+    return <Uploading></Uploading>
+  };
 
   return (
     <div className='min-h-screen'>
@@ -107,6 +83,7 @@ const InputExcelData = () => {
             <option value={"DTYAbnormalDrawForceReport"}>DTY Abnormal Draw Force Report</option>
             <option value={"DTYBottomPOYReport"}>DTY Bottom POY Report</option>
             <option value={"DTYDowngradePOYReport"}>DTY Downgrade POY Report</option>
+            <option value={"POYPresentLot"}>POY Present Lot Data</option>
           </select>
         </div>
 
@@ -133,9 +110,12 @@ const InputExcelData = () => {
           fileTypeInfo === "DTYPresentLotAndTransferArea" &&
           <DisplayPresentLot specsTitles={specsTitles} specsDetails={specsDetails} />
         }
+        {
+          fileTypeInfo === "POYPresentLot" &&
+          <DisplayPOYPresentLot />
+        }
 
       </div>
-      <button className='btn btn-primary block mx-auto btn-sm my-5' onClick={() => handleUpload(specsTitles, specsDetails)}>Upload Data</button>
     </div>
   );
 };

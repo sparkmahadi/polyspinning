@@ -11,7 +11,7 @@ const Navbar = () => {
 
   const navigation = [
     { name: 'DTY', href: '/dty-floor-status/present-lot-and-transfer-area' },
-    { name: 'Features', href: '#' },
+    { name: 'POY', href: '/poy-floor-status/present-lot-and-transfer-area' },
     { name: 'Marketplace', href: '#' },
     { name: 'Company', href: '#' },
   ]
@@ -26,14 +26,14 @@ const Navbar = () => {
         <nav className="relative mx-auto flex max-w-7xl items-center justify-between px-6" aria-label="Global">
           <div className="flex flex-1 items-center">
             <div className="flex w-full items-center justify-between md:w-auto">
-              <a href="/">
+              <Link to="/">
                 <span className="sr-only">PolySpinning</span>
                 <img
                   className="h-8 w-auto sm:h-10"
                   src={logo}
                   alt=""
                 />
-              </a>
+              </Link>
               <div className="-mr-2 flex items-center md:hidden">
                 <Popover.Button className="focus-ring-inset inline-flex items-center justify-center rounded-md bg-gray-900 p-2 text-gray-400 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-white">
                   <span className="sr-only">Open main menu</span>

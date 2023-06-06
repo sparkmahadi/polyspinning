@@ -1,76 +1,50 @@
-import { format } from 'date-fns';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addLotData } from '../../redux/features/dtyPresentLotAndTransfer/dtyPresentLotSlice';
-import { toast } from 'react-hot-toast';
-import { addMachine, updateMachine } from '../../redux/features/dtyMachinesFromPresentLot/dtyMCsFromPLotSlice';
 import { setExcelData } from '../../redux/features/inputExcelFiles/inputExcelSlice';
+import { toast } from 'react-hot-toast';
+import { format } from 'date-fns';
 
-const DisplayPresentLot = () => {
+const DisplayPOYPresentLot = () => {
     const dispatch = useDispatch();
     const { excelData, fileTypeInfo } = useSelector(state => state.inputExcelFiles);
-    const { machineDataFromLot: existingArr, isLoading, isPosting, isError, error, postMachineSuccess, updateMachineSuccess } = useSelector(state => state.dtyMachinesFromLot);
+    // const { machineDataFromLot: existingArr, isLoading, isPosting, isError, error, postMachineSuccess, updateMachineSuccess } = useSelector(state => state.dtyMachinesFromLot);
 
     const specsTitles = excelData[0];
     const specsDetails = excelData.slice(1);
     console.log(specsDetails);
+    let existingArr = [];
 
     const properties = [
-        "DTYMCNo",
-        "ProductType",
-        "POYLine",
-        "DTYBobbinColor",
-        "PresentLotNo",
-        "AirPress",
-        "INTJet",
-        "InspectionArea"
+        "SL",
+        "LineNo.",
+        "Model",
+        "Origin",
+        "WinderNo",
+        "Ends",
+        "Denier",
+        "Filaments",
+        "POYBobbin",
+        "POYColor",
+        "Status"
     ];
 
     const extractMcDetails = (dataArray, existingArr) => {
         const dynamicObjects = [];
 
         for (let i = 0; i < dataArray.length; i++) {
+            const machineObj = {};
             const machineData = dataArray[i];
-            const machineNumberProp = machineData[0];
-            const machineNumbers = String(machineNumberProp).split(",");
 
-            for (let j = 0; j < machineNumbers.length; j++) {
-                const machineObjA = {};
-                const machineObjB = {};
-
-                const currentMachine = machineNumbers[j].trim();
-                const isSideA = currentMachine.endsWith("/A");
-                const isSideB = currentMachine.endsWith("/B");
-
-                for (let k = 0; k < properties.length; k++) {
-                    const propertyValue = machineData[k];
-                    const propertyName = properties[k];
-                    machineObjA[propertyName] = propertyValue;
-                    machineObjB[propertyName] = propertyValue;
-                }
-
-                if (isSideA) {
-                    machineObjA["Side"] = "A";
-                    machineObjA["DTYMCNo"] = currentMachine.replace("/A", "");
-                    dynamicObjects.push(machineObjA);
-                } else if (isSideB) {
-                    machineObjB["Side"] = "B";
-                    machineObjB["DTYMCNo"] = currentMachine.replace("/B", "");
-                    dynamicObjects.push(machineObjB);
-                } else {
-                    machineObjA["Side"] = "A";
-                    machineObjA["DTYMCNo"] = currentMachine;
-                    machineObjB["Side"] = "B";
-                    machineObjB["DTYMCNo"] = currentMachine;
-                    dynamicObjects.push(machineObjA, machineObjB);
-                }
+            for (let k = 0; k < properties.length; k++) {
+                const propertyValue = machineData[k];
+                const propertyName = properties[k];
+                machineObj[propertyName] = propertyValue;
             }
+            dynamicObjects.push(machineObj);
         }
-        // console.log(dynamicObjects);
-        const newArr = dynamicObjects;
-        const result = compareArrays(newArr, existingArr);
+        console.log("Extracted POY Data", dynamicObjects);
+        toast.custom("Please copy the object from console and post it manually to database");
         dispatch(setExcelData([]));
-        return result;
     };
 
     const compareArrays = (newArr, existingArr) => {
@@ -83,7 +57,7 @@ const DisplayPresentLot = () => {
                 console.log(`inserting new machine. Machine no: ${element1.DTYMCNo}`);
                 toast.loading(`inserting new machine. Machine no: # ${element1.DTYMCNo}`, { id: element1.DTYMCNo })
 
-                dispatch(addMachine(element1));
+                // dispatch(addMachine(element1));
                 return { message: "Post the new machine", machineData: element1, toastId: element1.DTYMCNo };
             }
             if (element2) {
@@ -98,7 +72,7 @@ const DisplayPresentLot = () => {
                         toast.success(`Changed (${changedProps}) of Machine No: ${element2.DTYMCNo}`, { id: element2.DTYMCNo })
 
                         const updateInfo = { machineData: element1, changedProps };
-                        dispatch(updateMachine(updateInfo));
+                        // dispatch(updateMachine(updateInfo));
                         return { message: "Update the Machine Details", machineData: element1, changedProps, toastId: element2.DTYMCNo }
 
                     }
@@ -125,9 +99,9 @@ const DisplayPresentLot = () => {
 
         const dateTime = format(new Date(), "Pp");
         const lotData = { specsTitles, specsDetails, uploadedAt: dateTime };
-        dispatch(addLotData(lotData));
-
-        const result = extractMcDetails(specsDetails, existingArr);
+        console.log(lotData);
+        // dispatch(addLotData(lotData));
+        extractMcDetails(specsDetails, existingArr)
 
     }
 
@@ -166,4 +140,4 @@ const DisplayPresentLot = () => {
     );
 };
 
-export default DisplayPresentLot;
+export default DisplayPOYPresentLot;

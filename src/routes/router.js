@@ -10,6 +10,8 @@ import DtyMachinesFromPresentLot from "../pages/FloorLayout/DtyMachinesFromPrese
 import Login from "../pages/Logging/Login/Login";
 import Register from './../pages/Logging/Register/Register';
 import ResetPassword from "../pages/Logging/ResetPassword/ResetPassword";
+import PoyPresentLotAndTransfer from "../pages/FloorLayout/PoyPresentLotAndTransfer";
+import PoyWinder from "../pages/FloorLayout/PoyWinder";
 
 export const router = createBrowserRouter([
     {
@@ -40,6 +42,14 @@ export const router = createBrowserRouter([
             {
                 path: "/dty-floor-status/present-lot-and-transfer-area",
                 element: <DtyPresentLotAndTransfer />
+            },
+            {
+                path: "/poy-floor-status/present-lot-and-transfer-area",
+                element: <PoyPresentLotAndTransfer />
+            },
+            {
+                path: "/poy-winders/:WinderNo",
+                element: <PoyWinder />
             },
             {
                 path: "/upload/excel",
