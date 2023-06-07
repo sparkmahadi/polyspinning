@@ -11,16 +11,17 @@ export const fetchPoyWinderData = async (WinderNo) => {
     return data.data;
 }
 
-// export const postMachine = async (newMCDetails) => {
-//     const data = await axios.post("/dty-machine-details-from-present-lot/", newMCDetails);
-//     if (data.data.acknowledged) {
-//         toast.success(`Inserted New Machine #${newMCDetails.DTYMCNo}`, { id: newMCDetails.DTYMCNo });
-//     }
-// }
+export const postWinder = async (newWinderData) => {
+    const data = await axios.post("/poy-machine-details-from-present-lot/", newWinderData);
+    if (data.data.acknowledged) {
+        toast.success(`Inserted New Winder #${newWinderData.WinderNo}`, { id: newWinderData.WinderNo });
+    }
+}
 
-// export const modifyMahcineData = async (oneMCDetails, changedProps) => {
-//     const data = await axios.put("http://localhost:5000/dty-machine-details-from-present-lot/", { oneMCDetails, changedProps });
-//     if (data.data.acknowledged) {
-//         toast.success(`Updated Machine No. #${oneMCDetails.DTYMCNo}`, { id: "updated" + oneMCDetails.DTYMCNo });
-//     }
-// }
+export const modifyWinderData = async (winderDetails, changedProps) => {
+    const data = await axios.put("/poy-machine-details-from-present-lot/", { winderDetails, changedProps });
+    console.log('api', winderDetails);
+    if (data.data.acknowledged) {
+        toast.success(`Updated Winder No. #${winderDetails.WinderNo}`, { id: "updated" + winderDetails.WinderNo });
+    }
+}

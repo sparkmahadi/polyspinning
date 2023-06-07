@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchPoyMcDataFromLot, fetchPoyWinderData } from "./apiCalls/poyMCsFromPLotAPI";
+import { fetchPoyMcDataFromLot, fetchPoyWinderData, modifyWinderData, postWinder } from "./apiCalls/poyMCsFromPLotAPI";
 
 const initialState = {
     machineDataFromLot: [],
@@ -22,15 +22,16 @@ export const getPoyWinderData = createAsyncThunk("poyMachinesFromLot/getWinder",
     return winderData;
 })
 
-// export const addMachine = createAsyncThunk("dtyMachinesFromLot/addMachine", async (newMCDetails) => {
-//     const machineData = postMachine(newMCDetails);
-//     return machineData;
-// })
+export const addWinder = createAsyncThunk("poyMachinesFromLot/addWinder", async (winderDetails) => {
+    const winderData = postWinder(winderDetails);
+    return winderData;
+})
 
-// export const updateMachine = createAsyncThunk("dtyMachinesFromLot/updateMachine", async (updateInfo) => {
-//     const machineData = modifyMahcineData(updateInfo.machineData, updateInfo.changedProps);
-//     return machineData;
-// })
+export const updateWinder = createAsyncThunk("poyMachinesFromLot/updateWinder", async (updateInfo) => {
+    console.log('thunk', updateInfo);
+    const WinderData = modifyWinderData(updateInfo.WinderData, updateInfo.changedProps);
+    return WinderData;
+})
 
 const poyMCsFromPLotSlice = createSlice({
     name: "poyMachinesFromLot",
@@ -71,42 +72,42 @@ const poyMCsFromPLotSlice = createSlice({
             state.error = action.error.message;
         })
 
-        // builder.addCase(addMachine.pending, (state, action) => {
-        //     state.isPosting = true;
-        //     state.isError = false;
-        // })
-        // builder.addCase(addMachine.fulfilled, (state, action) => {
-        //     state.postMachineSuccess = true;
-        //     state.isPosting = false;
-        //     state.isLoading = false;
-        //     state.isError = false;
-        // })
-        // builder.addCase(addMachine.rejected, (state, action) => {
-        //     state.postMachineSuccess = false;
-        //     state.isPosting = false;
-        //     state.isLoading = false;
-        //     state.isError = true;
-        //     state.error = action.error.message;
-        // })
+        builder.addCase(addWinder.pending, (state, action) => {
+            state.isPosting = true;
+            state.isError = false;
+        })
+        builder.addCase(addWinder.fulfilled, (state, action) => {
+            state.postMachineSuccess = true;
+            state.isPosting = false;
+            state.isLoading = false;
+            state.isError = false;
+        })
+        builder.addCase(addWinder.rejected, (state, action) => {
+            state.postMachineSuccess = false;
+            state.isPosting = false;
+            state.isLoading = false;
+            state.isError = true;
+            state.error = action.error.message;
+        })
 
 
-        // builder.addCase(updateMachine.pending, (state, action) => {
-        //     state.isPosting = true;
-        //     state.isError = false;
-        // })
-        // builder.addCase(updateMachine.fulfilled, (state, action) => {
-        //     state.updateMachineSuccess = true;
-        //     state.isPosting = false;
-        //     state.isLoading = false;
-        //     state.isError = false;
-        // })
-        // builder.addCase(updateMachine.rejected, (state, action) => {
-        //     state.postMachineSuccess = false;
-        //     state.isPosting = false;
-        //     state.isLoading = false;
-        //     state.isError = true;
-        //     state.error = action.error.message;
-        // })
+        builder.addCase(updateWinder.pending, (state, action) => {
+            state.isPosting = true;
+            state.isError = false;
+        })
+        builder.addCase(updateWinder.fulfilled, (state, action) => {
+            state.updateMachineSuccess = true;
+            state.isPosting = false;
+            state.isLoading = false;
+            state.isError = false;
+        })
+        builder.addCase(updateWinder.rejected, (state, action) => {
+            state.postMachineSuccess = false;
+            state.isPosting = false;
+            state.isLoading = false;
+            state.isError = true;
+            state.error = action.error.message;
+        })
     }
 });
 

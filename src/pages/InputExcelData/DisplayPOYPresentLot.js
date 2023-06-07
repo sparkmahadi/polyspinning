@@ -1,18 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setExcelData } from '../../redux/features/inputExcelFiles/inputExcelSlice';
 import { toast } from 'react-hot-toast';
 import { format } from 'date-fns';
+import { addWinder, getPoyMcDataFromLot, updateWinder } from '../../redux/features/poyMachinesFromPresentLot/poyMCsFromPLotSlice';
 
 const DisplayPOYPresentLot = () => {
     const dispatch = useDispatch();
     const { excelData, fileTypeInfo } = useSelector(state => state.inputExcelFiles);
-    // const { machineDataFromLot: existingArr, isLoading, isPosting, isError, error, postMachineSuccess, updateMachineSuccess } = useSelector(state => state.dtyMachinesFromLot);
+    const { machineDataFromLot: existingArr, isLoading } = useSelector(state => state.poyMachinesFromLot);
 
     const specsTitles = excelData[0];
     const specsDetails = excelData.slice(1);
-    console.log(specsDetails);
-    let existingArr = [];
+    // console.log(specsDetails);
+    // let existingArr = [];
 
     const properties = [
         "SL",
@@ -42,8 +43,9 @@ const DisplayPOYPresentLot = () => {
             }
             dynamicObjects.push(machineObj);
         }
-        console.log("Extracted POY Data", dynamicObjects);
-        toast.custom("Please copy the object from console and post it manually to database");
+        // console.log("Extracted POY Data", dynamicObjects);
+        // toast.custom("Please copy the object from console and post it manually to database");
+        compareArrays(dynamicObjects, existingArr)
         dispatch(setExcelData([]));
     };
 
@@ -51,29 +53,32 @@ const DisplayPOYPresentLot = () => {
         for (let i = 0; i < newArr.length; i++) {
             const element1 = newArr[i];
             const { _id, ...element1WithoutId } = element1;
-            const element2 = existingArr.find(item => item.DTYMCNo === element1.DTYMCNo && item.Side === element1.Side);
+            const element2 = existingArr.find(item => item.WinderNo === element1.WinderNo);
+
+            console.log(element2);
 
             if (!element2) {
-                console.log(`inserting new machine. Machine no: ${element1.DTYMCNo}`);
-                toast.loading(`inserting new machine. Machine no: # ${element1.DTYMCNo}`, { id: element1.DTYMCNo })
+                console.log(`inserting new Winder no: ${element1.WinderNo}`);
+                toast.loading(`inserting new Winder. Winder no: # ${element1.WinderNo}`, { id: element1.WinderNo })
 
-                // dispatch(addMachine(element1));
-                return { message: "Post the new machine", machineData: element1, toastId: element1.DTYMCNo };
+                dispatch(addWinder(element1));
+                // return { message: "Post the new Winder", WinderData: element1, toastId: element1.WinderNo };
             }
+
             if (element2) {
                 const changedProps = compareObjects(element1WithoutId, element2);
                 if (changedProps.length === 1 && changedProps[0] === "_id") {
                     console.log('only id changed');
-                    return { message: "Only Object ID is changed" };
+                    // return { message: "Only Object ID is changed" };
                 }
                 else {
                     if (Object.entries(changedProps).length > 0) {
-                        console.log("changed Props of machine No:", element2.DTYMCNo, `(${changedProps})`);
-                        toast.success(`Changed (${changedProps}) of Machine No: ${element2.DTYMCNo}`, { id: element2.DTYMCNo })
+                        console.log("changed Props of Winder No:", element2.WinderNo, `(${changedProps})`);
+                        toast.success(`Changed (${changedProps}) of Winder No: ${element2.WinderNo}`, { id: element2.WinderNo })
 
-                        const updateInfo = { machineData: element1, changedProps };
-                        // dispatch(updateMachine(updateInfo));
-                        return { message: "Update the Machine Details", machineData: element1, changedProps, toastId: element2.DTYMCNo }
+                        const updateInfo = { WinderData: element1, changedProps };
+                        dispatch(updateWinder(updateInfo));
+                        // return { message: "Update the Winder Details", machineData: element1, changedProps, toastId: element2.WinderNo }
 
                     }
                 }
@@ -104,6 +109,10 @@ const DisplayPOYPresentLot = () => {
         extractMcDetails(specsDetails, existingArr)
 
     }
+
+    useEffect(() => {
+        dispatch(getPoyMcDataFromLot());
+    }, [dispatch])
 
     return (
         <div className="overflow-x-auto pt-10">

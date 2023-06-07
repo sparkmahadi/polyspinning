@@ -84,13 +84,13 @@ const DisplayPresentLot = () => {
                 toast.loading(`inserting new machine. Machine no: # ${element1.DTYMCNo}`, { id: element1.DTYMCNo })
 
                 dispatch(addMachine(element1));
-                return { message: "Post the new machine", machineData: element1, toastId: element1.DTYMCNo };
+                // return { message: "Post the new machine", machineData: element1, toastId: element1.DTYMCNo };
             }
             if (element2) {
                 const changedProps = compareObjects(element1WithoutId, element2);
                 if (changedProps.length === 1 && changedProps[0] === "_id") {
                     console.log('only id changed');
-                    return { message: "Only Object ID is changed" };
+                    // return { message: "Only Object ID is changed" };
                 }
                 else {
                     if (Object.entries(changedProps).length > 0) {
@@ -99,7 +99,7 @@ const DisplayPresentLot = () => {
 
                         const updateInfo = { machineData: element1, changedProps };
                         dispatch(updateMachine(updateInfo));
-                        return { message: "Update the Machine Details", machineData: element1, changedProps, toastId: element2.DTYMCNo }
+                        // return { message: "Update the Machine Details", machineData: element1, changedProps, toastId: element2.DTYMCNo }
 
                     }
                 }
