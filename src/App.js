@@ -9,7 +9,7 @@ import store from './redux/store/store';
 function App() {
   return (
     <div>
-      <Toaster />
+      <Toaster toastOptions={{ duration: 2000 }} />
       <Provider store={store}>
         <RouterProvider router={router} />
       </Provider>

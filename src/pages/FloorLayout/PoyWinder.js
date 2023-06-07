@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getPoyWinderData, updateWinder } from '../../redux/features/poyMachinesFromPresentLot/poyMCsFromPLotSlice';
+import { addWinderUpdate, clearPoyWinder, findPoyWinder, getPoyWinderData, updateWinder } from '../../redux/features/poyMachinesFromPresentLot/poyMCsFromPLotSlice';
 import { toast } from 'react-hot-toast';
 
 const PoyWinder = () => {
     const { WinderNo } = useParams();
+    // console.log(WinderNo);
     const dispatch = useDispatch();
     const { poyWinderData } = useSelector(state => state.poyMachinesFromLot);
 
@@ -34,6 +35,7 @@ const PoyWinder = () => {
         if (changedProps.length) {
             console.log(newMachineData);
             dispatch(updateWinder(updateInfo));
+            dispatch(addWinderUpdate(updateInfo));
         }
         else {
             toast.error("Nothing is changed");
@@ -54,21 +56,13 @@ const PoyWinder = () => {
     }
 
     useEffect(() => {
-        dispatch(getPoyWinderData(WinderNo));
+        // dispatch(getPoyWinderData(WinderNo));
+        // dispatch(clearPoyWinder());
+        // dispatch(findPoyWinder(WinderNo));
     }, [dispatch, WinderNo])
     return (
         <div className="overflow-x-auto">
             <h5 className='lg:text-xl font-semibold text-center py-5'>Update the info of Winder # {WinderNo}</h5>
-            {/* <div className="w-full max-w-sm mx-auto "> */}
-            {/* head */}
-            {/* <div className='grid grid-cols-2 items-center gap-5'>
-                    {Object.entries(poyWinderWithoutId)?.map((spec, i) =>
-                        <>
-                            <p key={i}>{spec[0]}</p>
-                            <input key={i} defaultValue={spec[1]} type="text" />
-                        </>
-                    )}
-                </div> */}
             <form onSubmit={handleSubmit} className='w-full max-w-lg mx-auto'>
                 {
                     Object.entries(poyWinderWithoutId)?.map((specs, i) =>

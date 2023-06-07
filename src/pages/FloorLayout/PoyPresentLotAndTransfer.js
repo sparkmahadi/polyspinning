@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Spinner from '../../components/Spinner/Spinner';
-import { getPoyMcDataFromLot } from '../../redux/features/poyMachinesFromPresentLot/poyMCsFromPLotSlice';
+import { findPoyWinder, getPoyMcDataFromLot } from '../../redux/features/poyMachinesFromPresentLot/poyMCsFromPLotSlice';
 import { Link } from 'react-router-dom';
 
 const PoyPresentLotAndTransfer = () => {
@@ -21,6 +21,7 @@ const PoyPresentLotAndTransfer = () => {
         "POY Bobbin",
         "POY Color",
         "Status",
+        "Updated On",
         "Actions"
     ]
 
@@ -35,7 +36,7 @@ const PoyPresentLotAndTransfer = () => {
     return (
         <div className="overflow-x-auto">
             <span className="loading loading-spinner loading-lg z-50"></span>
-            <h5 className='lg:text-xl font-semibold text-center py-5'>POY Uploaded On: {data.uploadedAt}</h5>
+            <h5 className='lg:text-xl font-semibold text-center py-5'>Present POY Floor Status</h5>
             <table className="table w-full max-w-sm mx-auto">
                 {/* head */}
                 <thead>
@@ -54,7 +55,7 @@ const PoyPresentLotAndTransfer = () => {
                                         <td key={i}>{sp}</td>
                                     )
                                 }
-                                <td><Link to={`/poy-winders/${machine.WinderNo}`}><button className='btn btn-primary btn-sm'>Edit</button></Link></td>
+                                <td><Link onClick={() => dispatch(findPoyWinder(machine.WinderNo))} to={`/poy-winders/${machine.WinderNo}`}><button className='btn btn-primary btn-sm'>Edit</button></Link></td>
                             </tr>
                         )
                     }

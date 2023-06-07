@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchPoyMcDataFromLot, fetchPoyWinderData, modifyWinderData, postWinder } from "./apiCalls/poyMCsFromPLotAPI";
+import { fetchAllWinderUpdates, fetchOneWinderUpdate, fetchPoyMcDataFromLot, fetchPoyWinderData, modifyWinderData, postWinder, postWinderUpdate } from "./apiCalls/poyMCsFromPLotAPI";
 
 const initialState = {
     machineDataFromLot: [],
@@ -28,16 +28,38 @@ export const addWinder = createAsyncThunk("poyMachinesFromLot/addWinder", async 
 })
 
 export const updateWinder = createAsyncThunk("poyMachinesFromLot/updateWinder", async (updateInfo) => {
-    console.log('thunk', updateInfo);
     const WinderData = modifyWinderData(updateInfo.WinderData, updateInfo.changedProps);
     return WinderData;
 })
+
+export const addWinderUpdate = createAsyncThunk("poyMachinesFromLot/addWinderUpdate", async (winderDetails) => {
+    const winderData = postWinderUpdate(winderDetails);
+    return winderData;
+})
+
+// export const getAllWinderUpdates = createAsyncThunk("poyMachinesFromLot/getAllWinderUpdates", async () => {
+//     const machineData = fetchAllWinderUpdates();
+//     return machineData;
+// })
+
+// export const getOneWinderUpdate = createAsyncThunk("poyMachinesFromLot/getOneWinderUpdate", async (WinderNo) => {
+//     const winderData = fetchOneWinderUpdate(WinderNo);
+//     return winderData;
+// })
 
 const poyMCsFromPLotSlice = createSlice({
     name: "poyMachinesFromLot",
     initialState,
     reducers: {
-
+        findPoyWinder: (state, action) => {
+            console.log(action.payload);
+            const winderData = state.machineDataFromLot.find(w => w.WinderNo === action.payload);
+            console.log('winder found', winderData);
+            state.poyWinderData = winderData;
+        },
+        clearPoyWinder: (state, action) => {
+            state.poyWinderData = {};
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getPoyMcDataFromLot.pending, (state, action) => {
@@ -111,4 +133,5 @@ const poyMCsFromPLotSlice = createSlice({
     }
 });
 
+export const { findPoyWinder, } = poyMCsFromPLotSlice.actions;
 export default poyMCsFromPLotSlice.reducer;

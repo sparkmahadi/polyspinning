@@ -43,11 +43,22 @@ const DisplayPOYPresentLot = () => {
             }
             dynamicObjects.push(machineObj);
         }
-        // console.log("Extracted POY Data", dynamicObjects);
+        console.log("Extracted POY Data", dynamicObjects);
+
+        const convertedDataToString = dynamicObjects.map(obj => {
+            const convertedObj = {};
+            for (let key in obj) {
+                convertedObj[key] = String(obj[key]);
+            }
+            return convertedObj;
+        });
+
+        console.log(convertedDataToString);
         // toast.custom("Please copy the object from console and post it manually to database");
-        compareArrays(dynamicObjects, existingArr)
+        compareArrays(convertedDataToString, existingArr)
         dispatch(setExcelData([]));
     };
+
 
     const compareArrays = (newArr, existingArr) => {
         for (let i = 0; i < newArr.length; i++) {
@@ -55,7 +66,7 @@ const DisplayPOYPresentLot = () => {
             const { _id, ...element1WithoutId } = element1;
             const element2 = existingArr.find(item => item.WinderNo === element1.WinderNo);
 
-            console.log(element2);
+            // console.log(element2);
 
             if (!element2) {
                 console.log(`inserting new Winder no: ${element1.WinderNo}`);
