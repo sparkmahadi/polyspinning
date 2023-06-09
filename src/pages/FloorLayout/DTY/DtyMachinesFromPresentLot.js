@@ -1,12 +1,10 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import runningGears from "../../images/gear_rotation.gif";
-import gearStopped from "../../images/gear stopped.png";
-import dtyBobbin from "../../images/dty bobbin.jpg";
-import poyBobbin from "../../images/poy bobbin.jpg";
+import runningGears from "../../../images/gear_rotation.gif";
+import dtyBobbin from "../../../images/dty bobbin.jpg";
 import { useDispatch, useSelector } from 'react-redux';
-import Spinner from '../../components/Spinner/Spinner';
-import { getMcMergedDataFromLot } from '../../redux/features/dtyMachinesFromPresentLot/dtyMCsFromPLotSlice';
+import Spinner from '../../../components/Spinner/Spinner';
+import { getMcMergedDataFromLot } from '../../../redux/features/dtyMachinesFromPresentLot/dtyMCsFromPLotSlice';
 
 const DtyMachinesFromPresentLot = () => {
     const dispatch = useDispatch();

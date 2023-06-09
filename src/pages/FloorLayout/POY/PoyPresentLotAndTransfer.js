@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Spinner from '../../components/Spinner/Spinner';
-import { findPoyWinder, getPoyMcDataFromLot } from '../../redux/features/poyMachinesFromPresentLot/poyMCsFromPLotSlice';
 import { Link } from 'react-router-dom';
+import { findPoyWinder, getPoyMcDataFromLot } from '../../../redux/features/poyMachinesFromPresentLot/poyMCsFromPLotSlice';
+import Spinner from '../../../components/Spinner/Spinner';
 
 const PoyPresentLotAndTransfer = () => {
 

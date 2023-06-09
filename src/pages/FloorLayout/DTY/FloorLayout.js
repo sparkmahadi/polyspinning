@@ -1,5 +1,5 @@
 import React from 'react';
-import HomeCards from '../../components/HomeCards/HomeCards';
+import HomeCards from '../../../components/HomeCards/HomeCards';
 
 const FloorLayout = () => {
     const blogPosts = [

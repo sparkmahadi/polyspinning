@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Machines = () => {
+const PoyMachinesFromPresentLot = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const Machines = () => {
     );
 };
 
-export default Machines;
+export default PoyMachinesFromPresentLot;

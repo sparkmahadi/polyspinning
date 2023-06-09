@@ -3,7 +3,6 @@ import axios from "../../../../utils/axios.config";
 
 export const fetchMcMergedeDataFromLot = async () => {
     const data = await axios.get("/dty-machine-details-from-present-lot/sortedAndMerged/");
-    console.log('here', data);
     return data.data;
 }
 
@@ -20,8 +19,15 @@ export const postMachine = async (newMCDetails) => {
 }
 
 export const modifyMahcineData = async (oneMCDetails, changedProps) => {
-    const data = await axios.put("http://localhost:5000/dty-machine-details-from-present-lot/", { oneMCDetails, changedProps });
+    const data = await axios.put("/dty-machine-details-from-present-lot/", { oneMCDetails, changedProps });
     if (data.data.acknowledged) {
         toast.success(`Updated Machine No. #${oneMCDetails.DTYMCNo}`, { id: "updated" + oneMCDetails.DTYMCNo });
+    }
+}
+
+export const postMachineUpdate = async (newMCDetails, changedProps) => {
+    const data = await axios.post("/dty-machine-updates", {newMCDetails, changedProps});
+    if (data.data.acknowledged) {
+        toast.success(`Recorded New Machine Update #${newMCDetails.DTYMCNo}`, { id: newMCDetails.DTYMCNo });
     }
 }

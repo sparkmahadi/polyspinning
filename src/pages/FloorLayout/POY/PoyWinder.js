@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { addWinderUpdate, clearPoyWinder, findPoyWinder, getPoyWinderData, updateWinder } from '../../redux/features/poyMachinesFromPresentLot/poyMCsFromPLotSlice';
+import { addWinderUpdate, clearPoyWinder, findPoyWinder, getPoyWinderData, updateWinder } from '../../../redux/features/poyMachinesFromPresentLot/poyMCsFromPLotSlice';
 import { toast } from 'react-hot-toast';
 
 const PoyWinder = () => {
@@ -75,7 +75,6 @@ const PoyWinder = () => {
                 }
                 <button type='submit' className='btn btn-secondary'>Submit</button>
             </form>
-            {/* </div> */}
         </div>
     );
 };

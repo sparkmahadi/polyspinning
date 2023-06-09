@@ -53,7 +53,7 @@ const DisplayPOYPresentLot = () => {
             return convertedObj;
         });
 
-        console.log(convertedDataToString);
+        // console.log(convertedDataToString);
         // toast.custom("Please copy the object from console and post it manually to database");
         compareArrays(convertedDataToString, existingArr)
         dispatch(setExcelData([]));

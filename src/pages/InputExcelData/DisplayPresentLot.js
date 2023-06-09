@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addLotData } from '../../redux/features/dtyPresentLotAndTransfer/dtyPresentLotSlice';
 import { toast } from 'react-hot-toast';
-import { addMachine, updateMachine } from '../../redux/features/dtyMachinesFromPresentLot/dtyMCsFromPLotSlice';
+import { addMachine, addMachineUpdates, updateMachine } from '../../redux/features/dtyMachinesFromPresentLot/dtyMCsFromPLotSlice';
 import { setExcelData } from '../../redux/features/inputExcelFiles/inputExcelSlice';
 
 const DisplayPresentLot = () => {
@@ -67,7 +67,15 @@ const DisplayPresentLot = () => {
             }
         }
         // console.log(dynamicObjects);
-        const newArr = dynamicObjects;
+        const convertedDataToString = dynamicObjects.map(obj => {
+            const convertedObj = {};
+            for (let key in obj) {
+                convertedObj[key] = String(obj[key]);
+            }
+            return convertedObj;
+        });
+
+        const newArr = convertedDataToString;
         const result = compareArrays(newArr, existingArr);
         dispatch(setExcelData([]));
         return result;
@@ -99,6 +107,7 @@ const DisplayPresentLot = () => {
 
                         const updateInfo = { machineData: element1, changedProps };
                         dispatch(updateMachine(updateInfo));
+                        dispatch(addMachineUpdates(updateInfo));
                         // return { message: "Update the Machine Details", machineData: element1, changedProps, toastId: element2.DTYMCNo }
 
                     }

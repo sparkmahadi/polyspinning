@@ -24,9 +24,10 @@ const GridFeatures = () => {
               link: "/dty-floor-status"
             },
             {
-              name: 'SSL Certificates',
-              description: 'Qui aut temporibus nesciunt vitae dicta repellat sit dolores pariatur. Temporibus qui illum aut.',
+              name: 'DTY Process Parameters',
+              description: 'Explore DTY process parameters in a sheet',
               icon: LockClosedIcon,
+              link: "/dty-process-parameters"
             },
             {
               name: 'Simple Queues',

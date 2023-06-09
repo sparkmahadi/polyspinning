@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getLotData } from '../../redux/features/dtyPresentLotAndTransfer/dtyPresentLotSlice';
-import Spinner from '../../components/Spinner/Spinner';
+import { getLotData } from '../../../redux/features/dtyPresentLotAndTransfer/dtyPresentLotSlice';
+import Spinner from '../../../components/Spinner/Spinner';
 
 const DtyPresentLotAndTransfer = () => {
 

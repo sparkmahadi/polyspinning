@@ -1,5 +1,5 @@
 import { format } from 'date-fns';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { read, utils } from 'xlsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectFileType, setExcelData } from '../../redux/features/inputExcelFiles/inputExcelSlice';
@@ -9,29 +9,42 @@ import { addLotData, togglePostSuccess } from '../../redux/features/dtyPresentLo
 import Uploading from '../../components/Spinner/Uploading';
 import { toast } from 'react-hot-toast';
 import { addMachine, getMcDataFromLot, updateMachine } from '../../redux/features/dtyMachinesFromPresentLot/dtyMCsFromPLotSlice';
+import DisplayDtyParameters from './DisplayDtyParameters';
 
 const InputExcelData = () => {
-  // const [excelData, setExcelData] = useState([]);
   const dispatch = useDispatch();
+  const fileInputRef = useRef(null);
   const { excelData, fileTypeInfo } = useSelector(state => state.inputExcelFiles);
   const { machineDataFromLot: existingArr, isLoading, isPosting, isError, error, postMachineSuccess, updateMachineSuccess } = useSelector(state => state.dtyMachinesFromLot);
-  // const { isPosting, postSuccess, updateSuccess } = useSelector(state => state.dtyPresentLotAndTransfer);
 
   const handleFileUpload = (e) => {
-    const file = e.target.files[0];
+    e.preventDefault();
+    const form = e.target;
+    const file = form.fileInputElement.files[0];
+    // console.log(file);
     const reader = new FileReader();
 
-    reader.onload = (event) => {
-      const workbook = read(event.target.result, { type: 'binary' });
-      const worksheetName = workbook.SheetNames[0]; // Assuming the first sheet
-      const worksheet = workbook.Sheets[worksheetName];
-      const data = utils.sheet_to_json(worksheet, { header: 1, });
+    if(file){
+      reader.onload = (event) => {
+        const workbook = read(event.target.result, { type: 'binary' });
+        const worksheetName = workbook.SheetNames[0]; // Assuming the first sheet
+        const worksheet = workbook.Sheets[worksheetName];
+        const data = utils.sheet_to_json(worksheet, { header: 1, });
+  
+        console.log(data); // Output the extracted data
+        dispatch(setExcelData(data));
+        // e.target.value = '';
+      };
+      reader.readAsBinaryString(file);
+    } else{
+      console.log('No file is selected');
+    }
+  };
 
-      console.log(data); // Output the extracted data
-      dispatch(setExcelData(data));
-      e.target.value = '';
-    };
-    reader.readAsBinaryString(file);
+  const handleClearFile = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ''; // Clear the input value
+    }
   };
 
   const specsTitles = excelData[0];
@@ -89,17 +102,19 @@ const InputExcelData = () => {
 
         {
           fileTypeInfo &&
-          <div className='flex justify-center'>
+          <form onSubmit={handleFileUpload} className='flex justify-center'>
             <div className="form-control w-full max-w-xs">
               <label className="label">
                 <span className="label-text">Pick a file</span>
               </label>
-              <input onChange={handleFileUpload} type="file" className="file-input file-input-bordered w-full max-w-xs" />
+              <input ref={fileInputRef} name='fileInputElement' type="file" className="file-input file-input-bordered w-full max-w-xs" />
               <label className="label">
                 <span className="label-text-alt">You must select an excel file</span>
               </label>
+              <button onClick={handleClearFile} name='clearBtn' className='btn btn-primary btn-sm my-2'>Clear Input</button>
+              <button type='submit' className='btn btn-success btn-sm my-2'>Submit</button>
             </div>
-          </div>
+          </form>
         }
 
       </div>
@@ -113,6 +128,10 @@ const InputExcelData = () => {
         {
           fileTypeInfo === "POYPresentLot" &&
           <DisplayPOYPresentLot />
+        }
+        {
+          fileTypeInfo === "DTYProcessParametres" &&
+          <DisplayDtyParameters />
         }
 
       </div>
