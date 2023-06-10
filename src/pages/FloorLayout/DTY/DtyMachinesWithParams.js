@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDtyParamByMC, getDtyParamByMachines } from '../../../redux/features/dtyProcessParameters/dtyParametersSlice';
-import Spinner from '../../../components/Spinner/Spinner';
 import DTYMCParamCard from '../../../components/DTY/DTYMachine/DTYMCParamCard';
+import DataLoading from '../../../components/Spinner/DataLoading';
 
 const DtyMachinesWithParams = () => {
     const dispatch = useDispatch();
@@ -15,6 +15,62 @@ const DtyMachinesWithParams = () => {
             "1/B",
             "2/A",
             "2/B",
+            "3/A",
+            "3/B",
+            "4/A",
+            "4/B",
+            "5/A",
+            "5/B",
+            "6/A",
+            "6/B",
+            "7/A",
+            "7/B",
+            "8/A",
+            "8/B",
+            "9/A",
+            "9/B",
+            "10/A",
+            "10/B",
+            "11/A",
+            "11/B",
+            "12/A",
+            "12/B",
+            "13/A",
+            "13/B",
+            "14/A",
+            "14/B",
+            "15/A",
+            "15/B",
+            "16/A",
+            "16/B",
+            "17/A",
+            "17/B",
+            "18/A",
+            "18/B",
+            "19/A",
+            "19/B",
+            "20/A",
+            "20/B",
+            "21/A",
+            "21/B",
+            "22/A",
+            "22/B",
+            "23/A",
+            "23/B",
+            "24/A",
+            "24/B",
+            "25/A",
+            "25/B",
+            "26/A",
+            "26/B",
+            "27/A",
+            "27/B",
+            "28/A",
+            "28/B",
+            "29/A",
+            "29/B",
+            "30/A",
+            "30/B",
         ];
         dispatch(getDtyParamByMachines(machines));
     }
@@ -28,7 +84,7 @@ const DtyMachinesWithParams = () => {
     console.log(dtyMachinesWithParams);
 
     if (isLoading) {
-        return <Spinner></Spinner>
+        return <DataLoading></DataLoading>
     }
 
     return (

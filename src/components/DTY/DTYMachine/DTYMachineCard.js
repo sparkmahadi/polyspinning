@@ -9,7 +9,7 @@ const DTYMachineCard = ({ mcInfo, DTYInfo, POYInfo, params }) => {
     return (
         <div className="flex flex-col overflow-hidden rounded-lg shadow-lg">
               <div className="flex-shrink-0">
-                <img className="h-84 w-full object-cover" src={mcInfo.status === "Running" ? runningGears : gearStopped} alt="" />
+                <img className="h-84 w-full object-cover" src={mcInfo.Status === "Running" ? runningGears : gearStopped} alt="" />
               </div>
               <div className="flex flex-1 flex-col justify-between bg-white p-6">
                 <div className="flex-1">
@@ -44,7 +44,7 @@ const DTYMachineCard = ({ mcInfo, DTYInfo, POYInfo, params }) => {
                     </div>
                   </div>
 
-                  <Link to={`dty-machines/${mcInfo.DTYMCNo}`}>
+                  <Link to={`dty-machines/machine-details?machine=${mcInfo.DTYMCNo}/${mcInfo.Side}`}>
                     <button className='rounded-md bg-gradient-to-r from-teal-500 to-cyan-600 py-1 px-2 font-medium text-white shadow hover:from-teal-600 hover:to-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-gray-900'>Show Details</button>
                   </Link>
                 </div>

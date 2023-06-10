@@ -83,7 +83,8 @@ const InputExcelData = () => {
 
   return (
     <div className='min-h-screen'>
-      <h5 className='text-center pt-5'>Upload Your data from excel file by selecting the category of data.</h5>
+      <h5 className='text-center text-lg pt-5'>Upload Your data from excel file by selecting the category of data.</h5>
+      <p className='text-center pt-3'>Make sure your excel file doesn't have any empty cells within data range. If have any empty cells, then please replace those cells with any value you want e.g "-"</p>
       <div className=''>
 
         <div className='flex justify-center my-5'>

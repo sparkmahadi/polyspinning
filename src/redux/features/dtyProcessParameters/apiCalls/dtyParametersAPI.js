@@ -28,7 +28,7 @@ export const fetchDtyParamsByMachines = async (machines) => {
 }
 
 export const modifyMainMachineParam = async (newParameter) => {
-    const data = await axios.put("/dtyMachines/", newParameter);
+    const data = await axios.put("/dty-machines/", newParameter);
     console.log('updating main machine', data);
     if(Array.isArray(data.data)){
         data.data.forEach(dt => {
