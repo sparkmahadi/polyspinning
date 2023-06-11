@@ -3,11 +3,13 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addLotData } from '../../redux/features/dtyPresentLotAndTransfer/dtyPresentLotSlice';
 import { toast } from 'react-hot-toast';
-import { addMachine, addMachineUpdates, updateMachine } from '../../redux/features/dtyMachinesFromPresentLot/dtyMCsFromPLotSlice';
+import { addMachine, addMachineUpdates, updateDtyMachineLot, updateMachine } from '../../redux/features/dtyMachinesFromPresentLot/dtyMCsFromPLotSlice';
 import { setExcelData } from '../../redux/features/inputExcelFiles/inputExcelSlice';
+import { useNavigate } from 'react-router-dom';
 
 const DisplayPresentLot = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { excelData, fileTypeInfo } = useSelector(state => state.inputExcelFiles);
     const { machineDataFromLot: existingArr, isLoading, isPosting, isError, error, postMachineSuccess, updateMachineSuccess } = useSelector(state => state.dtyMachinesFromLot);
 
@@ -78,6 +80,7 @@ const DisplayPresentLot = () => {
         const newArr = convertedDataToString;
         const result = compareArrays(newArr, existingArr);
         dispatch(setExcelData([]));
+        navigate("/dty-floor-status/dty-machines-from-present-lot")
         return result;
     };
 
@@ -90,8 +93,9 @@ const DisplayPresentLot = () => {
             if (!element2) {
                 console.log(`inserting new machine. Machine no: ${element1.DTYMCNo}`);
                 toast.loading(`inserting new machine. Machine no: # ${element1.DTYMCNo}`, { id: element1.DTYMCNo })
-
-                dispatch(addMachine(element1));
+                
+                // dispatch(addMachine(element1));
+                // dispatch(updateDtyMachineLot(element1));
                 // return { message: "Post the new machine", machineData: element1, toastId: element1.DTYMCNo };
             }
             if (element2) {
@@ -106,8 +110,9 @@ const DisplayPresentLot = () => {
                         toast.success(`Changed (${changedProps}) of Machine No: ${element2.DTYMCNo}`, { id: element2.DTYMCNo })
 
                         const updateInfo = { machineData: element1, changedProps };
-                        dispatch(updateMachine(updateInfo));
-                        dispatch(addMachineUpdates(updateInfo));
+                        // dispatch(updateMachine(updateInfo));
+                        // dispatch(addMachineUpdates(updateInfo));
+                        // dispatch(updateDtyMachineLot(element1));
                         // return { message: "Update the Machine Details", machineData: element1, changedProps, toastId: element2.DTYMCNo }
 
                     }
@@ -134,7 +139,7 @@ const DisplayPresentLot = () => {
 
         const dateTime = format(new Date(), "Pp");
         const lotData = { specsTitles, specsDetails, uploadedAt: dateTime };
-        dispatch(addLotData(lotData));
+        // dispatch(addLotData(lotData));
 
         const result = extractMcDetails(specsDetails, existingArr);
 

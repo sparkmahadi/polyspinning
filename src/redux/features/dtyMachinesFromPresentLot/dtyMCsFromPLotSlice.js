@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchMcMergedeDataFromLot, fetchMceDataFromLot, modifyMahcineData, postMachine, postMachineUpdate } from "./apiCalls/dtyMCsFromPLotAPI";
+import { fetchMcMergedeDataFromLot, fetchMceDataFromLot, modifyMahcineData, modifyMainMachineLot, postMachine, postMachineUpdate } from "./apiCalls/dtyMCsFromPLotAPI";
 
 const initialState = {
     machineMergedDataFromLot: [],
@@ -34,6 +34,11 @@ export const updateMachine = createAsyncThunk("dtyMachinesFromLot/updateMachine"
 
 export const addMachineUpdates = createAsyncThunk("dtyMachinesFromLot/addMachineUpdates", async(updateInfo)=>{
     const machineData = postMachineUpdate(updateInfo.machineData, updateInfo.changedProps);
+    return machineData;
+})
+
+export const updateDtyMachineLot = createAsyncThunk("dtyProcessParameters/updateDtyMachine", async(newLotData)=>{
+    const machineData = modifyMainMachineLot(newLotData);
     return machineData;
 })
 

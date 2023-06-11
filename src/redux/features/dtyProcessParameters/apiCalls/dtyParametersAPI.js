@@ -28,10 +28,10 @@ export const fetchDtyParamsByMachines = async (machines) => {
 }
 
 export const modifyMainMachineParam = async (newParameter) => {
-    const data = await axios.put("/dty-machines/", newParameter);
+    const data = await axios.put("/dty-machines/update-from-parameter", newParameter);
     console.log('updating main machine', data);
     if(Array.isArray(data.data)){
-        data.data.forEach(dt => {
+        data.data.forEach((dt) => {
             if (dt.acknowledged) {
                 toast.success(`Updated Machine No. #${newParameter.DTYMCNo}, for both side`, { id: "updated" + newParameter.DTYMCNo });
             }

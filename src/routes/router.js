@@ -27,11 +27,11 @@ export const router = createBrowserRouter([
                 element: <Home></Home>
             },
             {
-                path: "/dty-floor-status",
+                path: "/dty-floor-status/dty-machines",
                 element: <DtyFloorLayout />
             },
             {
-                path: "/dty-floor-status/dty-machines",
+                path: "/dty-floor-status/dty-machines-from-present-lot",
                 element: <DtyMachinesFromPresentLot />
             },
             {

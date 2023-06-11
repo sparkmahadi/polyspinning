@@ -31,3 +31,12 @@ export const postMachineUpdate = async (newMCDetails, changedProps) => {
         toast.success(`Recorded New Machine Update #${newMCDetails.DTYMCNo}`, { id: newMCDetails.DTYMCNo });
     }
 }
+
+export const modifyMainMachineLot = async (newLotData) => {
+    console.log("newLotData", newLotData);
+    const data = await axios.put("/dty-machines/update-from-present-lot", newLotData);
+    console.log('updating main machine', data);
+    if (data.data.acknowledged) {
+        toast.success(`Updated Machine No. #${newLotData.DTYMCNo}`, { id: "updated" + newLotData.DTYMCNo });
+    }
+}

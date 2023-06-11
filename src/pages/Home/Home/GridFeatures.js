@@ -21,7 +21,7 @@ const GridFeatures = () => {
               name: 'Current Floor Status',
               description: 'Explore Latest DTY Floor Status with details of materials and production flow',
               icon: ChartBarIcon,
-              link: "/dty-floor-status"
+              link: "/dty-floor-status/"
             },
             {
               name: 'DTY Process Parameters',

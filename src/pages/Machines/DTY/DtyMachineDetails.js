@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { getDtyMachineDetails } from '../../../redux/features/dtyFloorStatus/dtyFloorStatusSlice';
-import DTYMCDetails from '../../../components/DTY/DTYMachine/DTYMCDetails';
+import DTYMCDetails from './DTYMCDetails';
 import Spinner from '../../../components/Spinner/Spinner';
 
 const DtyMachineDetails = () => {
