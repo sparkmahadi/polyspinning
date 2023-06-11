@@ -32,11 +32,6 @@ export const updateMachine = createAsyncThunk("dtyMachinesFromLot/updateMachine"
     return machineData;
 })
 
-export const addMachineUpdates = createAsyncThunk("dtyMachinesFromLot/addMachineUpdates", async(updateInfo)=>{
-    const machineData = postMachineUpdate(updateInfo.machineData, updateInfo.changedProps);
-    return machineData;
-})
-
 export const updateDtyMachineLot = createAsyncThunk("dtyProcessParameters/updateDtyMachine", async(newLotData)=>{
     const machineData = modifyMainMachineLot(newLotData);
     return machineData;

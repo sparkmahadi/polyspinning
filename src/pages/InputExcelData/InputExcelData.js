@@ -3,13 +3,13 @@ import React, { useEffect, useRef } from 'react';
 import { read, utils } from 'xlsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectFileType, setExcelData } from '../../redux/features/inputExcelFiles/inputExcelSlice';
-import DisplayPresentLot from './DisplayPresentLot';
 import DisplayPOYPresentLot from './DisplayPOYPresentLot';
 import { addLotData, togglePostSuccess } from '../../redux/features/dtyPresentLotAndTransfer/dtyPresentLotSlice';
 import Uploading from '../../components/Spinner/Uploading';
 import { toast } from 'react-hot-toast';
 import { addMachine, getMcDataFromLot, updateMachine } from '../../redux/features/dtyMachinesFromPresentLot/dtyMCsFromPLotSlice';
 import DisplayDtyParameters from './DisplayDtyParameters';
+import DisplayDTYPresentLot from './DisplayDTYPresentLot';
 
 const InputExcelData = () => {
   const dispatch = useDispatch();
@@ -124,7 +124,7 @@ const InputExcelData = () => {
 
         {
           fileTypeInfo === "DTYPresentLotAndTransferArea" &&
-          <DisplayPresentLot specsTitles={specsTitles} specsDetails={specsDetails} />
+          <DisplayDTYPresentLot specsTitles={specsTitles} specsDetails={specsDetails} />
         }
         {
           fileTypeInfo === "POYPresentLot" &&

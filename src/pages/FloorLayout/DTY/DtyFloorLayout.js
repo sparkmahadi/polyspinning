@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import DTYMachineCard from '../../../components/DTY/DTYMachine/DTYMachineCard';
-import { useDispatch, useSelector } from 'react-redux';
-import { getDtyMachines } from '../../../redux/features/dtyFloorStatus/dtyFloorStatusSlice';
-import Spinner from '../../../components/Spinner/Spinner';
 
 const DtyFloorLayout = () => {
 

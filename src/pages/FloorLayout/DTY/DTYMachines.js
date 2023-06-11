@@ -1,18 +1,19 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDtyMachines } from '../../../redux/features/dtyFloorStatus/dtyFloorStatusSlice';
 import Spinner from '../../../components/Spinner/Spinner';
 import DTYMachineCard from '../../../components/DTY/DTYMachine/DTYMachineCard';
+import { getDtyMachines } from '../../../redux/features/dtyMachines/dtyMachinesSlice';
 
 const DTYMachines = () => {
     const dispatch = useDispatch();
-    const { dtyMachines, isLoading } = useSelector(state => state.dtyFloorStatus);
+    const { dtyMachines, isLoading } = useSelector(state => state.dtyMachines);
+    console.log(dtyMachines);
   
     useEffect(() => {
       dispatch(getDtyMachines());
     }, [dispatch]);
   
-    if(isLoading){
+    if(isLoading || !dtyMachines.length){
       return <Spinner></Spinner>
     }
     return (

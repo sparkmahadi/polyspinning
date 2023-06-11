@@ -4,14 +4,14 @@ import dtyMCsFromPLotSlice from "../features/dtyMachinesFromPresentLot/dtyMCsFro
 import inputExcelSlice from "../features/inputExcelFiles/inputExcelSlice";
 import poyMCsFromPLotSlice from "../features/poyMachinesFromPresentLot/poyMCsFromPLotSlice";
 import dtyParametersSlice from "../features/dtyProcessParameters/dtyParametersSlice";
-import dtyFloorStatusSlice from "../features/dtyFloorStatus/dtyFloorStatusSlice";
+import dtyMachinesSlice from "../features/dtyMachines/dtyMachinesSlice";
 
 const store = configureStore({
     reducer: {
         dtyPresentLotAndTransfer: dtyPresentLotSlice,
         dtyMachinesFromLot: dtyMCsFromPLotSlice,
         dtyProcessParameters: dtyParametersSlice,
-        dtyFloorStatus : dtyFloorStatusSlice,
+        dtyMachines : dtyMachinesSlice,
         poyMachinesFromLot: poyMCsFromPLotSlice,
         inputExcelFiles: inputExcelSlice,
     }

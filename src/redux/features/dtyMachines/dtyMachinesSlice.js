@@ -4,6 +4,7 @@ import { fetchDtyMachineDetails, fetchDtyMachines } from "./apiCalls/dtyFloorSta
 const initialState = {
     dtyMachines: [],
     detailedMachine: {},
+    enableEditing: false,
     postMachineSuccess: false,
     isLoading: false,
     isPosting: false,
@@ -11,26 +12,23 @@ const initialState = {
     error: '',
 };
 
-export const getDtyMachines = createAsyncThunk("dtyFloorStatus/getDtyMachines", async () => {
+export const getDtyMachines = createAsyncThunk("dtyMachines/getDtyMachines", async () => {
     const machineData = fetchDtyMachines();
     return machineData;
 })
 
-export const getDtyMachineDetails = createAsyncThunk("dtyFloorStatus/getDtyMachineDetails", async (machineWithSide) => {
+export const getDtyMachineDetails = createAsyncThunk("dtyMachines/getDtyMachineDetails", async (machineWithSide) => {
     const machineData = fetchDtyMachineDetails(machineWithSide);
     return machineData;
 })
 
-const dtyFloorStatusSlice = createSlice({
-    name: "dtyFloorStatus",
+const dtyMachinesSlice = createSlice({
+    name: "dtyMachines",
     initialState,
     reducers: {
-        // setParamModalData: (state, action) =>{
-        //     state.paramModalData = action.payload;
-        // },
-        // clearParamModalData: (state, action) =>{
-        //     state.paramModalData = {};
-        // },
+        switchEnableEditing: (state, action)=>{
+            state.enableEditing = !state.enableEditing;
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(getDtyMachines.pending, (state, action) => {
@@ -47,7 +45,7 @@ const dtyFloorStatusSlice = createSlice({
             state.isLoading = false;
             state.isError = true;
             state.error = action.error.message;
-        })
+        })  
 
 
         builder.addCase(getDtyMachineDetails.pending, (state, action) => {
@@ -68,5 +66,5 @@ const dtyFloorStatusSlice = createSlice({
     }
 });
 
-// export const {setParamModalData, clearParamModalData} = dtyFloorStatusSlice.actions;
-export default dtyFloorStatusSlice.reducer;
+export const {switchEnableEditing} = dtyMachinesSlice.actions;
+export default dtyMachinesSlice.reducer;

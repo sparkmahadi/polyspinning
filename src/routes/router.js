@@ -16,6 +16,7 @@ import PoyWinder from "../pages/FloorLayout/POY/PoyWinder";
 // import DtyMachineDetails from "../pages/Machines/DTY/DtyMachineDetails";
 import AddNewDtyMachine from "../pages/Machines/DTY/AddNewDtyMachine";
 import DTYMCDetails from "../pages/Machines/DTY/DTYMCDetails";
+import DTYMachines from './../pages/FloorLayout/DTY/DTYMachines';
 
 export const router = createBrowserRouter([
     {
@@ -27,8 +28,12 @@ export const router = createBrowserRouter([
                 element: <Home></Home>
             },
             {
-                path: "/dty-floor-status/dty-machines",
+                path: "/dty-floor-status",
                 element: <DtyFloorLayout />
+            },
+            {
+                path: "/dty-floor-status/dty-machines",
+                element: <DTYMachines />
             },
             {
                 path: "/dty-floor-status/dty-machines-from-present-lot",
