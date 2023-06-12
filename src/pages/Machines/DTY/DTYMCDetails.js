@@ -8,13 +8,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 import Spinner from '../../../components/Spinner/Spinner';
 import DataLoading from '../../../components/Spinner/DataLoading';
-import { getDtyMachineDetails, switchEnableEditing } from '../../../redux/features/dtyMachines/dtyMachinesSlice';
+import { getDtyMachineDetails, switchEnableEditing, updateDtyMachine } from '../../../redux/features/dtyMachines/dtyMachinesSlice';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 
 const DTYMCDetails = () => {
     const dispatch = useDispatch();
     const { detailedMachine, isLoading, isError, enableEditing } = useSelector(state => state.dtyMachines);
-    const {register, handleSubmit} = useForm();
+    const { register, handleSubmit } = useForm();
     const [searchParams, setSearchParams] = useSearchParams();
     const machine = searchParams.get("machine");
 
@@ -22,26 +23,92 @@ const DTYMCDetails = () => {
         dispatch(getDtyMachineDetails
             (machine));
     }, [dispatch, machine])
-    // console.log(data);
 
-    const properties = ["DTYMCNo","Brand","Status","Side","TotalSpindles","MCSpeed","SOF","TOF","DY","Shaft2B","CPM","DEV","PH","SH","EDraw","T1","T2","T3","DR","OilerRpm","OilType","Axial","Stroke","AirPressure","IntJetType","IntType","IntJetOrifice","DTYType","DTYDenier","DTYColor","Filaments","DTYTubeColor","Spandex","LotNo","POYShortPositions","doubling","CustomerName","InspectionArea","POYType","POYDenier","ChipsName","POYColor","StdDrawForce","TotalWinder","EndsPerWinder","POYProcessSpeed","POYLine","POYBobbin","parameters","presentLotAndTA"
+    const DTYInfoProps = [
+        "DTYType",
+        "DTYDenier",
+        "DTYColor",
+        "Filaments",
+        "DTYTubeColor",
+        "Spandex",
+        "LotNo",
+        "POYShortPositions",
+        "doubling",
+        "CustomerName",
+        "InspectionArea"
     ]
 
+    const POYInfoProps = [
+        "POYType",
+        "POYDenier",
+        "Filaments",
+        "ChipsName",
+        "POYColor",
+        "StdDrawForce",
+        "TotalWinder",
+        "EndsPerWinder",
+        "POYProcessSpeed",
+        "POYLine",
+        "POYBobbin"
+    ]
+
+    const mcInfoProps = [
+        "DTYMCNo",
+        "Brand",
+        "Status",
+        "Side",
+        "TotalSpindles"
+    ]
+
+    const paramsProps = ["MCSpeed", "SOF", "TOF", "DY", "Shaft2B", "CPM", "DEV", "PH", "SH", "EDraw", "T1", "T2", "T3", "DR", "OilerRpm", "OilType", "Axial", "Stroke", "AirPressure", "IntJetType", "IntType",
+        "IntJetOrifice"
+    ]
+    // console.log(detailedMachine);
+
     const onSubmit = (data) => {
-        console.log(compareObjects(data, detailedMachine));
-    }
+        // console.log(compareObjects(data, detailedMachine));
+        const propNames = ["mcInfo", "DTYInfo", "POYInfo", "params"];
+        const propArrays = [mcInfoProps, DTYInfoProps, POYInfoProps, paramsProps];
+        const updatedObj = {};
+        const finalObj = {};
 
-    function compareObjects(object1, object2) {
-        // console.log("object1", object1, "object2", object2);
-        const changedProperties = [];
+        for (let i = 0; i < propNames.length; i++) {
+            const propName = propNames[i];
+            const propArray = propArrays[i];
+            const tempObj = {};
 
-        for (const elem of properties) {
-            if (object1[elem] !== object2[elem]) {
-                changedProperties.push(elem);
+            for (let key of propArray) {
+                tempObj[key] = data[key];
             }
+            updatedObj[propName] = tempObj;
         }
-        return changedProperties;
+
+        const { _id, updatedAt, ...oldObj } = detailedMachine;
+        const changedProperties = compareObjects(oldObj, updatedObj);
+        // console.log("oldObj.params", oldObj.params, "updatedObj.params", updatedObj.params);
+        console.log(changedProperties);
+        if (Object.entries(changedProperties).length) {
+            const updateInfo = { DTYMCNo: detailedMachine.mcInfo.DTYMCNo, Side: detailedMachine.mcInfo.Side, changedProperties };
+            dispatch(updateDtyMachine(updateInfo));
+        }
+        else {
+            toast.success("Nothing to update", {id:"updated Machine"});
+        }
     }
+
+    function compareObjects(oldObj, newObj) {
+        const changedProps = {};
+      
+        for (let prop in oldObj) {
+          if (oldObj.hasOwnProperty(prop)) {
+            if (JSON.stringify(oldObj[prop]) !== JSON.stringify(newObj[prop])) {
+              changedProps[prop] = newObj[prop];
+            }
+          }
+        }
+      
+        return changedProps;
+      }
 
     if (isLoading) {
         return <Spinner></Spinner>
@@ -51,7 +118,7 @@ const DTYMCDetails = () => {
         return <DataLoading></DataLoading>
     }
 
-    const {_id, ...editingInfo} = detailedMachine;
+    const { _id, ...editingInfo } = detailedMachine;
 
     return (
         <div className="p-8 max-w-7xl mx-auto bg-white rounded-lg shadow-lg">
@@ -171,7 +238,7 @@ const DTYMCDetails = () => {
                                     Object.entries(categories[1]).map((specs, i) =>
                                         <div key={i} className='flex justify-between items-center mb-3'>
                                             <label>{specs[0]} :</label>
-                                            <input name={specs[0]} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" defaultValue={specs[1]} {...register(specs[0])}/>
+                                            <input name={specs[0]} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" defaultValue={specs[1]} {...register(specs[0])} />
                                         </div>
 
                                     )
@@ -180,7 +247,7 @@ const DTYMCDetails = () => {
                         )
                     }
                     <button type='submit' className='btn btn-primary mr-3'>Submit</button>
-                    <button onClick={()=>dispatch(switchEnableEditing())} className='btn btn-secondary'>Cancel</button>
+                    <button onClick={() => dispatch(switchEnableEditing())} className='btn btn-secondary'>Cancel</button>
                 </form>
             }
 
