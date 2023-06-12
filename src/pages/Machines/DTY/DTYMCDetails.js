@@ -70,7 +70,6 @@ const DTYMCDetails = () => {
         const propNames = ["mcInfo", "DTYInfo", "POYInfo", "params"];
         const propArrays = [mcInfoProps, DTYInfoProps, POYInfoProps, paramsProps];
         const updatedObj = {};
-        const finalObj = {};
 
         for (let i = 0; i < propNames.length; i++) {
             const propName = propNames[i];

@@ -6,6 +6,7 @@ const initialState = {
     detailedMachine: {},
     enableEditing: false,
     postMachineSuccess: false,
+    updateMachineSuccess: false,
     isLoading: false,
     isPosting: false,
     isError: false,
@@ -65,6 +66,24 @@ const dtyMachinesSlice = createSlice({
         })
         builder.addCase(getDtyMachineDetails.rejected, (state, action) => {
             state.detailedMachine = [];
+            state.isLoading = false;
+            state.isError = true;
+            state.error = action.error.message;
+        })
+
+
+        builder.addCase(updateDtyMachine.pending, (state, action) => {
+            state.isLoading = true;
+            state.isError = false;
+            state.updateMachineSuccess = false;
+        })
+        builder.addCase(updateDtyMachine.fulfilled, (state, action) => {
+            state.updateMachineSuccess = true;
+            state.isLoading = false;
+            state.isError = false;
+        })
+        builder.addCase(updateDtyMachine.rejected, (state, action) => {
+            state.updateMachineSuccess = false;
             state.isLoading = false;
             state.isError = true;
             state.error = action.error.message;
