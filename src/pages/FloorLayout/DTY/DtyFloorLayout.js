@@ -17,7 +17,8 @@ const DtyFloorLayout = () => {
 
       <div className='flex justify-center gap-5 lg:mt-10'>
         <Link to={'dty-machines/new-machine'}><button className='btn btn-primary normal-case btn-sm'>Add New Machine</button></Link>
-        <Link to={'dty-machines'}><button className='btn btn-primary normal-case btn-sm'>All Machines With Present Lot</button></Link>
+        <Link to={'dty-machines'}><button className='btn btn-primary normal-case btn-sm'>All DTY Machines</button></Link>
+        <Link to={'dty-machines-from-present-lot'}><button className='btn btn-primary normal-case btn-sm'>All Machines With Present Lot</button></Link>
         <Link to={'dty-machines-with-parameters'}><button className='btn btn-primary normal-case btn-sm'>All Machines With Latest Parameters</button></Link>
       </div>
     </div>

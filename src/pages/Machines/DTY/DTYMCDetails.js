@@ -9,12 +9,12 @@ import { useSearchParams } from 'react-router-dom';
 import Spinner from '../../../components/Spinner/Spinner';
 import DataLoading from '../../../components/Spinner/DataLoading';
 import { getDtyMachineDetails, switchEnableEditing } from '../../../redux/features/dtyMachines/dtyMachinesSlice';
+import { useForm } from 'react-hook-form';
 
 const DTYMCDetails = () => {
     const dispatch = useDispatch();
     const { detailedMachine, isLoading, isError, enableEditing } = useSelector(state => state.dtyMachines);
-
-    // const [enableEditing, setEnableEditing] = useState(false);
+    const {register, handleSubmit} = useForm();
     const [searchParams, setSearchParams] = useSearchParams();
     const machine = searchParams.get("machine");
 
@@ -24,8 +24,23 @@ const DTYMCDetails = () => {
     }, [dispatch, machine])
     // console.log(data);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const properties = ["DTYMCNo","Brand","Status","Side","TotalSpindles","MCSpeed","SOF","TOF","DY","Shaft2B","CPM","DEV","PH","SH","EDraw","T1","T2","T3","DR","OilerRpm","OilType","Axial","Stroke","AirPressure","IntJetType","IntType","IntJetOrifice","DTYType","DTYDenier","DTYColor","Filaments","DTYTubeColor","Spandex","LotNo","POYShortPositions","doubling","CustomerName","InspectionArea","POYType","POYDenier","ChipsName","POYColor","StdDrawForce","TotalWinder","EndsPerWinder","POYProcessSpeed","POYLine","POYBobbin","parameters","presentLotAndTA"
+    ]
+
+    const onSubmit = (data) => {
+        console.log(compareObjects(data, detailedMachine));
+    }
+
+    function compareObjects(object1, object2) {
+        // console.log("object1", object1, "object2", object2);
+        const changedProperties = [];
+
+        for (const elem of properties) {
+            if (object1[elem] !== object2[elem]) {
+                changedProperties.push(elem);
+            }
+        }
+        return changedProperties;
     }
 
     if (isLoading) {
@@ -148,7 +163,7 @@ const DTYMCDetails = () => {
 
             {
                 enableEditing &&
-                <form className='max-w-xl mx-auto' onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit(onSubmit)} className='max-w-xl mx-auto'>
                     {
                         Object.entries(editingInfo)?.map((categories, i) =>
                             <div key={i}>
@@ -156,7 +171,7 @@ const DTYMCDetails = () => {
                                     Object.entries(categories[1]).map((specs, i) =>
                                         <div key={i} className='flex justify-between items-center mb-3'>
                                             <label>{specs[0]} :</label>
-                                            <input name={specs[0]} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" defaultValue={specs[1]} />
+                                            <input name={specs[0]} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" defaultValue={specs[1]} {...register(specs[0])}/>
                                         </div>
 
                                     )
