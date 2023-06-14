@@ -5,7 +5,7 @@ import dtyMachineImg from "../../../images/dty-machine.png"
 import poyPackage from "../../../images/poy-package-removebg-preview.png"
 import dtyPackage from "../../../images/dty-package-removebg-preview.png"
 import { useDispatch, useSelector } from 'react-redux';
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import Spinner from '../../../components/Spinner/Spinner';
 import DataLoading from '../../../components/Spinner/DataLoading';
 import { getDtyMachineDetails, switchEnableEditing, updateDtyMachine } from '../../../redux/features/dtyMachines/dtyMachinesSlice';
@@ -14,8 +14,9 @@ import { toast } from 'react-hot-toast';
 
 const DTYMCDetails = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { detailedMachine, isLoading, isError, enableEditing } = useSelector(state => state.dtyMachines);
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset } = useForm();
     const [searchParams, setSearchParams] = useSearchParams();
     const machine = searchParams.get("machine");
 
@@ -64,11 +65,11 @@ const DTYMCDetails = () => {
         "IntJetOrifice"
     ]
     // console.log(detailedMachine);
+    const propNames = ["mcInfo", "DTYInfo", "POYInfo", "params"];
+    const propArrays = [mcInfoProps, DTYInfoProps, POYInfoProps, paramsProps];
 
     const onSubmit = (data) => {
-        // console.log(compareObjects(data, detailedMachine));
-        const propNames = ["mcInfo", "DTYInfo", "POYInfo", "params"];
-        const propArrays = [mcInfoProps, DTYInfoProps, POYInfoProps, paramsProps];
+        console.log("data", data);
         const updatedObj = {};
 
         for (let i = 0; i < propNames.length; i++) {
@@ -82,32 +83,39 @@ const DTYMCDetails = () => {
             updatedObj[propName] = tempObj;
         }
 
+        console.log("updatedObj", updatedObj);
+        
         const { _id, updatedAt, ...oldObj } = detailedMachine;
+        console.log("oldObj", oldObj);
+        // reset(oldObj);
+        console.log("changed data", data);
         const changedProperties = compareObjects(oldObj, updatedObj);
-        // console.log("oldObj.params", oldObj.params, "updatedObj.params", updatedObj.params);
         console.log(changedProperties);
         if (Object.entries(changedProperties).length) {
             const updateInfo = { DTYMCNo: detailedMachine.mcInfo.DTYMCNo, Side: detailedMachine.mcInfo.Side, changedProperties };
+            console.log("updateInfo", updateInfo);
             dispatch(updateDtyMachine(updateInfo));
         }
         else {
-            toast.success("Nothing to update", {id:"updated Machine"});
+            toast.success("Nothing to update", { id: "updated Machine" });
         }
+        dispatch(switchEnableEditing());
+        navigate("/dty-floor-status/dty-machines");
     }
 
     function compareObjects(oldObj, newObj) {
         const changedProps = {};
-      
+
         for (let prop in oldObj) {
-          if (oldObj.hasOwnProperty(prop)) {
-            if (JSON.stringify(oldObj[prop]) !== JSON.stringify(newObj[prop])) {
-              changedProps[prop] = newObj[prop];
+            if (oldObj.hasOwnProperty(prop)) {
+                if (JSON.stringify(oldObj[prop]) !== JSON.stringify(newObj[prop])) {
+                    changedProps[prop] = newObj[prop];
+                }
             }
-          }
         }
-      
+
         return changedProps;
-      }
+    }
 
     if (isLoading) {
         return <Spinner></Spinner>
@@ -118,7 +126,6 @@ const DTYMCDetails = () => {
     }
 
     const { _id, ...editingInfo } = detailedMachine;
-
     return (
         <div className="p-8 max-w-7xl mx-auto bg-white rounded-lg shadow-lg">
             <h2 className="text-3xl font-bold mb-4">Machine Number: {detailedMachine.mcInfo?.DTYMCNo}/{detailedMachine.mcInfo?.Side} Side</h2>
@@ -126,14 +133,14 @@ const DTYMCDetails = () => {
             {
                 !enableEditing &&
                 <>
-                    <div className="flex justify-center xl:gap-32">
+                    <div className="lg:flex justify-center xl:gap-32">
 
                         <div>
 
                             <div className='mb-5'>
                                 <h3 className="text-xl font-bold mb-2">MC Info:</h3>
-                                <div className='flex flex-row-reverse justify-center items-center'>
-                                    <img className='w-52' src={detailedMachine.mcInfo?.Status === "Running" ? runningGears : gearStopped} alt="" />
+                                <div className='lg:flex flex-row-reverse justify-center items-center'>
+                                    <img className='lg:w-52 mx-auto' src={detailedMachine.mcInfo?.Status === "Running" ? runningGears : gearStopped} alt="" />
                                     <table className="table-auto w-full">
                                         <tbody>
                                             {Object?.entries(detailedMachine.mcInfo).map(([key, value]) => (
@@ -149,8 +156,8 @@ const DTYMCDetails = () => {
 
                             <div className='mb-5'>
                                 <h3 className="text-xl font-bold mb-2">Parameters:</h3>
-                                <div className='flex flex-row-reverse justify-center items-center'>
-                                    <img className='w-52' src={dtyMachineImg} alt="" />
+                                <div className='lg:flex flex-row-reverse justify-center items-center'>
+                                    <img className='lg:w-52 mx-auto' src={dtyMachineImg} alt="" />
                                     <table className="table-auto w-full">
                                         <tbody>
                                             {Object?.entries(detailedMachine.params).map(([key, value]) => (
@@ -170,8 +177,8 @@ const DTYMCDetails = () => {
 
                             <div className='mb-5'>
                                 <h3 className="text-xl font-bold mb-2">DTY Info:</h3>
-                                <div className='flex flex-row-reverse justify-center items-center'>
-                                    <img className='w-52' src={dtyPackage} alt="" />
+                                <div className='lg:flex flex-row-reverse justify-center items-center'>
+                                    <img className='lg:w-52 mx-auto' src={dtyPackage} alt="" />
                                     <table className="table-auto w-full">
                                         <tbody>
                                             {Object?.entries(detailedMachine.DTYInfo).map(([key, value]) => (
@@ -187,8 +194,8 @@ const DTYMCDetails = () => {
 
                             <div className='mb-5'>
                                 <h3 className="text-xl font-bold mb-2">POY Info:</h3>
-                                <div className='flex flex-row-reverse justify-center items-center'>
-                                    <img className='w-52' src={poyPackage} alt="" />
+                                <div className='lg:flex flex-row-reverse justify-center items-center'>
+                                    <img className='lg:w-52 mx-auto' src={poyPackage} alt="" />
                                     <table className="table-auto w-full">
                                         <tbody>
                                             {Object?.entries(detailedMachine.POYInfo).map(([key, value]) => (
@@ -206,8 +213,8 @@ const DTYMCDetails = () => {
                                 detailedMachine.updatedAt &&
                                 <div className='mb-5'>
                                     <h3 className="text-xl font-bold mb-2">Update Info:</h3>
-                                    <div className='flex flex-row-reverse justify-center items-center'>
-                                        {/* <img className='w-52' src={poyPackage} alt="" /> */}
+                                    <div className='lg:flex flex-row-reverse justify-center items-center'>
+                                        {/* <img className='lg:w-52 mx-auto' src={poyPackage} alt="" /> */}
                                         <table className="table-auto w-full">
                                             <tbody>
                                                 {Object?.entries(detailedMachine?.updatedAt).map(([key, value]) => (
@@ -230,18 +237,40 @@ const DTYMCDetails = () => {
             {
                 enableEditing &&
                 <form onSubmit={handleSubmit(onSubmit)} className='max-w-xl mx-auto'>
-                    {
-                        Object.entries(editingInfo)?.map((categories, i) =>
-                            <div key={i}>
-                                {
-                                    Object.entries(categories[1]).map((specs, i) =>
-                                        <div key={i} className='flex justify-between items-center mb-3'>
-                                            <label>{specs[0]} :</label>
-                                            <input name={specs[0]} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" defaultValue={specs[1]} {...register(specs[0])} />
-                                        </div>
 
-                                    )
-                                }
+                    <label className='text-lg text-center font-semibold text-white bg-sky-500 block mb-3 rounded-lg'>Machine Info</label>
+                    {
+                        mcInfoProps?.map((prop, i) =>
+                            <div key={i} className='lg:flex justify-between items-center mb-3'>
+                                <label>{prop} :</label>
+                                <input name={prop} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" defaultValue={editingInfo.mcInfo[prop]} {...register(prop)} />
+                            </div>
+                        )
+                    }
+                    <label className='text-lg text-center font-semibold text-white bg-sky-500 block mb-3 rounded-lg'>DTY Info</label>
+                    {
+                        DTYInfoProps?.map((prop, i) =>
+                            <div key={i} className='lg:flex justify-between items-center mb-3'>
+                                <label>{prop} :</label>
+                                <input name={prop} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" defaultValue={editingInfo.DTYInfo[prop]} {...register(prop)} />
+                            </div>
+                        )
+                    }
+                    <label className='text-lg text-center font-semibold text-white bg-sky-500 block mb-3 rounded-lg'>POY Info</label>
+                    {
+                        POYInfoProps?.map((prop, i) =>
+                            <div key={i} className='lg:flex justify-between items-center mb-3'>
+                                <label>{prop} :</label>
+                                <input name={prop} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" defaultValue={editingInfo.POYInfo[prop]} {...register(prop)} />
+                            </div>
+                        )
+                    }
+                    <label className='text-lg text-center font-semibold text-white bg-sky-500 block mb-3 rounded-lg'>Parameters</label>
+                    {
+                        paramsProps?.map((prop, i) =>
+                            <div key={i} className='lg:flex justify-between items-center mb-3'>
+                                <label>{prop} :</label>
+                                <input name={prop} type="text" placeholder="Type here" className="input input-bordered w-full max-w-xs" defaultValue={editingInfo.params[prop]} {...register(prop)} />
                             </div>
                         )
                     }

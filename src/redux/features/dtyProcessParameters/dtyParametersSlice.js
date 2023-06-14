@@ -44,7 +44,7 @@ export const addDtyParameter = createAsyncThunk("dtyProcessParameters/addDtyPara
 //     return machineData;
 // })
 
-export const updateDtyMachine = createAsyncThunk("dtyProcessParameters/updateDtyMachine", async(newParameter)=>{
+export const updateDtyMachineParam = createAsyncThunk("dtyProcessParameters/updateDtyMachineParam", async(newParameter)=>{
     const machineData = modifyMainMachineParam(newParameter);
     return machineData;
 })

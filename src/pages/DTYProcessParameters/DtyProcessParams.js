@@ -14,7 +14,7 @@ const DtyProcessParams = () => {
 
 
     const properties = [
-        "POYType", "POYLine", "DTYMCNo", "DTYType", "DTYColor", "LotNo", "ChipsName", "MCSpeed", "DR", "SOF", "TOF", "DY", "Shaft2B", "CPM", "DEV", "PH", "SH", "EDraw", "AirPressure", "IntJetType", "OilerRpm", "OilType", "Axial", "Stroke", "DTYTubeColor", "CustomerName", "StartDate", "StopDate", "Quantity", "Remarks", "Uploaded At"
+        "POYType", "POYLine", "DTYMCNo", "DTYType", "DTYColor", "LotNo", "ChipsName", "MCSpeed", "DR", "SOF", "TOF", "DY", "Shaft2B", "CPM", "DEV", "PH", "SH", "EDraw", "AirPressure", "IntJetType", "OilerRpm", "OilType", "Axial", "Stroke", "DTYTubeColor", "CustomerName", "StartDate", "StopDate", "Quantity", "Remarks", "uploadedAt"
     ];
 
     console.log(dtyProcessParameters);
@@ -40,7 +40,7 @@ const DtyProcessParams = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {
+                            {/* {
                                 dtyProcessParameters?.map((paramDetail, i) =>
                                     <tr key={i}>
                                         {
@@ -48,6 +48,17 @@ const DtyProcessParams = () => {
                                         }
                                     </tr>
                                 )
+                            } */}
+                            {
+                                dtyProcessParameters?.map((paramDetail, i) =>
+                                <tr key={i}>
+                                    {
+                                        properties?.map((param, i) => 
+                                            <td key={i}>{paramDetail[param]}</td>
+                                            )
+                                    }
+                                </tr>
+                            )
                             }
                         </tbody>
                     </table>

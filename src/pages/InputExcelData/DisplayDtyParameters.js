@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import React, { useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
-import { addDtyParameter, getDtyParamsForComparison, updateDtyMachine } from '../../redux/features/dtyProcessParameters/dtyParametersSlice';
+import { addDtyParameter, getDtyParamsForComparison, updateDtyMachineParam } from '../../redux/features/dtyProcessParameters/dtyParametersSlice';
 import { setExcelData } from '../../redux/features/inputExcelFiles/inputExcelSlice';
 
 const DisplayDtyParameters = () => {
@@ -71,7 +71,7 @@ const DisplayDtyParameters = () => {
                 console.log(`inserting new parameter for machine no: ${element1.DTYMCNo}`);
                 toast.loading(`inserting new parameter for machine no: # ${element1.DTYMCNo}`, { id: element1.DTYMCNo })
 
-                dispatch(updateDtyMachine(element1));
+                dispatch(updateDtyMachineParam(element1));
                 dispatch(addDtyParameter(element1));
                 
                 // return { message: "Post the new parameter for machine", WinderData: element1, toastId: element1.WinderNo };
@@ -97,7 +97,7 @@ const DisplayDtyParameters = () => {
                     console.log(`Inserted New Parameter of Machine No: ${element1.DTYMCNo}`);
                     toast.success(`Inserted New Parameter of Machine No: ${element1.DTYMCNo}`, { id: element1.DTYMCNo })
 
-                    dispatch(updateDtyMachine(element1));
+                    dispatch(updateDtyMachineParam(element1));
                     dispatch(addDtyParameter(element1));
                 } else {
                     // console.log(`Same parameters exists for Machine No. ${element1.DTYMCNo}`)

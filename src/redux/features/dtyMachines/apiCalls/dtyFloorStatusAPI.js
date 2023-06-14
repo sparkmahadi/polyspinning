@@ -13,10 +13,17 @@ export const fetchDtyMachineDetails = async(machineWithSide) =>{
 
 export const modifyDtyMachine = async(DTYMCNo, Side, changedProps) =>{
     console.log(DTYMCNo, Side, changedProps);
-    if(DTYMCNo && Side && changedProps){
+    if(DTYMCNo && changedProps){
         const data = await axios.put(`/dty-machines/update-manually?DTYMCNo=${DTYMCNo}&Side=${Side}`, {changedProps});
-        if(data.data.acknowledged){
-            toast.success(`Machine #${DTYMCNo}/${Side} is updated`)
+        if(Array.isArray(data.data)){
+            data.data.forEach((dt) => {
+                if (dt.acknowledged) {
+                    toast.success(`Updated Machine No. #${DTYMCNo}, for both side`, { id: "updated" + DTYMCNo });
+                }
+            })
+        }
+        else if (data.data.acknowledged) {
+            toast.success(`Updated Machine No. #${DTYMCNo} for ${Side}`, { id: "updated" + DTYMCNo });
         }
     } else {
         console.log('please put valid informations');
