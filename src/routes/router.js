@@ -8,15 +8,14 @@ import Login from "../pages/Logging/Login/Login";
 import Register from './../pages/Logging/Register/Register';
 import ResetPassword from "../pages/Logging/ResetPassword/ResetPassword";
 import DtyProcessParams from "../pages/DTYProcessParameters/DtyProcessParams";
-import AddNewParameter from "../pages/DTYProcessParameters/AddNewParameter";
 import DtyMachinesWithParams from "../pages/FloorLayout/DTY/DtyMachinesWithParams";
 import DtyPresentLotAndTransfer from "../pages/FloorLayout/DTY/DtyPresentLotAndTransfer";
 import PoyPresentLotAndTransfer from './../pages/FloorLayout/POY/PoyPresentLotAndTransfer';
 import PoyWinder from "../pages/FloorLayout/POY/PoyWinder";
-// import DtyMachineDetails from "../pages/Machines/DTY/DtyMachineDetails";
 import AddNewDtyMachine from "../pages/Machines/DTY/AddNewDtyMachine";
 import DTYMCDetails from "../pages/Machines/DTY/DTYMCDetails";
 import DTYMachines from './../pages/FloorLayout/DTY/DTYMachines';
+import AddNewParamStatic from "../pages/DTYProcessParameters/AddNewParamStatic";
 
 export const router = createBrowserRouter([
     {
@@ -61,7 +60,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/dty-process-parameters/add-new-parameter",
-                element: <AddNewParameter />
+                element: <AddNewParamStatic />
             },
             {
                 path: "/poy-floor-status/present-lot-and-transfer-area",

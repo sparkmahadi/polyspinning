@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import { getDtyParams, getDtyParamsForComparison } from '../../redux/features/dtyProcessParameters/dtyParametersSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Spinner from '../../components/Spinner/Spinner';
 
 const DtyProcessParams = () => {
-    const { dtyProcessParameters } = useSelector(state => state.dtyProcessParameters);
+    const { dtyProcessParameters, isLoding } = useSelector(state => state.dtyProcessParameters);
 
     const dispatch = useDispatch();
     useEffect(() => {
@@ -17,6 +18,10 @@ const DtyProcessParams = () => {
     ];
 
     console.log(dtyProcessParameters);
+
+    if(isLoding){
+        return <Spinner></Spinner>
+    }
 
     return (
         <div className="overflow-x-auto pt-10">

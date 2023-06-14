@@ -143,7 +143,7 @@ const DisplayDTYPresentLot = () => {
 
         const dateTime = format(new Date(), "Pp");
         const lotData = { specsTitles, specsDetails, uploadedAt: dateTime };
-        // dispatch(addLotData(lotData));
+        dispatch(addLotData(lotData));
 
         const result = extractMcDetails(specsDetails, existingArr);
 
