@@ -3,18 +3,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import Spinner from '../../../components/Spinner/Spinner';
 import DTYMachineCard from '../../../components/DTY/DTYMachine/DTYMachineCard';
 import { getDtyMachines } from '../../../redux/features/dtyMachines/dtyMachinesSlice';
+import DataLoading from '../../../components/Spinner/DataLoading';
+import LoadingCustom from '../../../components/Spinner/LoadingCustom';
 
 const DTYMachines = () => {
     const dispatch = useDispatch();
     const { dtyMachines, isLoading } = useSelector(state => state.dtyMachines);
-    console.log(dtyMachines);
+    console.log("dtyMachines", dtyMachines);
   
     useEffect(() => {
       dispatch(getDtyMachines());
     }, [dispatch]);
   
-    if(isLoading || !dtyMachines.length){
+    if(isLoading){
       return <Spinner></Spinner>
+    }
+
+    if(!Array.isArray(dtyMachines)){
+        return <LoadingCustom message={"No Data Found in server"}/>
+    }
+
+    if(!dtyMachines.length){
+        return <DataLoading></DataLoading>
     }
     return (
         <div className="mx-auto mt-12 grid max-w-md gap-8 px-6 sm:max-w-lg lg:max-w-7xl lg:grid-cols-3 lg:px-8">

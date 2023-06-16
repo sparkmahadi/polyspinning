@@ -18,17 +18,17 @@ export const postDtyParameter = async (paramDetails) => {
 }
 
 export const fetchDtyParamsByMC = async (machineNo) => {
-    const data = await axios.get(`/dty-process-parameters-by-query?machineNo=${machineNo}`);
+    const data = await axios.get(`/api/v1/dty-process-parameters-by-query?machineNo=${machineNo}`);
     return data.data;
 }
 
 export const fetchDtyParamsByMachines = async (machines) => {
-    const data = await axios.get(`/dty-process-parameters-by-query?machines=${machines}`);
+    const data = await axios.get(`/api/v1/dty-process-parameters-by-query?machines=${machines}`);
     return data.data;
 }
 
 export const modifyMainMachineParam = async (newParameter) => {
-    const data = await axios.put("/dty-machines/update-from-parameter", newParameter);
+    const data = await axios.put("/api/v1/dty-machines/update-from-parameter", newParameter);
     console.log('updating main machine', data);
     if(Array.isArray(data.data)){
         data.data.forEach((dt) => {
