@@ -2,28 +2,28 @@ import { toast } from "react-hot-toast";
 import axios from "../../../../utils/axios.config";
 
 export const fetchDtyParams = async () => {
-    const data = await axios.get("/dty-process-parameters");
+    const data = await axios.get("/api/v1/dty-process-parameters");
     return data.data;
 }
 export const fetchDtyParamsForComparison = async () => {
-    const data = await axios.get("/dty-process-parameters?need=withoutIdAndTime");
+    const data = await axios.get("/api/v1/dty-process-parameters?need=withoutIdAndTime");
     return data.data;
 }
 
 export const postDtyParameter = async (paramDetails) => {
-    const data = await axios.post("/dty-process-parameters", paramDetails);
+    const data = await axios.post("/api/v1/dty-process-parameters", paramDetails);
     if (data.data.acknowledged) {
         toast.success(`Inserted New Parameter #${paramDetails.DTYMCNo}`, { id: paramDetails.DTYMCNo });
     }
 }
 
 export const fetchDtyParamsByMC = async (machineNo) => {
-    const data = await axios.get(`/api/v1/dty-process-parameters-by-query?machineNo=${machineNo}`);
+    const data = await axios.get(`/api/v1/dty-process-parameters/by-query?machineNo=${machineNo}`);
     return data.data;
 }
 
 export const fetchDtyParamsByMachines = async (machines) => {
-    const data = await axios.get(`/api/v1/dty-process-parameters-by-query?machines=${machines}`);
+    const data = await axios.get(`/api/v1/dty-process-parameters/by-query?machines=${machines}`);
     return data.data;
 }
 

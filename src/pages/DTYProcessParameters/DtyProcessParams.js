@@ -3,9 +3,11 @@ import { getDtyParams, getDtyParamsForComparison } from '../../redux/features/dt
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Spinner from '../../components/Spinner/Spinner';
+import LoadingCustom from '../../components/Spinner/LoadingCustom';
+import DataLoading from '../../components/Spinner/DataLoading';
 
 const DtyProcessParams = () => {
-    const { dtyProcessParameters, isLoding } = useSelector(state => state.dtyProcessParameters);
+    const { dtyProcessParameters, isLoading } = useSelector(state => state.dtyProcessParameters);
 
     const dispatch = useDispatch();
     useEffect(() => {
@@ -19,9 +21,17 @@ const DtyProcessParams = () => {
 
     console.log(dtyProcessParameters);
 
-    if(isLoding){
+    if(isLoading){
         return <Spinner></Spinner>
-    }
+      }
+  
+      if(!Array.isArray(dtyProcessParameters)){
+          return <LoadingCustom message={"No Data Found in server"}/>
+      }
+  
+      if(!dtyProcessParameters.length){
+          return <DataLoading></DataLoading>
+      }
 
     return (
         <div className="overflow-x-auto pt-10">
