@@ -4,7 +4,7 @@ import { clearParamModalData } from '../../../redux/features/dtyProcessParameter
 
 const DTYMCParamModal = ({mcDetails}) => {
     const dispatch = useDispatch();
-    console.log(mcDetails);
+    // console.log(mcDetails);
     return (
         <>
          <input type="checkbox" id="dtyParamDetailsModal" className="modal-toggle" />
@@ -23,7 +23,6 @@ const DTYMCParamModal = ({mcDetails}) => {
                                 
                             )
                         }
-                        {/* <button type='submit' className='btn btn-secondary'>Submit</button> */}
                     </form>
                 </div>
             </div>   

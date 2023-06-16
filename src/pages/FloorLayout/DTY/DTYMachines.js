@@ -9,7 +9,7 @@ import LoadingCustom from '../../../components/Spinner/LoadingCustom';
 const DTYMachines = () => {
     const dispatch = useDispatch();
     const { dtyMachines, isLoading } = useSelector(state => state.dtyMachines);
-    console.log("dtyMachines", dtyMachines);
+    // console.log("dtyMachines", dtyMachines);
   
     useEffect(() => {
       dispatch(getDtyMachines());

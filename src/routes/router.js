@@ -16,6 +16,9 @@ import AddNewDtyMachine from "../pages/Machines/DTY/AddNewDtyMachine";
 import DTYMCDetails from "../pages/Machines/DTY/DTYMCDetails";
 import DTYMachines from './../pages/FloorLayout/DTY/DTYMachines';
 import AddNewParamStatic from "../pages/DTYProcessParameters/AddNewParamStatic";
+import DTYPresentLotHistory from "../pages/DTYPresentLotHistory/DTYPresentLotHistory";
+import DTYLotDetails from "../pages/DTYLotDetails/DTYLotDetails";
+import DTYMachineUpdates from "../pages/FloorLayout/DTY/DTYMachineUpdates";
 
 export const router = createBrowserRouter([
     {
@@ -53,6 +56,18 @@ export const router = createBrowserRouter([
             {
                 path: "/dty-floor-status/present-lot-and-transfer-area",
                 element: <DtyPresentLotAndTransfer />
+            },
+            {
+                path: "/dty-floor-status/present-lot-and-transfer-area/history",
+                element: <DTYPresentLotHistory />
+            },
+            {
+                path: "/dty-floor-status/present-lot-and-transfer-area/history/:id",
+                element: <DTYLotDetails />
+            },
+            {
+                path: "/dty-floor-status/dty-machine-updates",
+                element: <DTYMachineUpdates />
             },
             {
                 path: "/dty-process-parameters",

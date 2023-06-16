@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addLotData } from '../../redux/features/dtyPresentLotAndTransfer/dtyPresentLotSlice';
 import { toast } from 'react-hot-toast';
 import { addMachine, updateDtyMachineLot, updateMachine } from '../../redux/features/dtyMachinesFromPresentLot/dtyMCsFromPLotSlice';
-import { addMachineUpdates } from '../../redux/features/dtyMachineUpdates/dtyMachineUpdatesSlice';
+import { addDtyMachineUpdates } from '../../redux/features/dtyMachineUpdates/dtyMachineUpdatesSlice';
 import { setExcelData } from '../../redux/features/inputExcelFiles/inputExcelSlice';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,7 +16,6 @@ const DisplayDTYPresentLot = () => {
 
     const specsTitles = excelData[0];
     const specsDetails = excelData.slice(1);
-    console.log(specsDetails);
 
     const properties = [
         "DTYMCNo",
@@ -115,7 +114,7 @@ const DisplayDTYPresentLot = () => {
 
                         const updateInfo = { machineData: element1, changedProps };
                         dispatch(updateMachine(updateInfo));
-                        dispatch(addMachineUpdates(updateInfo));
+                        dispatch(addDtyMachineUpdates(updateInfo));
                         dispatch(updateDtyMachineLot(element1));
                         // return { message: "Update the Machine Details", machineData: element1, changedProps, toastId: element2.DTYMCNo }
 
@@ -145,8 +144,7 @@ const DisplayDTYPresentLot = () => {
         const lotData = { specsTitles, specsDetails, uploadedAt: dateTime };
         dispatch(addLotData(lotData));
 
-        const result = extractMcDetails(specsDetails, existingArr);
-
+        extractMcDetails(specsDetails, existingArr);
     }
 
     return (

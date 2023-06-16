@@ -1,8 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchLotData, postLotData } from "./apiCalls/dtyPresentLotAPI";
+import { fetchLotData, fetchLotDetailsById, fetchPresentLotHistory, postLotData } from "./apiCalls/dtyPresentLotAPI";
 
 const initialState = {
     presentLotData: {},
+    presentLotHistory: [],
+    lotDetails: {},
     postSuccess: false,
     updateSuccess: false,
     isPosting: false,
@@ -18,8 +20,17 @@ export const getLotData = createAsyncThunk("dtyPresentLotAndTransfer/getLotData"
 
 export const addLotData = createAsyncThunk("dtyPresentLotAndTransfer/addLotData", async (data) => {
     const lotData = postLotData(data);
-    // console.log("lotData", lotData);
     return lotData;
+})
+
+export const getPresentLotHistory = createAsyncThunk("dtyPresentLotAndTransfer/getPresentLotHistory", async() =>{
+    const lotHistory = fetchPresentLotHistory();
+    return lotHistory
+})
+
+export const getLotDetailsById = createAsyncThunk("dtyPresentLotAndTransfer/getLotDetailsById", async(lotId) =>{
+    const lotData = fetchLotDetailsById(lotId);
+    return lotData
 })
 
 const dtyPresentLotSlice = createSlice({
@@ -61,6 +72,38 @@ const dtyPresentLotSlice = createSlice({
         builder.addCase(addLotData.rejected, (state, action) => {
             state.presentLotData = {};
             state.isPosting = false;
+            state.isError = true;
+            state.error = action.error.message;
+        })
+
+        builder.addCase(getPresentLotHistory.pending, (state, action) => {
+            state.isLoading = true;
+            state.isError = false;
+        })
+        builder.addCase(getPresentLotHistory.fulfilled, (state, action) => {
+            state.presentLotHistory = action.payload;
+            state.isLoading = false;
+            state.isError = false;
+        })
+        builder.addCase(getPresentLotHistory.rejected, (state, action) => {
+            state.presentLotHistory = [];
+            state.isLoading = false;
+            state.isError = true;
+            state.error = action.error.message;
+        })
+
+        builder.addCase(getLotDetailsById.pending, (state, action) => {
+            state.isLoading = true;
+            state.isError = false;
+        })
+        builder.addCase(getLotDetailsById.fulfilled, (state, action) => {
+            state.lotDetails = action.payload;
+            state.isLoading = false;
+            state.isError = false;
+        })
+        builder.addCase(getLotDetailsById.rejected, (state, action) => {
+            state.lotDetails = {};
+            state.isLoading = false;
             state.isError = true;
             state.error = action.error.message;
         })
