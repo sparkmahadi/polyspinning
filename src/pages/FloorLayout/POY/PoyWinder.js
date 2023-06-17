@@ -1,21 +1,19 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { addWinderUpdate, clearPoyWinder, findPoyWinder, getPoyWinderData, updateWinder } from '../../../redux/features/poyMachinesFromPresentLot/poyMCsFromPLotSlice';
+import { addWinderUpdate, getPoyWinderData, updateWinder } from '../../../redux/features/poyMachinesFromPresentLot/poyMCsFromPLotSlice';
 import { toast } from 'react-hot-toast';
 
 const PoyWinder = () => {
     const { WinderNo } = useParams();
-    // console.log(WinderNo);
     const dispatch = useDispatch();
     const { poyWinderData } = useSelector(state => state.poyMachinesFromLot);
-
+    // console.log('poy', poyWinderData);
     const { _id, ...poyWinderWithoutId } = poyWinderData;
     const properties = Object.keys(poyWinderWithoutId);
 
     const handleSubmit = e => {
         e.preventDefault();
-        // console.log(machineDetails);
         const form = e.target;
 
         let newMachineData = {
@@ -25,10 +23,8 @@ const PoyWinder = () => {
             const propertyName = properties[i];
             const propertyValue = form[propertyName].value;
             newMachineData[propertyName] = propertyValue;
-            // console.log(propertyValue);
         }
 
-        // console.log(form.machineNo.value);
         const changedProps = compareObjects(poyWinderWithoutId, newMachineData);
         const updateInfo = { WinderData: newMachineData, changedProps };
         console.log(updateInfo);
@@ -56,9 +52,7 @@ const PoyWinder = () => {
     }
 
     useEffect(() => {
-        // dispatch(getPoyWinderData(WinderNo));
-        // dispatch(clearPoyWinder());
-        // dispatch(findPoyWinder(WinderNo));
+        dispatch(getPoyWinderData(WinderNo))
     }, [dispatch, WinderNo])
     return (
         <div className="overflow-x-auto">

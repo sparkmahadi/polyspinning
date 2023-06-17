@@ -20,7 +20,6 @@ export const postWinder = async (newWinderData) => {
 
 export const modifyWinderData = async (winderDetails, changedProps) => {
     const data = await axios.put("/api/v1/poy-machine-details-from-present-lot/", { winderDetails, changedProps });
-    console.log('api', winderDetails);
     if (data.data.acknowledged) {
         toast.success(`Updated Winder No. #${winderDetails.WinderNo}`, { id: "updated" + winderDetails.WinderNo });
     }
