@@ -8,7 +8,7 @@ const PoyPresentLotAndTransfer = () => {
 
     const dispatch = useDispatch();
     const { machineDataFromLot: data, selectedFilters, isLoading, isError, error } = useSelector(state => state.poyMachinesFromLot);
-    // console.log(selectedFilters);
+    // console.log("data", data);
     const properties = [
         "SL",
         "Line No.",
@@ -21,6 +21,7 @@ const PoyPresentLotAndTransfer = () => {
         "POY Bobbin",
         "POY Color",
         "Status",
+        "ChipsName",
         "Updated On",
         "Actions"
     ]
@@ -64,6 +65,9 @@ const PoyPresentLotAndTransfer = () => {
         <div className="overflow-x-auto">
         <span className="loading loading-spinner loading-lg z-50"></span>
         <h5 className='lg:text-xl font-semibold text-center py-5'>Present POY Floor Status</h5>
+
+        <Link to={'/poy-floor-status/denierwise-poy-lines'}><button className='btn btn-primary btn-sm'>Show Denierwise Data</button></Link>
+
         <div className='flex justify-center'>
           <div className="w-full md:w-2/3 shadow p-5 rounded-lg bg-white">
             <div className="flex items-center justify-between mt-4">

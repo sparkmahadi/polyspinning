@@ -19,6 +19,7 @@ import AddNewParamStatic from "../pages/DTYProcessParameters/AddNewParamStatic";
 import DTYPresentLotHistory from "../pages/DTYPresentLotHistory/DTYPresentLotHistory";
 import DTYLotDetails from "../pages/DTYLotDetails/DTYLotDetails";
 import DTYMachineUpdates from "../pages/FloorLayout/DTY/DTYMachineUpdates";
+import DenierwisePOYLines from "../pages/FloorLayout/POY/DenierwisePOYLines";
 
 export const router = createBrowserRouter([
     {
@@ -80,6 +81,10 @@ export const router = createBrowserRouter([
             {
                 path: "/poy-floor-status/present-lot-and-transfer-area",
                 element: <PoyPresentLotAndTransfer />
+            },
+            {
+                path: "/poy-floor-status/denierwise-poy-lines",
+                element: <DenierwisePOYLines />
             },
             {
                 path: "/poy-winders/:WinderNo",

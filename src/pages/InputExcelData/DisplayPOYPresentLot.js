@@ -26,7 +26,8 @@ const DisplayPOYPresentLot = () => {
         "Filaments",
         "POYBobbin",
         "POYColor",
-        "Status"
+        "Status",
+        "ChipsName"
     ];
 
     const extractMcDetails = (dataArray, existingArr) => {

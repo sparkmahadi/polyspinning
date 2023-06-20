@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchAllWinderUpdates, fetchOneWinderUpdate, fetchPoyMcDataFromLot, fetchPoyWinderData, modifyWinderData, postWinder, postWinderUpdate } from "./apiCalls/poyMCsFromPLotAPI";
+import { fetchAllWinderUpdates, fetchOneWinderUpdate, fetchPoyMcDataFromLot, fetchPoyWinderData, modifyWinderData, postWinder, postWinderUpdate, updateDtyMachineByPoyLot } from "./apiCalls/poyMCsFromPLotAPI";
 
 const initialState = {
     machineDataFromLot: [],
@@ -52,6 +52,11 @@ export const addWinderUpdate = createAsyncThunk("poyMachinesFromLot/addWinderUpd
 //     const winderData = fetchOneWinderUpdate(WinderNo);
 //     return winderData;
 // })
+
+export const updatePoyInfoInDty = createAsyncThunk("poyMachinesFromLot/updatePoyInfoInDty", async(poySummary) =>{
+    const data = updateDtyMachineByPoyLot(poySummary);
+    return data;
+})
 
 
 const poyMCsFromPLotSlice = createSlice({

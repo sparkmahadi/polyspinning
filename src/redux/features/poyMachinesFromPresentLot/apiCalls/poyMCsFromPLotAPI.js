@@ -25,6 +25,22 @@ export const modifyWinderData = async (winderDetails, changedProps) => {
     }
 }
 
+export const updateDtyMachineByPoyLot = async (poySummary) => {
+    const data = await axios.put("/api/v1/poy-machine-details-from-present-lot/update-poyInfo-in-dty-machines", poySummary);
+    console.log(data);
+    if(typeof data.data === "string"){
+        toast.error(data.data);
+    }
+    if(Array.isArray(data.data)){
+        data.data?.forEach(dt => {
+            if(dt.modifiedCount > 0){
+                toast.success("POYInfo is updated at DTY Machine");
+                console.log("POYInfo is updated at DTY Machine");
+            }
+        })
+    }
+}
+
 // export const fetchAllWinderUpdates = async () => {
 //     const data = await axios.get("/poy-winder-updates/");
 //     return data.data;
