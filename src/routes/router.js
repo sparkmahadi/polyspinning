@@ -21,6 +21,7 @@ import DTYLotDetails from "../pages/DTYLotDetails/DTYLotDetails";
 import DTYMachineUpdates from "../pages/FloorLayout/DTY/DTYMachineUpdates";
 import DenierwisePOYLines from "../pages/FloorLayout/POY/DenierwisePOYLines";
 import CheckingRoute from "./CheckingRoute";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
     {
@@ -49,7 +50,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/dty-floor-status/dty-machines-with-parameters",
-                element: <DtyMachinesWithParams />,
+                element: <CheckingRoute><DtyMachinesWithParams /></CheckingRoute>,
             },
             {
                 path: "/dty-floor-status/dty-machine/new-machine",
@@ -85,7 +86,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/poy-floor-status/denierwise-poy-lines",
-                element: <DenierwisePOYLines />
+                element: <PrivateRoute><DenierwisePOYLines /></PrivateRoute>
             },
             {
                 path: "/poy-winders/:WinderNo",
