@@ -20,6 +20,7 @@ import DTYPresentLotHistory from "../pages/DTYPresentLotHistory/DTYPresentLotHis
 import DTYLotDetails from "../pages/DTYLotDetails/DTYLotDetails";
 import DTYMachineUpdates from "../pages/FloorLayout/DTY/DTYMachineUpdates";
 import DenierwisePOYLines from "../pages/FloorLayout/POY/DenierwisePOYLines";
+import CheckingRoute from "./CheckingRoute";
 
 export const router = createBrowserRouter([
     {
@@ -52,7 +53,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/dty-floor-status/dty-machine/new-machine",
-                element: <AddNewDtyMachine />
+                element: <CheckingRoute><AddNewDtyMachine /></CheckingRoute>
             },
             {
                 path: "/dty-floor-status/present-lot-and-transfer-area",
@@ -76,7 +77,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/dty-process-parameters/add-new-parameter",
-                element: <AddNewParamStatic />
+                element: <CheckingRoute><AddNewParamStatic /></CheckingRoute>
             },
             {
                 path: "/poy-floor-status/present-lot-and-transfer-area",
@@ -92,7 +93,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/upload/excel",
-                element: <InputExcelData />
+                element: <CheckingRoute><InputExcelData /></CheckingRoute>
             },
             {
                 path: "/login",

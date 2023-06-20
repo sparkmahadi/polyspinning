@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 import { useEffect } from 'react';
 import { AuthContext } from '../../../contexts/UserContext';
+import Spinner from '../../../components/Spinner/Spinner';
 
 const Register = () => {
     const [loading, setLoading] = useState(false);
@@ -23,6 +24,8 @@ const Register = () => {
         const password = form.password.value;
         const accountType = form.accountType.value;
 
+        console.log(name, password, email, accountType);
+
         createNewUser(email, password)
             .then(r => {
                 const user = r.user;
@@ -30,9 +33,9 @@ const Register = () => {
                 setError('');
                 form.reset();
                 handleUpdateUserProfile(name);
-                // if (user) {
-                //     saveUser(name, email, accountType);
-                // }
+                if (user) {
+                    saveUser(name, email, accountType);
+                }
             })
             .catch(e => {
                 console.error(e);
@@ -55,7 +58,7 @@ const Register = () => {
 
     const saveUser = (name, email, accountType) => {
         const user = { name, email, accountType, verified: false };
-        fetch('https://next-rep-server.vercel.app/users', {
+        fetch('http://localhost:5000/api/v1/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -68,6 +71,7 @@ const Register = () => {
                 if (data.acknowledged) {
                     toast.success("Account Registered Successfully");
                     setUserEmail(user?.email);
+                    navigate(from, { replace: true });
                 }
             })
     }
@@ -81,7 +85,7 @@ const Register = () => {
     return (
         <div>
             {
-                // loading && <div className="custom-align"><Spinner></Spinner></div>
+                loading && <div className="custom-align"><Spinner></Spinner></div>
             }
             <h2 className='bg-sky-300 p-2 text-white text-center text-xl lg:text-2xl font-semibold uppercase'>Registration</h2>
             <form data-aos="fade-right" data-aos-duration="2000" onSubmit={handleSubmit} className='container mx-auto bg-white px-10 py-10 rounded-lg text-gray-900 md:w-2/3 lg:w-1/2'>

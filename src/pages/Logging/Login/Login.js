@@ -31,6 +31,7 @@ const Login = () => {
                 setError('');
                 if (user) {
                     setUserEmail(user?.email);
+                    navigate(from, { replace: true });
                 }
             })
             .catch(e => {
