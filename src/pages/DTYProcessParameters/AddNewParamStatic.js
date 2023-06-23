@@ -167,9 +167,9 @@ const AddNewParamStatic = () => {
             <h5 className='lg:text-xl font-semibold text-center py-5'>Insert a new parameter</h5>
             <p className='lg:text-md font-semibold text-center pb-5'>You can put parameters for one side of machine. In that case, Write the side of machine by oblique "/". As for example, Write "2/A" for expressing "A" side of machine number #2.</p>
 
-            <form onSubmit={handleLoadParam} className='flex items-center gap-5 justify-center'>
+            <form onSubmit={handleLoadParam} className='flex flex-col lg:flex-row items-center gap-5 justify-center'>
                 <h3>Load Latest Parameter for Machine No.</h3>
-                <input type="number" name='enteredMachine' />
+                <input type="number" name='enteredMachine' className='block'/>
                 <button type='submit' className='btn btn-primary btn-sm'>Submit</button>
             </form>
             <form onSubmit={handleSubmitManually} className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-md space-y-5">

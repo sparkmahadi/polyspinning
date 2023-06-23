@@ -22,6 +22,7 @@ import DTYMachineUpdates from "../pages/FloorLayout/DTY/DTYMachineUpdates";
 import DenierwisePOYLines from "../pages/FloorLayout/POY/DenierwisePOYLines";
 import CheckingRoute from "./CheckingRoute";
 import PrivateRoute from "./PrivateRoute";
+import PoyFloorLayout from "../pages/FloorLayout/POY/PoyFloorLayout";
 
 export const router = createBrowserRouter([
     {
@@ -79,6 +80,10 @@ export const router = createBrowserRouter([
             {
                 path: "/dty-process-parameters/add-new-parameter",
                 element: <CheckingRoute><AddNewParamStatic /></CheckingRoute>
+            },
+            {
+                path: "/poy-floor-status",
+                element: <PoyFloorLayout />
             },
             {
                 path: "/poy-floor-status/present-lot-and-transfer-area",

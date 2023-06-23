@@ -30,9 +30,10 @@ const GridFeatures = () => {
               link: "/dty-process-parameters"
             },
             {
-              name: 'Simple Queues',
-              description: 'Rerum quas incidunt deleniti quaerat suscipit mollitia. Amet repellendus ut odit dolores qui.',
+              name: 'POY',
+              description: 'Explore Latest DTY Floor Status with details of materials and production flow',
               icon: ArrowPathIcon,
+              link: "/poy-floor-status/"
             },
             {
               name: 'Advanced Security',
