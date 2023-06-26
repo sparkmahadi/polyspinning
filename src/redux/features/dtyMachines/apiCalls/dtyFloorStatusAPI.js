@@ -1,21 +1,26 @@
 import { toast } from "react-hot-toast";
 import axios from "../../../../utils/axios.config";
 
-export const fetchDtyMachines = async() =>{
+export const fetchDtyMachines = async () => {
     const data = await axios.get("/api/v1/dty-machines");
     return data.data;
 }
 
-export const fetchDtyMachineDetails = async(machineWithSide) =>{
+export const fetchDtyMachineDetails = async (machineWithSide) => {
     const data = await axios.get(`/api/v1/dty-machines/machine-details?machine=${machineWithSide}`);
     return data.data;
 }
 
-export const modifyDtyMachine = async(DTYMCNo, Side, changedProps) =>{
+export const fetchDtyMachinesBySearch = async (searchData) => {
+    const data = await axios.get(`/api/v1/dty-machines/search?searchedCategory=${searchData.searchedCategory}&&searchedProp=${searchData.searchedProp}&&searchText=${searchData.searchText}`);
+    return data.data;
+}
+
+export const modifyDtyMachine = async (DTYMCNo, Side, changedProps) => {
     console.log(DTYMCNo, Side, changedProps);
-    if(DTYMCNo && changedProps){
-        const data = await axios.put(`/api/v1/dty-machines/update-manually?DTYMCNo=${DTYMCNo}&Side=${Side}`, {changedProps});
-        if(Array.isArray(data.data)){
+    if (DTYMCNo && changedProps) {
+        const data = await axios.put(`/api/v1/dty-machines/update-manually?DTYMCNo=${DTYMCNo}&Side=${Side}`, { changedProps });
+        if (Array.isArray(data.data)) {
             data.data.forEach((dt) => {
                 if (dt.acknowledged) {
                     toast.success(`Updated Machine No. #${DTYMCNo}, for both side`, { id: "updated" + DTYMCNo });

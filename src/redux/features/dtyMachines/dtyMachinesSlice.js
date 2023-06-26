@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchDtyMachineDetails, fetchDtyMachines, modifyDtyMachine } from "./apiCalls/dtyFloorStatusAPI";
+import { fetchDtyMachineDetails, fetchDtyMachines, fetchDtyMachinesBySearch, modifyDtyMachine } from "./apiCalls/dtyFloorStatusAPI";
 
 const initialState = {
     dtyMachines: [],
@@ -14,6 +14,9 @@ const initialState = {
         intJetType: 'All',
     },
     machineDisplayMode: "BigCard",
+    searchedCategory: "notSelected",
+    propsForSearch: [],
+    searchedProp: "notSelected",
     detailedMachine: {},
     enableEditing: false,
     postMachineSuccess: false,
@@ -32,6 +35,11 @@ export const getDtyMachines = createAsyncThunk("dtyMachines/getDtyMachines", asy
 export const getDtyMachineDetails = createAsyncThunk("dtyMachines/getDtyMachineDetails", async (machineWithSide) => {
     const machineData = fetchDtyMachineDetails(machineWithSide);
     return machineData;
+})
+
+export const getDtyMachinesBySearch = createAsyncThunk("dtyMachines/getDtyMachineBySearch", async (searchText) => {
+    const machines = fetchDtyMachinesBySearch(searchText);
+    return machines;
 })
 
 export const updateDtyMachine = createAsyncThunk("dtyMachines/updateDtyMachine", async (updateInfo) => {
@@ -53,6 +61,11 @@ const dtyMachinesSlice = createSlice({
         setMachineDisplayMode: (state, action) => {
             state.machineDisplayMode = action.payload;
         },
+        setSearchedValue: (state, action) => {
+            state.isLoading = true;
+            state[action.payload.name] = action.payload.value;
+            state.isLoading = false;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getDtyMachines.pending, (state, action) => {
@@ -65,6 +78,22 @@ const dtyMachinesSlice = createSlice({
             state.isError = false;
         })
         builder.addCase(getDtyMachines.rejected, (state, action) => {
+            state.dtyMachines = [];
+            state.isLoading = false;
+            state.isError = true;
+            state.error = action.error.message;
+        })
+
+        builder.addCase(getDtyMachinesBySearch.pending, (state, action) => {
+            state.isLoading = true;
+            state.isError = false;
+        })
+        builder.addCase(getDtyMachinesBySearch.fulfilled, (state, action) => {
+            state.dtyMachines = action.payload;
+            state.isLoading = false;
+            state.isError = false;
+        })
+        builder.addCase(getDtyMachinesBySearch.rejected, (state, action) => {
             state.dtyMachines = [];
             state.isLoading = false;
             state.isError = true;
@@ -108,5 +137,5 @@ const dtyMachinesSlice = createSlice({
     }
 });
 
-export const { switchEnableEditing, setSelectedFiltersDTY, setMachineDisplayMode } = dtyMachinesSlice.actions;
+export const { switchEnableEditing, setSelectedFiltersDTY, setMachineDisplayMode, setSearchedValue } = dtyMachinesSlice.actions;
 export default dtyMachinesSlice.reducer;
