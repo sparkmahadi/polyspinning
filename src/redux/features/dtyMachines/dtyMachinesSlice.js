@@ -3,6 +3,17 @@ import { fetchDtyMachineDetails, fetchDtyMachines, modifyDtyMachine } from "./ap
 
 const initialState = {
     dtyMachines: [],
+    selectedFilters: {
+        floor: 'All',
+        productType: 'All',
+        poyLine: 'All',
+        checkArea: 'All',
+        bobbinColor: 'All',
+        lotNo: 'All',
+        intType: 'All',
+        intJetType: 'All',
+    },
+    machineDisplayMode: "BigCard",
     detailedMachine: {},
     enableEditing: false,
     postMachineSuccess: false,
@@ -23,7 +34,7 @@ export const getDtyMachineDetails = createAsyncThunk("dtyMachines/getDtyMachineD
     return machineData;
 })
 
-export const updateDtyMachine = createAsyncThunk("dtyMachines/updateDtyMachine", async(updateInfo) =>{
+export const updateDtyMachine = createAsyncThunk("dtyMachines/updateDtyMachine", async (updateInfo) => {
     console.log("updateInfo", updateInfo);
     const machineData = modifyDtyMachine(updateInfo.DTYMCNo, updateInfo.Side, updateInfo.changedProperties);
     return machineData;
@@ -33,9 +44,15 @@ const dtyMachinesSlice = createSlice({
     name: "dtyMachines",
     initialState,
     reducers: {
-        switchEnableEditing: (state, action)=>{
+        switchEnableEditing: (state, action) => {
             state.enableEditing = !state.enableEditing;
-        }
+        },
+        setSelectedFiltersDTY: (state, action) => {
+            state.selectedFilters = action.payload;
+        },
+        setMachineDisplayMode: (state, action) => {
+            state.machineDisplayMode = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(getDtyMachines.pending, (state, action) => {
@@ -52,7 +69,7 @@ const dtyMachinesSlice = createSlice({
             state.isLoading = false;
             state.isError = true;
             state.error = action.error.message;
-        })  
+        })
 
 
         builder.addCase(getDtyMachineDetails.pending, (state, action) => {
@@ -91,5 +108,5 @@ const dtyMachinesSlice = createSlice({
     }
 });
 
-export const {switchEnableEditing} = dtyMachinesSlice.actions;
+export const { switchEnableEditing, setSelectedFiltersDTY, setMachineDisplayMode } = dtyMachinesSlice.actions;
 export default dtyMachinesSlice.reducer;

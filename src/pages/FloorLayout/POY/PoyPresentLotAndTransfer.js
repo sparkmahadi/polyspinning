@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { findPoyWinder, getPoyMcDataFromLot, setSelectedFilters } from '../../../redux/features/poyMachinesFromPresentLot/poyMCsFromPLotSlice';
+import { findPoyWinder, getPoyMcDataFromLot, setSelectedFiltersPOY } from '../../../redux/features/poyMachinesFromPresentLot/poyMCsFromPLotSlice';
 import Spinner from '../../../components/Spinner/Spinner';
 
 const PoyPresentLotAndTransfer = () => {
@@ -49,7 +49,7 @@ const PoyPresentLotAndTransfer = () => {
         [filterName]: filterValue,
       };
     }
-    dispatch(setSelectedFilters(updatedFilters));
+    dispatch(setSelectedFiltersPOY(updatedFilters));
   };
 
 
@@ -76,7 +76,7 @@ const PoyPresentLotAndTransfer = () => {
             <p className="font-medium">Filters</p>
             <button
               className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md"
-              onClick={() => dispatch(setSelectedFilters({ lineNo: 'All', denier: 'All', filaments: 'All', poyBobbin: 'All' }))}
+              onClick={() => dispatch(setSelectedFiltersPOY({ lineNo: 'All', denier: 'All', filaments: 'All', poyBobbin: 'All' }))}
             >
               Reset Filter
             </button>

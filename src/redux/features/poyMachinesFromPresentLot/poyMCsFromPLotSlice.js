@@ -9,7 +9,7 @@ const initialState = {
         denier: 'All',
         filaments: 'All',
         poyBobbin: 'All',
-      },
+    },
     postMachineSuccess: false,
     updateMachineSuccess: false,
     isLoading: false,
@@ -53,7 +53,7 @@ export const addWinderUpdate = createAsyncThunk("poyMachinesFromLot/addWinderUpd
 //     return winderData;
 // })
 
-export const updatePoyInfoInDty = createAsyncThunk("poyMachinesFromLot/updatePoyInfoInDty", async(poySummary) =>{
+export const updatePoyInfoInDty = createAsyncThunk("poyMachinesFromLot/updatePoyInfoInDty", async (poySummary) => {
     const data = updateDtyMachineByPoyLot(poySummary);
     return data;
 })
@@ -70,7 +70,7 @@ const poyMCsFromPLotSlice = createSlice({
         clearPoyWinder: (state, action) => {
             state.poyWinderData = {};
         },
-        setSelectedFilters: (state, action) => {
+        setSelectedFiltersPOY: (state, action) => {
             state.selectedFilters = action.payload;
         },
     },
@@ -146,5 +146,5 @@ const poyMCsFromPLotSlice = createSlice({
     }
 });
 
-export const { findPoyWinder, setSelectedFilters } = poyMCsFromPLotSlice.actions;
+export const { findPoyWinder, setSelectedFiltersPOY } = poyMCsFromPLotSlice.actions;
 export default poyMCsFromPLotSlice.reducer;
