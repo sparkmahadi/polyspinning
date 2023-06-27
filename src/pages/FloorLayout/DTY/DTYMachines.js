@@ -90,7 +90,7 @@ const DTYMachines = () => {
             });
     }
 
-    const filterFloorwiseMCs = (floorName) => {
+    const filterMCsFloorwise = (floorName) => {
         content = dtyMachines
             .filter((mc) => {
                 const machine = `${mc.mcInfo.DTYMCNo}/${mc.mcInfo.Side}`;
@@ -121,22 +121,42 @@ const DTYMachines = () => {
                     }
                 }
                 return false;
+            }).filter((machine) => {
+                if (
+                    (selectedFilters.productType === 'All' ||
+                        machine.DTYInfo.DTYType === selectedFilters.productType) &&
+                    (selectedFilters.poyLine === 'All' ||
+                        machine.POYInfo.POYLine === selectedFilters.poyLine) &&
+                    (selectedFilters.checkArea === 'All' ||
+                        machine.DTYInfo.InspectionArea === selectedFilters.checkArea) &&
+                    (selectedFilters.bobbinColor === 'All' ||
+                        machine.DTYInfo.DTYTubeColor === selectedFilters.bobbinColor) &&
+                    (selectedFilters.lotNo === 'All' ||
+                        machine.DTYInfo.LotNo === selectedFilters.lotNo) &&
+                    (selectedFilters.intType === 'All' ||
+                        machine.params.IntType === selectedFilters.intType) &&
+                    (selectedFilters.intJetType === 'All' ||
+                        machine.params.IntJetType === selectedFilters.intJetType)
+                ) {
+                    return true;
+                }
+                return false;
             });
     }
 
     if (selectedFilters.floor === "HIMSON-GF") {
-        filterFloorwiseMCs("HIMSON-GF")
+        filterMCsFloorwise("HIMSON-GF")
     } else if (selectedFilters.floor === "HIMSON-FF") {
-        filterFloorwiseMCs("HIMSON-FF")
+        filterMCsFloorwise("HIMSON-FF")
     }
     else if (selectedFilters.floor === "ALIDHRA-GF") {
-        filterFloorwiseMCs("ALIDHRA-GF")
+        filterMCsFloorwise("ALIDHRA-GF")
     }
     else if (selectedFilters.floor === "ALIDHRA-FF") {
-        filterFloorwiseMCs("ALIDHRA-FF")
+        filterMCsFloorwise("ALIDHRA-FF")
     }
     else if (selectedFilters.floor === "ALIDHRA-SF") {
-        filterFloorwiseMCs("ALIDHRA-SF")
+        filterMCsFloorwise("ALIDHRA-SF")
     }
 
     const handleSearch = (e) => {
@@ -350,39 +370,28 @@ const DTYMachines = () => {
                 </div>
             </div>
 
-            <div className="mx-auto mt-12 grid max-w-md gap-8 px-6 sm:max-w-lg lg:max-w-7xl lg:grid-cols-3 lg:px-8 justify-center">
-                {content
-                    .filter((machine) => {
-                        if (
-                            (selectedFilters.productType === 'All' ||
-                                machine.DTYInfo.DTYType === selectedFilters.productType) &&
-                            (selectedFilters.poyLine === 'All' ||
-                                machine.POYInfo.POYLine === selectedFilters.poyLine) &&
-                            (selectedFilters.checkArea === 'All' ||
-                                machine.DTYInfo.InspectionArea === selectedFilters.checkArea) &&
-                            (selectedFilters.bobbinColor === 'All' ||
-                                machine.DTYInfo.DTYTubeColor === selectedFilters.bobbinColor) &&
-                            (selectedFilters.lotNo === 'All' ||
-                                machine.DTYInfo.LotNo === selectedFilters.lotNo) &&
-                            (selectedFilters.intType === 'All' ||
-                                machine.params.IntType === selectedFilters.intType) &&
-                            (selectedFilters.intJetType === 'All' ||
-                                machine.params.IntJetType === selectedFilters.intJetType)
-                        ) {
-                            return true;
-                        }
-                        return false;
-                    })
-                    .map
-                    (({ mcInfo, DTYInfo, POYInfo, params }, i) => (
-                        <DTYMachineCard key={i}
-                            mcInfo={mcInfo}
-                            DTYInfo={DTYInfo}
-                            POYInfo={POYInfo}
-                            params={params}
-                        ></DTYMachineCard>
-                    ))}
-            </div>
+            {
+                content?.length > 0 &&
+                <div className="mx-auto mt-12 grid max-w-md gap-8 px-6 sm:max-w-lg lg:max-w-7xl lg:grid-cols-3 lg:px-8 justify-center">
+                    {
+                        content?.map
+                            (({ mcInfo, DTYInfo, POYInfo, params }, i) => (
+                                <DTYMachineCard key={i}
+                                    mcInfo={mcInfo}
+                                    DTYInfo={DTYInfo}
+                                    POYInfo={POYInfo}
+                                    params={params}
+                                ></DTYMachineCard>
+                            ))
+                    }
+                </div>
+            }
+
+
+            {
+                !content?.length &&
+                <div><p className='text-center font-semibold py-5 lg:py-16'>Sorry! No Machines Found With Such Property!!!</p></div>
+            }
         </>
     );
 };
