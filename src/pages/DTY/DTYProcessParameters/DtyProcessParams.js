@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { getDtyParams, getDtyParamsForComparison } from '../../redux/features/dtyProcessParameters/dtyParametersSlice';
+import { getDtyParams, getDtyParamsForComparison } from '../../../redux/features/dtyProcessParameters/dtyParametersSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import Spinner from '../../components/Spinner/Spinner';
-import LoadingCustom from '../../components/Spinner/LoadingCustom';
-import DataLoading from '../../components/Spinner/DataLoading';
+import Spinner from '../../../components/Spinner/Spinner';
+import LoadingCustom from '../../../components/Spinner/LoadingCustom';
+import DataLoading from '../../../components/Spinner/DataLoading';
 
 const DtyProcessParams = () => {
   const { dtyProcessParameters, isLoading } = useSelector(state => state.dtyProcessParameters);

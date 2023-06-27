@@ -1,29 +1,29 @@
 import { createBrowserRouter } from "react-router-dom";
 import Main from "../layouts/Main";
 import Home from "../pages/Home/Home/Home";
-import DtyFloorLayout from "../pages/FloorLayout/DTY/DtyFloorLayout";
 import InputExcelData from "../pages/InputExcelData/InputExcelData";
-import DtyMachinesFromPresentLot from "../pages/FloorLayout/DTY/DtyMachinesFromPresentLot";
 import Login from "../pages/Logging/Login/Login";
 import Register from './../pages/Logging/Register/Register';
 import ResetPassword from "../pages/Logging/ResetPassword/ResetPassword";
-import DtyProcessParams from "../pages/DTYProcessParameters/DtyProcessParams";
-import DtyMachinesWithParams from "../pages/FloorLayout/DTY/DtyMachinesWithParams";
-import DtyPresentLotAndTransfer from "../pages/FloorLayout/DTY/DtyPresentLotAndTransfer";
-import PoyPresentLotAndTransfer from './../pages/FloorLayout/POY/PoyPresentLotAndTransfer';
-import PoyWinder from "../pages/FloorLayout/POY/PoyWinder";
-import AddNewDtyMachine from "../pages/Machines/DTY/AddNewDtyMachine";
-import DTYMCDetails from "../pages/Machines/DTY/DTYMCDetails";
-import DTYMachines from './../pages/FloorLayout/DTY/DTYMachines';
-import AddNewParamStatic from "../pages/DTYProcessParameters/AddNewParamStatic";
-import DTYPresentLotHistory from "../pages/DTYPresentLotHistory/DTYPresentLotHistory";
-import DTYLotDetails from "../pages/DTYLotDetails/DTYLotDetails";
-import DTYMachineUpdates from "../pages/FloorLayout/DTY/DTYMachineUpdates";
-import DenierwisePOYLines from "../pages/FloorLayout/POY/DenierwisePOYLines";
 import CheckingRoute from "./CheckingRoute";
 import PrivateRoute from "./PrivateRoute";
-import PoyFloorLayout from "../pages/FloorLayout/POY/PoyFloorLayout";
 import FileUpFormats from "../pages/InputExcelData/FileUpFormats";
+import DtyFloorLayout from "../pages/DTY/FloorLayout/DtyFloorLayout";
+import DTYMachines from "../pages/DTY/FloorLayout/DTYMachines";
+import DtyMachinesFromPresentLot from "../pages/DTY/FloorLayout/DtyMachinesFromPresentLot";
+import DTYMCDetails from './../pages/DTY/Machines/DTYMCDetails';
+import DtyMachinesWithParams from './../pages/DTY/FloorLayout/DtyMachinesWithParams';
+import AddNewDtyMachine from "../pages/DTY/Machines/AddNewDtyMachine";
+import DtyPresentLotAndTransfer from './../pages/DTY/FloorLayout/DtyPresentLotAndTransfer';
+import DTYPresentLotHistory from "../pages/DTY/DTYPresentLotHistory/DTYPresentLotHistory";
+import DTYLotDetails from "../pages/DTY/DTYLotDetails/DTYLotDetails";
+import DTYMachineUpdates from './../pages/DTY/FloorLayout/DTYMachineUpdates';
+import DtyProcessParams from "../pages/DTY/DTYProcessParameters/DtyProcessParams";
+import PoyFloorLayout from './../pages/POY/FloorLayout/PoyFloorLayout';
+import PoyPresentLotAndTransfer from './../pages/POY/FloorLayout/PoyPresentLotAndTransfer';
+import DenierwisePOYLines from './../pages/POY/FloorLayout/DenierwisePOYLines';
+import PoyWinder from './../pages/POY/FloorLayout/PoyWinder';
+import AddNewParamStatic from "../pages/DTY/DTYProcessParameters/AddNewParamStatic";
 
 export const router = createBrowserRouter([
     {
@@ -56,7 +56,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/dty-floor-status/dty-machine/new-machine",
-                element: <PrivateRoute><CheckingRoute><AddNewDtyMachine /></CheckingRoute></PrivateRoute>
+                element: <PrivateRoute><CheckingRoute><AddNewDtyMachine/></CheckingRoute></PrivateRoute>
             },
             {
                 path: "/dty-floor-status/present-lot-and-transfer-area",
@@ -80,7 +80,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/dty-process-parameters/add-new-parameter",
-                element: <PrivateRoute><CheckingRoute><AddNewParamStatic /></CheckingRoute></PrivateRoute>
+                element: <PrivateRoute><CheckingRoute><AddNewParamStatic/></CheckingRoute></PrivateRoute>
             },
             {
                 path: "/poy-floor-status",

@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { addDtyParameter, getDtyParamByMC, getDtyParamsForComparison, updateDtyMachineParam } from '../../redux/features/dtyProcessParameters/dtyParametersSlice';
+import { addDtyParameter, getDtyParamByMC, getDtyParamsForComparison, updateDtyMachineParam } from '../../../redux/features/dtyProcessParameters/dtyParametersSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-hot-toast';
-import Spinner from '../../components/Spinner/Spinner';
+import Spinner from '../../../components/Spinner/Spinner';
 
 const AddNewParamStatic = () => {
     const dispatch = useDispatch();

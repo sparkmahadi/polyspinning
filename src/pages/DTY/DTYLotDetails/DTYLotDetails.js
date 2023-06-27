@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getLotDetailsById } from '../../redux/features/dtyPresentLotAndTransfer/dtyPresentLotSlice';
 import { useParams } from 'react-router-dom';
-import PresentLotTable from '../../components/DTY/PresentLot/PresentLotTable';
+import { getLotDetailsById } from '../../../redux/features/dtyPresentLotAndTransfer/dtyPresentLotSlice';
+import PresentLotTable from '../../../components/DTY/PresentLot/PresentLotTable';
 
 const DTYLotDetails = () => {
     const dispatch = useDispatch();

@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import runningGears from "../../../images/gear_rotation.gif"
 import gearStopped from "../../../images/gear stopped.png";
 import dtyMachineImg from "../../../images/dty-machine.png"
+import dtyYarnPath from "../../../images/dty-yarn-path.png"
 import poyPackage from "../../../images/poy-package-removebg-preview.png"
 import dtyPackage from "../../../images/dty-package-removebg-preview.png"
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,11 +12,16 @@ import DataLoading from '../../../components/Spinner/DataLoading';
 import { getDtyMachineDetails, switchEnableEditing, updateDtyMachine } from '../../../redux/features/dtyMachines/dtyMachinesSlice';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
+import { AuthContext } from '../../../contexts/UserContext';
+import useCheckAccType from '../../../hooks/useCheckAccType';
 
 const DTYMCDetails = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { detailedMachine, isLoading, isError, enableEditing } = useSelector(state => state.dtyMachines);
+    const { user, loading } = useContext(AuthContext);
+    const [accType, isAccLoading] = useCheckAccType(user?.email);
+    console.log(accType);
     const { register, handleSubmit, reset } = useForm();
     const [searchParams, setSearchParams] = useSearchParams();
     const machine = searchParams.get("machine");
@@ -85,8 +91,6 @@ const DTYMCDetails = () => {
         console.log("updatedObj", updatedObj);
 
         const { _id, updatedAt, ...oldObj } = detailedMachine;
-        console.log("oldObj", oldObj);
-        // reset(oldObj);
         console.log("changed data", data);
         const changedProperties = compareObjects(oldObj, updatedObj);
         console.log(changedProperties);
@@ -156,7 +160,10 @@ const DTYMCDetails = () => {
                             <div className='mb-5'>
                                 <h3 className="text-xl font-bold mb-2">Parameters:</h3>
                                 <div className='lg:flex flex-row-reverse justify-center items-center'>
-                                    <img className='lg:w-52 mx-auto' src={dtyMachineImg} alt="" />
+                                    <div>
+                                        <img src={dtyYarnPath} alt="" />
+                                        <img className='lg:w-52 mx-auto' src={dtyMachineImg} alt="" />
+                                    </div>
                                     <table className="table-auto w-full">
                                         <tbody>
                                             {Object?.entries(detailedMachine.params).map(([key, value]) => (
@@ -229,9 +236,12 @@ const DTYMCDetails = () => {
                             }
                         </div>
                     </div>
-                    <div className='flex justify-center'>
-                        <label onClick={() => dispatch(switchEnableEditing())} htmlFor="dtyMachineModal" className='btn btn-outline btn-sm'>Update Details</label>
-                    </div>
+                    {
+                        accType === "Admin" &&
+                        <div className='flex justify-center'>
+                            <label onClick={() => dispatch(switchEnableEditing())} htmlFor="dtyMachineModal" className='btn btn-outline btn-sm'>Update Details</label>
+                        </div>
+                    }
                 </>
             }
 

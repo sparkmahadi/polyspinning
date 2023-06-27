@@ -274,8 +274,8 @@ const DTYMachines = () => {
                                 className="px-3 py-2 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
                                 <option value="All">Product Type</option>
                                 {
-                                    uniqueDTYTypes?.map(pd =>
-                                        <option value={pd}>{pd}</option>
+                                    uniqueDTYTypes?.map((pd, i) =>
+                                        <option key={i} value={pd}>{pd}</option>
                                     )
                                 }
                             </select>
@@ -286,8 +286,8 @@ const DTYMachines = () => {
                                 className="px-3 py-2 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
                                 <option value="All">POY Lines</option>
                                 {
-                                    uniquePOYLines?.map(poyLine =>
-                                        <option value={poyLine}>{poyLine}</option>
+                                    uniquePOYLines?.map((poyLine, i) =>
+                                        <option key={i} value={poyLine}>{poyLine}</option>
                                     )
                                 }
                             </select>
@@ -298,8 +298,8 @@ const DTYMachines = () => {
                                 className="px-3 py-2 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
                                 <option value="All">Check Area</option>
                                 {
-                                    uniqueCheckArea?.map(area =>
-                                        <option value={area}>{area}</option>
+                                    uniqueCheckArea?.map((area, i) =>
+                                        <option key={i} value={area}>{area}</option>
                                     )
                                 }
                             </select>
@@ -310,8 +310,8 @@ const DTYMachines = () => {
                                 className="px-3 py-2 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
                                 <option value="All">Bobbin Color</option>
                                 {
-                                    uniqueBobbins?.map(bobbin =>
-                                        <option value={bobbin}>{bobbin}</option>
+                                    uniqueBobbins?.map((bobbin, i) =>
+                                        <option key={i} value={bobbin}>{bobbin}</option>
                                     )
                                 }
                             </select>
@@ -322,8 +322,8 @@ const DTYMachines = () => {
                                 className="px-3 py-2 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
                                 <option value="All">Lot Number</option>
                                 {
-                                    uniqueLots?.map(lot =>
-                                        <option value={lot}>{lot}</option>
+                                    uniqueLots?.map((lot, i) =>
+                                        <option key={i} value={lot}>{lot}</option>
                                     )
                                 }
                             </select>
@@ -334,8 +334,8 @@ const DTYMachines = () => {
                                 className="px-3 py-2 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
                                 <option value="All">Intermingle Type</option>
                                 {
-                                    uniqueIntermingling?.map(intermingle =>
-                                        <option value={intermingle}>{intermingle}</option>
+                                    uniqueIntermingling?.map((intermingle, i) =>
+                                        <option key={i} value={intermingle}>{intermingle}</option>
                                     )
                                 }
                             </select>
@@ -346,8 +346,8 @@ const DTYMachines = () => {
                                 className="px-3 py-2 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm">
                                 <option value="All">Int Jet Type</option>
                                 {
-                                    uniqueIntJets?.map(jet =>
-                                        <option value={jet}>{jet}</option>
+                                    uniqueIntJets?.map((jet, i) =>
+                                        <option key={i} value={jet}>{jet}</option>
                                     )
                                 }
                             </select>

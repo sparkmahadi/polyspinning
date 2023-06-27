@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPresentLotHistory } from '../../redux/features/dtyPresentLotAndTransfer/dtyPresentLotSlice';
 import { Link } from 'react-router-dom';
+import { getPresentLotHistory } from '../../../redux/features/dtyPresentLotAndTransfer/dtyPresentLotSlice';
 
 const DTYPresentLotHistory = () => {
     const dispatch = useDispatch();
