@@ -4,6 +4,7 @@ import { toast } from 'react-hot-toast';
 import { useEffect } from 'react';
 import { AuthContext } from '../../../contexts/UserContext';
 import Spinner from '../../../components/Spinner/Spinner';
+import axios from '../../../utils/axios.config';
 
 const Register = () => {
     const [loading, setLoading] = useState(false);
@@ -56,13 +57,14 @@ const Register = () => {
 
     const saveUser = (name, email, accountType) => {
         const user = { name, email, accountType, verified: false };
-        fetch('http://localhost:5000/api/v1/users', {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(user)
-        })
+        // fetch('http://localhost:5000/api/v1/users', {
+        //     method: 'POST',
+        //     headers: {
+        //         'content-type': 'application/json'
+        //     },
+        //     body: JSON.stringify(user)
+        // })
+        axios.post("/api/v1/users", user)
             .then(res => res.json())
             .then(data => {
                 console.log(data);

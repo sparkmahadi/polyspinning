@@ -2,7 +2,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import runningGears from "../../../images/gear_rotation.gif"
 import gearStopped from "../../../images/gear stopped.png";
 import dtyMachineImg from "../../../images/dty-machine.png"
-import dtyYarnPath from "../../../images/dty-yarn-path.png"
+import mcParamImg from "../../../images/mcparams.jpg"
+import mcParamSpeedImg from "../../../images/paramspeed.jpg"
+import mcParamAxialImg from "../../../images/paramaxial.jpg"
 import poyPackage from "../../../images/poy-package-removebg-preview.png"
 import dtyPackage from "../../../images/dty-package-removebg-preview.png"
 import { useDispatch, useSelector } from 'react-redux';
@@ -159,10 +161,12 @@ const DTYMCDetails = () => {
 
                             <div className='mb-5'>
                                 <h3 className="text-xl font-bold mb-2">Parameters:</h3>
-                                <div className='lg:flex flex-row-reverse justify-center items-center'>
-                                    <div>
-                                        <img src={dtyYarnPath} alt="" />
-                                        <img className='lg:w-52 mx-auto' src={dtyMachineImg} alt="" />
+                                <div className='lg:flex flex-row-reverse justify-center items-center gap-5'>
+                                    <div className='lg:flex flex-col gap-5'>
+                                        <img className='lg:w-80 mx-auto rounded-lg' src={mcParamSpeedImg} alt="" />
+                                        <img className='lg:w-80 mx-auto rounded-lg' src={mcParamImg} alt="" />
+                                        <img className='lg:w-80 mx-auto rounded-lg' src={mcParamAxialImg} alt="" />
+                                        <img className='lg:w-80 mx-auto rounded-lg' src={dtyMachineImg} alt="" />
                                     </div>
                                     <table className="table-auto w-full">
                                         <tbody>

@@ -28,7 +28,7 @@ const DTYMachineCard = ({ mcInfo, DTYInfo, POYInfo, params }) => {
       <div className="flex flex-1 flex-col justify-between bg-white p-6">
         <div className="flex-1">
           <p className="text-sm font-medium text-cyan-600">
-            POY {POYInfo.POYDenier}/{POYInfo.Filaments} to DTY {DTYInfo.DTYDenier}/{DTYInfo.Filaments}/{params.IntType}, ({DTYInfo.LotNo})
+            POY {POYInfo.POYDenier}/{POYInfo.Filaments} to DTY {DTYInfo.DTYType}, ({DTYInfo.LotNo})
           </p>
           <div className="mt-2 block text-sm lg:text-base">
             <p className="text-base lg:text-xl font-semibold text-gray-900">Machine #{mcInfo.DTYMCNo}/{mcInfo.Side} | {mcInfo.Brand} | {parseInt((POYInfo.POYDenier * mcInfo.TotalSpindles * params.MCSpeed * 0.00016) / params.DR)} kgs/day</p>
