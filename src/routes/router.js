@@ -51,11 +51,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/dty-floor-status/dty-machines-with-parameters",
-                element: <CheckingRoute><DtyMachinesWithParams /></CheckingRoute>,
+                element: <PrivateRoute><CheckingRoute><DtyMachinesWithParams /></CheckingRoute>,</PrivateRoute>
             },
             {
                 path: "/dty-floor-status/dty-machine/new-machine",
-                element: <CheckingRoute><AddNewDtyMachine /></CheckingRoute>
+                element: <PrivateRoute><CheckingRoute><AddNewDtyMachine /></CheckingRoute></PrivateRoute>
             },
             {
                 path: "/dty-floor-status/present-lot-and-transfer-area",
@@ -79,7 +79,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/dty-process-parameters/add-new-parameter",
-                element: <CheckingRoute><AddNewParamStatic /></CheckingRoute>
+                element: <PrivateRoute><CheckingRoute><AddNewParamStatic /></CheckingRoute></PrivateRoute>
             },
             {
                 path: "/poy-floor-status",
@@ -99,7 +99,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/upload/excel",
-                element: <CheckingRoute><InputExcelData /></CheckingRoute>
+                element: <PrivateRoute><CheckingRoute><InputExcelData /></CheckingRoute></PrivateRoute>
             },
             {
                 path: "/login",

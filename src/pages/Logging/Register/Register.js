@@ -24,8 +24,6 @@ const Register = () => {
         const password = form.password.value;
         const accountType = form.accountType.value;
 
-        console.log(name, password, email, accountType);
-
         createNewUser(email, password)
             .then(r => {
                 const user = r.user;

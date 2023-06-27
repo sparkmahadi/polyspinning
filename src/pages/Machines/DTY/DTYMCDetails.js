@@ -21,8 +21,7 @@ const DTYMCDetails = () => {
     const machine = searchParams.get("machine");
 
     useEffect(() => {
-        dispatch(getDtyMachineDetails
-            (machine));
+        dispatch(getDtyMachineDetails(machine));
     }, [dispatch, machine])
 
     const DTYInfoProps = [
@@ -84,7 +83,7 @@ const DTYMCDetails = () => {
         }
 
         console.log("updatedObj", updatedObj);
-        
+
         const { _id, updatedAt, ...oldObj } = detailedMachine;
         console.log("oldObj", oldObj);
         // reset(oldObj);
@@ -230,7 +229,9 @@ const DTYMCDetails = () => {
                             }
                         </div>
                     </div>
-                    <label onClick={() => dispatch(switchEnableEditing())} htmlFor="dtyMachineModal" className='btn btn-success btn-sm'>Update Details</label>
+                    <div className='flex justify-center'>
+                        <label onClick={() => dispatch(switchEnableEditing())} htmlFor="dtyMachineModal" className='btn btn-outline btn-sm'>Update Details</label>
+                    </div>
                 </>
             }
 

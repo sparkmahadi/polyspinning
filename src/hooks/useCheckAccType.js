@@ -1,3 +1,4 @@
+import axios from "../utils/axios.config";
 import { useEffect, useState } from "react"
 
 const useCheckAccType = (email) => {
@@ -6,14 +7,12 @@ const useCheckAccType = (email) => {
 
     useEffect(() => {
         if (email) {
-            fetch(`http://localhost:5000/api/v1/users/accTypeCheck/${email}`)
-                .then(res => res.json())
+            axios.get(`/api/v1/users/accTypeCheck/${email}`)
                 .then(data => {
-                    // console.log(data);
-                    setAccType(data.accountType);
+                    setAccType(data.data.accountType);
                     setIsAccLoading(false);
-                })
-        } else{
+                });
+        } else {
             setIsAccLoading(false);
         }
     }, [email])

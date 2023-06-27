@@ -37,14 +37,15 @@ export const getDtyMachineDetails = createAsyncThunk("dtyMachines/getDtyMachineD
     return machineData;
 })
 
-export const getDtyMachinesBySearch = createAsyncThunk("dtyMachines/getDtyMachineBySearch", async (searchText) => {
-    const machines = fetchDtyMachinesBySearch(searchText);
+export const getDtyMachinesBySearch = createAsyncThunk("dtyMachines/getDtyMachineBySearch", async (searchData) => {
+    const machines = fetchDtyMachinesBySearch(searchData);
     return machines;
 })
 
-export const updateDtyMachine = createAsyncThunk("dtyMachines/updateDtyMachine", async (updateInfo) => {
+export const updateDtyMachine = createAsyncThunk("dtyMachines/updateDtyMachine", async (updateInfo, thunkAPI) => {
     console.log("updateInfo", updateInfo);
     const machineData = modifyDtyMachine(updateInfo.DTYMCNo, updateInfo.Side, updateInfo.changedProperties);
+    thunkAPI.dispatch(getDtyMachines);
     return machineData;
 })
 
