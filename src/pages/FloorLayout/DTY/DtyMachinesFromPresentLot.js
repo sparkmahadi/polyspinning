@@ -28,7 +28,8 @@ const DtyMachinesFromPresentLot = () => {
                 </div>
 
                 <div className="mx-auto mt-12 grid max-w-md gap-8 px-6 sm:max-w-lg lg:max-w-7xl md:grid-cols-2 lg:grid-cols-3 lg:px-8">
-                    {machines.map(({ DTYMCNo, ProductType, POYLine, DTYBobbinColor, PresentLotNo, AirPress, INTJet, InspectionArea, Side }, i) => (
+                    {machines?.length > 0 && 
+                    machines?.map(({ DTYMCNo, ProductType, POYLine, DTYBobbinColor, PresentLotNo, AirPress, INTJet, InspectionArea, Side }, i) => (
                         //   card component
                         <div key={i} className="flex flex-col overflow-hidden rounded-lg shadow-lg">
                             <div className="flex-shrink-0">
@@ -69,7 +70,12 @@ const DtyMachinesFromPresentLot = () => {
                     ))}
                 </div>
 
-                <Link to={'dty-machines/new-machine'}><button className='btn btn-primary block mx-auto mt-10'>Add New Machine</button></Link>
+                {
+                    machines?.length ||
+                    <p className='text-lg font-semibold text-center'>No machines found!!!</p>
+                }
+
+                <Link to={'dty-machines/new-machine'}><button className='btn btn-primary block mx-auto mt-10 btn-sm'>Add New Machine</button></Link>
             </div>
         </div>
     );

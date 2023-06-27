@@ -10,6 +10,8 @@ import { toast } from 'react-hot-toast';
 import { addMachine, getMcDataFromLot, updateMachine } from '../../redux/features/dtyMachinesFromPresentLot/dtyMCsFromPLotSlice';
 import DisplayDtyParameters from './DisplayDtyParameters';
 import DisplayDTYPresentLot from './DisplayDTYPresentLot';
+import { Link } from 'react-router-dom';
+import PresentLotInstruction from '../../components/DTY/FileInstructions/PresentLotInstruction';
 
 const InputExcelData = () => {
   const dispatch = useDispatch();
@@ -43,7 +45,7 @@ const InputExcelData = () => {
 
   const handleClearFile = () => {
     if (fileInputRef.current) {
-      fileInputRef.current.value = ''; // Clear the input value
+      fileInputRef.current.value = '';
     }
   };
 
@@ -87,6 +89,10 @@ const InputExcelData = () => {
       <p className='text-center pt-3'>Make sure your excel file doesn't have any empty cells within data range. If have any empty cells, then please replace those cells with any value you want e.g "-"</p>
       <div className=''>
 
+        <div className='flex justify-center items-center gap-5 my-5'>
+          <Link to={'download-file-uploading-formats'}><button className='btn btn-primary btn-sm'>Download File Uploading Formats</button></Link>
+        </div>
+
         <div className='flex justify-center my-5'>
           <select onChange={(e) => handleSelection(e)} className="select select-bordered w-full max-w-xs" required>
             <option disabled selected>Select File Type</option>
@@ -116,6 +122,11 @@ const InputExcelData = () => {
               <button type='submit' className='btn btn-success btn-sm my-2'>Submit</button>
             </div>
           </form>
+        }
+
+        {
+          fileTypeInfo === "DTYPresentLotAndTransferArea" &&
+          <PresentLotInstruction/>
         }
 
       </div>

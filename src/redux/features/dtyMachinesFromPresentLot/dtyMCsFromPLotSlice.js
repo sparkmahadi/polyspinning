@@ -22,8 +22,9 @@ export const getMcDataFromLot = createAsyncThunk("dtyMachinesFromLot/getMachines
     return machineData;
 })
 
-export const addMachine = createAsyncThunk("dtyMachinesFromLot/addMachine", async (newMCDetails) => {
+export const addMachine = createAsyncThunk("dtyMachinesFromLot/addMachine", async (newMCDetails, thunkAPI) => {
     const machineData = postMachine(newMCDetails);
+    thunkAPI.dispatch(getMcMergedDataFromLot);
     return machineData;
 })
 

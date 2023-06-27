@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Spinner from '../../../components/Spinner/Spinner';
 import DTYMachineCard from '../../../components/DTY/DTYMachine/DTYMachineCard';
 import { getDtyMachines, getDtyMachinesBySearch, setMachineDisplayMode, setSearchedValue, setSelectedFiltersDTY } from '../../../redux/features/dtyMachines/dtyMachinesSlice';
-import DataLoading from '../../../components/Spinner/DataLoading';
 import LoadingCustom from '../../../components/Spinner/LoadingCustom';
 import { toast } from 'react-hot-toast';
 import { findUniqueNestedValues } from '../../../logics/findingFunctions';
@@ -27,7 +26,7 @@ const DTYMachines = () => {
     }
 
     if (!dtyMachines.length) {
-        return <DataLoading></DataLoading>
+        return <p className='text-center text-lg font-semibold py-5'>No machines are found!!!</p>
     }
 
     const himsonGFMachines = ["1/A", "1/B", "2/A", "2/B", "3/A", "3/B", "4/A", "4/B"];
@@ -179,12 +178,10 @@ const DTYMachines = () => {
             toast.error("Please select a valid category!!!");
             dispatch(setSearchedValue({ name: "propsForSearch", value: [] }))
         } else {
-            // console.log(dtyMachines[0], selectedCategory);
             const uniqueProps = Object.keys(dtyMachines[0][selectedCategory]);
             if (uniqueProps?.length) {
                 dispatch(setSearchedValue({ name: "propsForSearch", value: uniqueProps }))
             }
-            // console.log(uniqueProps);
         }
     }
 

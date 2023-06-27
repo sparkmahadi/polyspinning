@@ -10,8 +10,8 @@ const Navbar = () => {
   const { user, loading, logOut } = useContext(AuthContext);
 
   const navigation = [
-    { name: 'DTY', href: '/dty-floor-status/present-lot-and-transfer-area' },
-    { name: 'POY', href: '/poy-floor-status/present-lot-and-transfer-area' },
+    { name: 'DTY', href: '/dty-floor-status' },
+    { name: 'POY', href: '/poy-floor-status' },
     { name: 'Marketplace', href: '#' },
     { name: 'Company', href: '#' },
   ]

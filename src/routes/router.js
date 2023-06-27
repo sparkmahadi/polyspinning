@@ -23,6 +23,7 @@ import DenierwisePOYLines from "../pages/FloorLayout/POY/DenierwisePOYLines";
 import CheckingRoute from "./CheckingRoute";
 import PrivateRoute from "./PrivateRoute";
 import PoyFloorLayout from "../pages/FloorLayout/POY/PoyFloorLayout";
+import FileUpFormats from "../pages/InputExcelData/FileUpFormats";
 
 export const router = createBrowserRouter([
     {
@@ -100,6 +101,10 @@ export const router = createBrowserRouter([
             {
                 path: "/upload/excel",
                 element: <PrivateRoute><CheckingRoute><InputExcelData /></CheckingRoute></PrivateRoute>
+            },
+            {
+                path: "/upload/excel/download-file-uploading-formats",
+                element: <PrivateRoute><CheckingRoute><FileUpFormats /></CheckingRoute></PrivateRoute>
             },
             {
                 path: "/login",
