@@ -170,8 +170,8 @@ const PoyPresentLotAndTransfer = () => {
                 ))}
                 <td>
                   <Link
-                    onClick={() => dispatch(findPoyWinder(machine['Winder No']))}
-                    to={`/poy-winders/${machine['Winder No']}`}
+                    onClick={() => dispatch(findPoyWinder(machine['WinderNo']))}
+                    to={`/poy-winders/${machine['WinderNo']}`}
                   >
                     <button className="btn btn-primary btn-sm">Edit</button>
                   </Link>

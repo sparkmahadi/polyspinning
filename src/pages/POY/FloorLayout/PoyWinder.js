@@ -3,12 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { addWinderUpdate, getPoyWinderData, updateWinder } from '../../../redux/features/poyMachinesFromPresentLot/poyMCsFromPLotSlice';
 import { toast } from 'react-hot-toast';
+import Spinner from '../../../components/Spinner/Spinner';
 
 const PoyWinder = () => {
     const { WinderNo } = useParams();
     const dispatch = useDispatch();
-    const { poyWinderData } = useSelector(state => state.poyMachinesFromLot);
-    // console.log('poy', poyWinderData);
+    const { poyWinderData, isLoading } = useSelector(state => state.poyMachinesFromLot);
+    console.log('poy', poyWinderData);
     const { _id, ...poyWinderWithoutId } = poyWinderData;
     const properties = Object.keys(poyWinderWithoutId);
 
@@ -54,6 +55,10 @@ const PoyWinder = () => {
     useEffect(() => {
         dispatch(getPoyWinderData(WinderNo))
     }, [dispatch, WinderNo])
+
+    if(isLoading){
+        return <Spinner></Spinner>
+    }
     return (
         <div className="overflow-x-auto">
             <h5 className='lg:text-xl font-semibold text-center py-5'>Update the info of Winder # {WinderNo}</h5>

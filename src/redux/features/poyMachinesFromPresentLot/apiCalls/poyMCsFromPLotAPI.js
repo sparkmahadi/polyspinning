@@ -25,9 +25,9 @@ export const modifyWinderData = async (winderDetails, changedProps) => {
     }
 }
 
-export const updateDtyMachineByPoyLot = async (poySummary) => {
-    const data = await axios.put("/api/v1/poy-machine-details-from-present-lot/update-poyInfo-in-dty-machines", poySummary);
-    console.log(data);
+export const updateDtyMachineByPoyLot = async (poySummary, time) => {
+    const data = await axios.put("/api/v1/poy-machine-details-from-present-lot/update-poyInfo-in-dty-machines", {poySummary, time});
+    // console.log("input", poySummary, "data", data);
     if(typeof data.data === "string"){
         toast.error(data.data);
     }
