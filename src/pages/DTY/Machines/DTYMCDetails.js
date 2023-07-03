@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Spinner from '../../../components/Spinner/Spinner';
 import DataLoading from '../../../components/Spinner/DataLoading';
-import { getDtyMachineDetails, switchEnableEditing, updateDtyMachine, updateOtherSideMC } from '../../../redux/features/dtyMachines/dtyMachinesSlice';
+import { getDtyMachineDetails, switchEnableEditing, updateDtyMachine, updateOtherMC } from '../../../redux/features/dtyMachines/dtyMachinesSlice';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../../contexts/UserContext';
@@ -159,7 +159,7 @@ const DTYMCDetails = () => {
         } else {
             return toast.error("No props found to set to other side of machine")
         }
-        dispatch(updateOtherSideMC(updateInfo));
+        dispatch(updateOtherMC(updateInfo));
     }
 
     const handleUpdateOtherMachines = (e) => {
@@ -192,7 +192,7 @@ const DTYMCDetails = () => {
                         console.log(updateInfo);
                     }
 
-                    dispatch(updateOtherSideMC(updateInfo));
+                    dispatch(updateOtherMC(updateInfo));
 
                 } else {
                     const DTYMCNo = machine;
@@ -218,7 +218,7 @@ const DTYMCDetails = () => {
                             updateInfoWithSide.Props = { [propTypeToSet]: prop };
                             console.log(updateInfoWithSide);
                         }
-                        dispatch(updateOtherSideMC(updateInfoWithSide));
+                        dispatch(updateOtherMC(updateInfoWithSide));
                     });
 
                 }

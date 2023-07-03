@@ -16,7 +16,7 @@ export const fetchDtyMachinesBySearch = async (searchData) => {
     return data.data;
 }
 
-export const modifyOtherSideMC = async (newMCNo, Side, oldMC, Props) => {
+export const modifyOtherMC = async (newMCNo, Side, oldMC, Props) => {
     console.log(newMCNo, Side, Props);
     if (newMCNo && Props) {
         const data = await axios.put(`/api/v1/dty-machines/update-other-side-property?DTYMCNo=${newMCNo}&Side=${Side}&UpdatesFrom=${oldMC}`, { Props });
