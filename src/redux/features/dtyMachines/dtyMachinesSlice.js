@@ -51,7 +51,7 @@ export const updateDtyMachine = createAsyncThunk("dtyMachines/updateDtyMachine",
 
 export const updateOtherSideMC = createAsyncThunk("dtyMachines/updateOtherSideMC", async (updateInfo, thunkAPI) => {
     // console.log("updateInfo", updateInfo);
-    const machineData = modifyOtherSideMC(updateInfo.DTYMCNo, updateInfo.Side, updateInfo.Props);
+    const machineData = modifyOtherSideMC(updateInfo.DTYMCNo, updateInfo.Side, updateInfo.UpdatesFrom, updateInfo.Props);
     thunkAPI.dispatch(getDtyMachines);
     return machineData;
 })

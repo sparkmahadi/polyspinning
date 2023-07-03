@@ -16,12 +16,12 @@ export const fetchDtyMachinesBySearch = async (searchData) => {
     return data.data;
 }
 
-export const modifyOtherSideMC = async (DTYMCNo, Side, Props) => {
-    console.log(DTYMCNo, Side, Props);
-    if (DTYMCNo && Props) {
-        const data = await axios.put(`/api/v1/dty-machines/update-other-side-property?DTYMCNo=${DTYMCNo}&Side=${Side}`, { Props });
+export const modifyOtherSideMC = async (newMCNo, Side, oldMC, Props) => {
+    console.log(newMCNo, Side, Props);
+    if (newMCNo && Props) {
+        const data = await axios.put(`/api/v1/dty-machines/update-other-side-property?DTYMCNo=${newMCNo}&Side=${Side}&UpdatesFrom=${oldMC}`, { Props });
         if (data.data.acknowledged) {
-            toast.success(`Updated Machine No. #${DTYMCNo}/${Side} From This Side`, { id: "updated" + DTYMCNo });
+            toast.success(`Updated Machine No. #${newMCNo}/${Side} From This Side`, { id: "updated" + newMCNo + Side });
         }
     } else {
         console.log('please put valid informations');

@@ -23,7 +23,7 @@ const DTYMCDetails = () => {
     const { detailedMachine, isLoading, isError, enableEditing } = useSelector(state => state.dtyMachines);
     const { user, loading } = useContext(AuthContext);
     const [accType, isAccLoading] = useCheckAccType(user?.email);
-    console.log(accType);
+    // console.log(accType);
     const { register, handleSubmit, reset } = useForm();
     const [searchParams, setSearchParams] = useSearchParams();
     const machine = searchParams.get("machine");
@@ -142,6 +142,7 @@ const DTYMCDetails = () => {
         let updateInfo = {
             DTYMCNo: mcDetails.mcInfo.DTYMCNo,
             Side: otherSide,
+            UpdatesFrom: `${mcDetails.mcInfo.DTYMCNo}/${currentSide}`,
             Props: {}
         };
 
@@ -149,7 +150,6 @@ const DTYMCDetails = () => {
         if (typeof propTypesToSet === "string") {
             const prop = mcDetails[propTypesToSet];
             updateInfo.Props = { [propTypesToSet]: prop }
-            // dispatch(updateOtherSideMC(updateInfo));
         }
         else if (Array.isArray(propTypesToSet) && propTypesToSet?.length) {
             for (let elem of propTypesToSet) {
@@ -159,8 +159,71 @@ const DTYMCDetails = () => {
         } else {
             return toast.error("No props found to set to other side of machine")
         }
-
         dispatch(updateOtherSideMC(updateInfo));
+    }
+
+    const handleUpdateOtherMachines = (e) => {
+        e.preventDefault();
+        let updateInfo = {};
+        const form = e.target;
+        const machinesToUpdate = form.machinesToUpdate.value;
+        const propTypeToSet = form.selectPropType.value;
+        const machines = machinesToUpdate.split(', ');
+        if (machines?.length) {
+            for (let machine of machines) {
+                if (machine.includes("/")) {
+
+                    const [DTYMCNo, Side] = machine.split("/");
+                    updateInfo = {
+                        DTYMCNo, Side,
+                        UpdatesFrom: `${detailedMachine.mcInfo.DTYMCNo}/${detailedMachine.mcInfo.Side}`,
+                        Props: {}
+                    };
+                    if (propTypeToSet === "AllThreeProps") {
+                        const props = ["DTYInfo", "params", "POYInfo"];
+                        for (let elem of props) {
+                            const prop = detailedMachine[elem];
+                            updateInfo.Props[elem] = prop;
+                        }
+                        console.log(updateInfo);
+                    } else {
+                        const prop = detailedMachine[propTypeToSet];
+                        updateInfo.Props = { [propTypeToSet]: prop };
+                        console.log(updateInfo);
+                    }
+
+                    dispatch(updateOtherSideMC(updateInfo));
+
+                } else {
+                    const DTYMCNo = machine;
+                    const updateInfo = {
+                        DTYMCNo,
+                        UpdatesFrom: `${detailedMachine.mcInfo.DTYMCNo}/${detailedMachine.mcInfo.Side}`,
+                        Props: {}
+                    };
+
+                    const Sides = ["A", "B"];
+                    Sides.forEach((Side) => {
+                        const updateInfoWithSide = { ...updateInfo };
+                        updateInfoWithSide.Side = Side;
+                        if (propTypeToSet === "AllThreeProps") {
+                            const props = ["DTYInfo", "params", "POYInfo"];
+                            for (let elem of props) {
+                                const prop = detailedMachine[elem];
+                                updateInfoWithSide.Props[elem] = prop;
+                            }
+                            console.log(updateInfoWithSide);
+                        } else {
+                            const prop = detailedMachine[propTypeToSet];
+                            updateInfoWithSide.Props = { [propTypeToSet]: prop };
+                            console.log(updateInfoWithSide);
+                        }
+                        dispatch(updateOtherSideMC(updateInfoWithSide));
+                    });
+
+                }
+            }
+        }
     }
 
     const { _id, ...editingInfo } = detailedMachine;
@@ -276,10 +339,13 @@ const DTYMCDetails = () => {
                     {
                         accType === "Admin" &&
                         <div className='lg:flex justify-center gap-5 flex-wrap'>
-                            <label onClick={() => handleSetProps(detailedMachine, "params")} htmlFor="dtyMachineModal" className='btn btn-outline btn-sm'>Set Same Parameter to Other Side</label>
-                            <label onClick={() => handleSetProps(detailedMachine, "DTYInfo")} htmlFor="dtyMachineModal" className='btn btn-outline btn-sm'>Set Same DTY Info to Other Side</label>
-                            <label onClick={() => handleSetProps(detailedMachine, "POYInfo")} htmlFor="dtyMachineModal" className='btn btn-outline btn-sm'>Set Same POY Info to Other Side</label>
-                            <label onClick={() => handleSetProps(detailedMachine, ["DTYInfo", "params", "POYInfo"])} htmlFor="dtyMachineModal" className='btn btn-outline btn-sm'>Set Same Param And DTY & POY Info to Other Side</label>
+                            <label onClick={() => handleSetProps(detailedMachine, "params")} className='btn btn-outline btn-sm'>Set This Parameter to Other Side</label>
+                            <label onClick={() => handleSetProps(detailedMachine, "DTYInfo")} className='btn btn-outline btn-sm'>Set This DTY Info to Other Side</label>
+                            <label onClick={() => handleSetProps(detailedMachine, "POYInfo")} className='btn btn-outline btn-sm'>Set This POY Info to Other Side</label>
+                            <label onClick={() => handleSetProps(detailedMachine, ["DTYInfo", "params", "POYInfo"])} className='btn btn-outline btn-sm'>Set Same Param, DTY & POY Info to Other Side</label>
+
+                            <label htmlFor="dtySetPropsFromOtherMC" className='btn btn-outline btn-sm'>Set Same Param, DTY & POY Info to Other Machines</label>
+
                             <label onClick={() => dispatch(switchEnableEditing())} htmlFor="dtyMachineModal" className='btn btn-outline btn-sm'>Update Details</label>
                         </div>
                     }
@@ -329,6 +395,35 @@ const DTYMCDetails = () => {
                     <button type='submit' className='btn btn-primary mr-3'>Submit</button>
                     <button onClick={() => dispatch(switchEnableEditing())} className='btn btn-secondary'>Cancel</button>
                 </form>
+            }
+
+            {
+                <>
+                    <>
+                        <input type="checkbox" id="dtySetPropsFromOtherMC" className="modal-toggle" />
+                        <div className="modal">
+                            <div className="modal-box relative">
+                                <label htmlFor="dtySetPropsFromOtherMC" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                                <h3 className="text-lg font-bold mb-5">Please put the number of machines you want to update the property.</h3>
+
+                                <form onSubmit={handleUpdateOtherMachines}>
+                                    <p className='pb-3'>Note: Please put the machines with seperating by comma (,) and you can write the machine with side. Example- 2, 3/A, 5/B, 10 etc.</p>
+
+                                    <select name="selectPropType" id="selectPropType">
+                                        <option value="AllThreeProps">All Three Props</option>
+                                        <option value="params">params</option>
+                                        <option value="DTYInfo">DTYInfo</option>
+                                        <option value="POYInfo">POYInfo</option>
+                                    </select>
+
+                                    <input name='machinesToUpdate' type="text" placeholder="Write the machine numbers here" className="input input-bordered input-info w-full max-w-xs" />
+
+                                    <button type='submit'>Submit</button>
+                                </form>
+                            </div>
+                        </div>
+                    </>
+                </>
             }
 
         </div>
