@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Spinner from '../../../components/Spinner/Spinner';
 import DataLoading from '../../../components/Spinner/DataLoading';
-import { getDtyMachineDetails, switchEnableEditing, updateDtyMachine } from '../../../redux/features/dtyMachines/dtyMachinesSlice';
+import { getDtyMachineDetails, switchEnableEditing, updateDtyMachine, updateOtherSideMC } from '../../../redux/features/dtyMachines/dtyMachinesSlice';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../../contexts/UserContext';
@@ -130,6 +130,39 @@ const DTYMCDetails = () => {
         return <DataLoading></DataLoading>
     }
 
+    const handleSetProps = (mcDetails, propTypesToSet) => {
+        let otherSide;
+        const currentSide = mcDetails.mcInfo.Side;
+        if (currentSide === "A") {
+            otherSide = "B"
+        }
+        if (currentSide === "B") {
+            otherSide = "A"
+        }
+        let updateInfo = {
+            DTYMCNo: mcDetails.mcInfo.DTYMCNo,
+            Side: otherSide,
+            Props: {}
+        };
+
+
+        if (typeof propTypesToSet === "string") {
+            const prop = mcDetails[propTypesToSet];
+            updateInfo.Props = { [propTypesToSet]: prop }
+            // dispatch(updateOtherSideMC(updateInfo));
+        }
+        else if (Array.isArray(propTypesToSet) && propTypesToSet?.length) {
+            for (let elem of propTypesToSet) {
+                const prop = mcDetails[elem];
+                updateInfo.Props[elem] = prop;
+            }
+        } else {
+            return toast.error("No props found to set to other side of machine")
+        }
+
+        dispatch(updateOtherSideMC(updateInfo));
+    }
+
     const { _id, ...editingInfo } = detailedMachine;
     return (
         <div className="p-8 max-w-7xl mx-auto bg-white rounded-lg shadow-lg">
@@ -162,7 +195,7 @@ const DTYMCDetails = () => {
                             <div className='mb-5'>
                                 <h3 className="text-xl font-bold mb-2">Parameters:</h3>
                                 <div className='lg:flex flex-row-reverse justify-center items-center gap-5'>
-                                    <div className='lg:flex flex-col gap-5'>
+                                    <div className='hidden lg:flex flex-col gap-5'>
                                         <img className='lg:w-80 mx-auto rounded-lg' src={mcParamSpeedImg} alt="" />
                                         <img className='lg:w-80 mx-auto rounded-lg' src={mcParamImg} alt="" />
                                         <img className='lg:w-80 mx-auto rounded-lg' src={mcParamAxialImg} alt="" />
@@ -242,7 +275,11 @@ const DTYMCDetails = () => {
                     </div>
                     {
                         accType === "Admin" &&
-                        <div className='flex justify-center'>
+                        <div className='lg:flex justify-center gap-5 flex-wrap'>
+                            <label onClick={() => handleSetProps(detailedMachine, "params")} htmlFor="dtyMachineModal" className='btn btn-outline btn-sm'>Set Same Parameter to Other Side</label>
+                            <label onClick={() => handleSetProps(detailedMachine, "DTYInfo")} htmlFor="dtyMachineModal" className='btn btn-outline btn-sm'>Set Same DTY Info to Other Side</label>
+                            <label onClick={() => handleSetProps(detailedMachine, "POYInfo")} htmlFor="dtyMachineModal" className='btn btn-outline btn-sm'>Set Same POY Info to Other Side</label>
+                            <label onClick={() => handleSetProps(detailedMachine, ["DTYInfo", "params", "POYInfo"])} htmlFor="dtyMachineModal" className='btn btn-outline btn-sm'>Set Same Param And DTY & POY Info to Other Side</label>
                             <label onClick={() => dispatch(switchEnableEditing())} htmlFor="dtyMachineModal" className='btn btn-outline btn-sm'>Update Details</label>
                         </div>
                     }

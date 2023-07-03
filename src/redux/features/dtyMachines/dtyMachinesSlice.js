@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchDtyMachineDetails, fetchDtyMachines, fetchDtyMachinesBySearch, modifyDtyMachine } from "./apiCalls/dtyFloorStatusAPI";
+import { fetchDtyMachineDetails, fetchDtyMachines, fetchDtyMachinesBySearch, modifyDtyMachine, modifyOtherSideMC } from "./apiCalls/dtyFloorStatusAPI";
 
 const initialState = {
     dtyMachines: [],
@@ -45,6 +45,13 @@ export const getDtyMachinesBySearch = createAsyncThunk("dtyMachines/getDtyMachin
 export const updateDtyMachine = createAsyncThunk("dtyMachines/updateDtyMachine", async (updateInfo, thunkAPI) => {
     console.log("updateInfo", updateInfo);
     const machineData = modifyDtyMachine(updateInfo.DTYMCNo, updateInfo.Side, updateInfo.changedProperties);
+    thunkAPI.dispatch(getDtyMachines);
+    return machineData;
+})
+
+export const updateOtherSideMC = createAsyncThunk("dtyMachines/updateOtherSideMC", async (updateInfo, thunkAPI) => {
+    // console.log("updateInfo", updateInfo);
+    const machineData = modifyOtherSideMC(updateInfo.DTYMCNo, updateInfo.Side, updateInfo.Props);
     thunkAPI.dispatch(getDtyMachines);
     return machineData;
 })
