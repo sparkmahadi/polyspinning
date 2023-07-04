@@ -48,3 +48,11 @@ export const modifyDtyMachine = async (DTYMCNo, Side, changedProps) => {
         console.log('please put valid informations');
     }
 }
+
+export const deleteDtyMachine = async (id) => {
+    const data = await axios.delete(`/api/v1/dty-machines/delete/${id}`);
+    if(data.data.deletedCount > 0){
+        toast.success(`Machine #${id} is deleted successfully!!!`);
+    }
+    return data.data;
+}

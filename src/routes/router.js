@@ -27,6 +27,8 @@ import AddNewParamStatic from "../pages/DTY/DTYProcessParameters/AddNewParamStat
 import DashboardLayout from "../layouts/DashboardLayout";
 import Welcome from "../pages/Dashboard/Home/Welcome";
 import MachinesList from "../pages/Dashboard/Machines/MachinesList";
+import DTYMachinesList from "../pages/Dashboard/Machines/DTYMachinesList";
+import POYMachinesList from "../pages/Dashboard/Machines/POYMachinesList";
 
 export const router = createBrowserRouter([
     {
@@ -125,7 +127,7 @@ export const router = createBrowserRouter([
     },
     {
         path: "/dashboard",
-        element: <DashboardLayout/>,
+        element: <PrivateRoute><DashboardLayout/></PrivateRoute>,
         children: [
             {
                 path: "/dashboard",
@@ -133,7 +135,15 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/dashboard/machines",
-                element: <MachinesList/>
+                element: <CheckingRoute><MachinesList/></CheckingRoute>
+            },
+            {
+                path: "/dashboard/machines/dty-machines-list",
+                element: <CheckingRoute><DTYMachinesList/></CheckingRoute>
+            },
+            {
+                path: "/dashboard/machines/poy-machines-list",
+                element: <CheckingRoute><POYMachinesList/></CheckingRoute>
             },
         ]
     }

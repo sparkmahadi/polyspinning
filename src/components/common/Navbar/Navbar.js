@@ -12,7 +12,7 @@ const Navbar = () => {
   const navigation = [
     { name: 'DTY', href: '/dty-floor-status' },
     { name: 'POY', href: '/poy-floor-status' },
-    { name: 'Marketplace', href: '#' },
+    { name: 'Dashboard', href: '/dashboard' },
     { name: 'Company', href: '#' },
   ]
 

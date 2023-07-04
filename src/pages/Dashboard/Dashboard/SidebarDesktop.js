@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const SidebarDesktop = ({navigation, classNames}) => {
     return (
@@ -16,7 +16,7 @@ const SidebarDesktop = ({navigation, classNames}) => {
               </div>
               <nav className="mt-5 flex-1 space-y-1 px-2">
                 {navigation.map((item) => (
-                  <Link
+                  <NavLink
                     key={item.name}
                     to={item.link}
                     className={classNames(
@@ -26,7 +26,7 @@ const SidebarDesktop = ({navigation, classNames}) => {
                   >
                     <item.icon className="mr-3 h-6 w-6 flex-shrink-0 text-indigo-300" aria-hidden="true" />
                     {item.name}
-                  </Link>
+                  </NavLink>
                 ))}
               </nav>
             </div>

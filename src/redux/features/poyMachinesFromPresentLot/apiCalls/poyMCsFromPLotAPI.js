@@ -57,3 +57,11 @@ export const postWinderUpdate = async (newWinderData) => {
         toast.success(`Recorded in winder updates. Winder no: #${newWinderData.WinderData.WinderNo}`);
     }
 }
+
+export const deletePoyMachine = async (id) => {
+    const data = await axios.delete(`/api/v1/poy-machine-details-from-present-lot/delete/${id}`);
+    if(data.data.deletedCount > 0){
+        toast.success(`Winder #${id} is deleted successfully!!!`);
+    }
+    return data.data;
+}

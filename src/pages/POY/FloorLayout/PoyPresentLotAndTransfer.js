@@ -60,6 +60,11 @@ const PoyPresentLotAndTransfer = () => {
   if (isLoading) {
     return <Spinner></Spinner>
   }
+  let existingArrWithoutId = [];
+  for (let elem of data) {
+    const { _id, uploadedAt, ...rest } = elem;
+    existingArrWithoutId.push(rest);
+  }
 
   return (
     <div className="overflow-x-auto">
@@ -147,7 +152,7 @@ const PoyPresentLotAndTransfer = () => {
           </tr>
         </thead>
         <tbody>
-          {data
+          {existingArrWithoutId
             ?.filter((machine) => {
               if (
                 (selectedFilters.lineNo === 'All' ||

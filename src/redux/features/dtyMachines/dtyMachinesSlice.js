@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchDtyMachineDetails, fetchDtyMachines, fetchDtyMachinesBySearch, modifyDtyMachine, modifyOtherMC } from "./apiCalls/dtyFloorStatusAPI";
+import { deleteDtyMachine, fetchDtyMachineDetails, fetchDtyMachines, fetchDtyMachinesBySearch, modifyDtyMachine, modifyOtherMC } from "./apiCalls/dtyFloorStatusAPI";
 
 const initialState = {
     dtyMachines: [],
@@ -43,7 +43,7 @@ export const getDtyMachinesBySearch = createAsyncThunk("dtyMachines/getDtyMachin
 })
 
 export const updateDtyMachine = createAsyncThunk("dtyMachines/updateDtyMachine", async (updateInfo, thunkAPI) => {
-    console.log("updateInfo", updateInfo);
+    // console.log("updateInfo", updateInfo);
     const machineData = modifyDtyMachine(updateInfo.DTYMCNo, updateInfo.Side, updateInfo.changedProperties);
     thunkAPI.dispatch(getDtyMachines);
     return machineData;
@@ -53,6 +53,12 @@ export const updateOtherMC = createAsyncThunk("dtyMachines/updateOtherMC", async
     // console.log("updateInfo", updateInfo);
     const machineData = modifyOtherMC(updateInfo.DTYMCNo, updateInfo.Side, updateInfo.UpdatesFrom, updateInfo.Props);
     thunkAPI.dispatch(getDtyMachines);
+    return machineData;
+})
+
+export const removeDtyMachine = createAsyncThunk("dtyMachines/removeDtyMachine", async (id, thunkAPI) => {
+    const machineData = deleteDtyMachine(id);
+    thunkAPI.dispatch(getDtyMachines());
     return machineData;
 })
 

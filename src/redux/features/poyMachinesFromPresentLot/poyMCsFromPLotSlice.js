@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchAllWinderUpdates, fetchOneWinderUpdate, fetchPoyMcDataFromLot, fetchPoyWinderData, modifyWinderData, postWinder, postWinderUpdate, updateDtyMachineByPoyLot } from "./apiCalls/poyMCsFromPLotAPI";
+import { deletePoyMachine, fetchAllWinderUpdates, fetchOneWinderUpdate, fetchPoyMcDataFromLot, fetchPoyWinderData, modifyWinderData, postWinder, postWinderUpdate, updateDtyMachineByPoyLot } from "./apiCalls/poyMCsFromPLotAPI";
 import { format } from "date-fns";
 
 const initialState = {
@@ -58,6 +58,12 @@ export const updatePoyInfoInDty = createAsyncThunk("poyMachinesFromLot/updatePoy
     const time = format(new Date(), "Pp");
     const data = updateDtyMachineByPoyLot(poySummary, time);
     return data;
+})
+
+export const removePoyMachine = createAsyncThunk("dtyMachines/removePoyMachine", async (id, thunkAPI) => {
+    const machineData = deletePoyMachine(id);
+    thunkAPI.dispatch(getPoyMcDataFromLot());
+    return machineData;
 })
 
 
