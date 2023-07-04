@@ -168,7 +168,7 @@ const DTYMCDetails = () => {
         const form = e.target;
         const machinesToUpdate = form.machinesToUpdate.value;
         const propTypeToSet = form.selectPropType.value;
-        const machines = machinesToUpdate.split(', ');
+        const machines = machinesToUpdate.split(",").map((item) => item.trim());
         if (machines?.length) {
             for (let machine of machines) {
                 if (machine.includes("/")) {
@@ -185,11 +185,11 @@ const DTYMCDetails = () => {
                             const prop = detailedMachine[elem];
                             updateInfo.Props[elem] = prop;
                         }
-                        console.log(updateInfo);
+                        // console.log(updateInfo);
                     } else {
                         const prop = detailedMachine[propTypeToSet];
                         updateInfo.Props = { [propTypeToSet]: prop };
-                        console.log(updateInfo);
+                        // console.log(updateInfo);
                     }
 
                     dispatch(updateOtherMC(updateInfo));
@@ -212,11 +212,11 @@ const DTYMCDetails = () => {
                                 const prop = detailedMachine[elem];
                                 updateInfoWithSide.Props[elem] = prop;
                             }
-                            console.log(updateInfoWithSide);
+                            // console.log(updateInfoWithSide);
                         } else {
                             const prop = detailedMachine[propTypeToSet];
                             updateInfoWithSide.Props = { [propTypeToSet]: prop };
-                            console.log(updateInfoWithSide);
+                            // console.log(updateInfoWithSide);
                         }
                         dispatch(updateOtherMC(updateInfoWithSide));
                     });
@@ -407,7 +407,7 @@ const DTYMCDetails = () => {
                                 <h3 className="text-lg font-bold mb-5">Please put the number of machines you want to update the property.</h3>
 
                                 <form onSubmit={handleUpdateOtherMachines}>
-                                    <p className='pb-3'>Note: Please put the machines with seperating by comma (,) and you can write the machine with side. Example- 2, 3/A, 5/B, 10 etc.</p>
+                                    <p className='pb-3'>Note: Please put the machines with seperating by comma (,) and you can write the machine with side. Example- 2, 3/A, 5/B, 10 etc. Please do not give the machine no. which does not exist.</p>
 
                                     <select name="selectPropType" id="selectPropType">
                                         <option value="AllThreeProps">All Three Props</option>

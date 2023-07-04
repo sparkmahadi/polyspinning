@@ -29,7 +29,7 @@ const Navbar = () => {
               <Link to="/">
                 <span className="sr-only">PolySpinning</span>
                 <img
-                  className="h-8 w-auto sm:h-10"
+                  className="h-8 w-auto md:h-6 lg:h-10"
                   src={logo}
                   alt=""
                 />

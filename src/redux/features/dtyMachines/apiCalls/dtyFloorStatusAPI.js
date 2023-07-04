@@ -20,8 +20,11 @@ export const modifyOtherMC = async (newMCNo, Side, oldMC, Props) => {
     console.log(newMCNo, Side, Props);
     if (newMCNo && Props) {
         const data = await axios.put(`/api/v1/dty-machines/update-other-side-property?DTYMCNo=${newMCNo}&Side=${Side}&UpdatesFrom=${oldMC}`, { Props });
-        if (data.data.acknowledged) {
+        if (data.data.modifiedCount > 0) {
             toast.success(`Updated Machine No. #${newMCNo}/${Side} From This Side`, { id: "updated" + newMCNo + Side });
+        }
+        else{
+            toast.error(`Nothing to update in Machine No. #${newMCNo}/${Side}`)
         }
     } else {
         console.log('please put valid informations');
