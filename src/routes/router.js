@@ -24,6 +24,9 @@ import PoyPresentLotAndTransfer from './../pages/POY/FloorLayout/PoyPresentLotAn
 import DenierwisePOYLines from './../pages/POY/FloorLayout/DenierwisePOYLines';
 import PoyWinder from './../pages/POY/FloorLayout/PoyWinder';
 import AddNewParamStatic from "../pages/DTY/DTYProcessParameters/AddNewParamStatic";
+import DashboardLayout from "../layouts/DashboardLayout";
+import Welcome from "../pages/Dashboard/Home/Welcome";
+import MachinesList from "../pages/Dashboard/Machines/MachinesList";
 
 export const router = createBrowserRouter([
     {
@@ -117,6 +120,20 @@ export const router = createBrowserRouter([
             {
                 path: "/reset-password",
                 element: <ResetPassword />
+            },
+        ]
+    },
+    {
+        path: "/dashboard",
+        element: <DashboardLayout/>,
+        children: [
+            {
+                path: "/dashboard",
+                element: <Welcome/>
+            },
+            {
+                path: "/dashboard/machines",
+                element: <MachinesList/>
             },
         ]
     }

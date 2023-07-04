@@ -6,6 +6,7 @@ import poyMCsFromPLotSlice from "../features/poyMachinesFromPresentLot/poyMCsFro
 import dtyParametersSlice from "../features/dtyProcessParameters/dtyParametersSlice";
 import dtyMachinesSlice from "../features/dtyMachines/dtyMachinesSlice";
 import dtyMachineUpdatesSlice from "../features/dtyMachineUpdates/dtyMachineUpdatesSlice";
+import dashboardSlice from "../features/dashboard/dashboardSlice";
 
 const store = configureStore({
     reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
         dtyMachineUpdates: dtyMachineUpdatesSlice,
         poyMachinesFromLot: poyMCsFromPLotSlice,
         inputExcelFiles: inputExcelSlice,
+        dashboard: dashboardSlice,
     }
 });
 
