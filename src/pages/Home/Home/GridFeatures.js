@@ -36,15 +36,22 @@ const GridFeatures = () => {
       link: "/dty-process-parameters"
     },
     {
+      name: 'DTY Lot Number Explanation',
+      description: 'Explore the story behind a lot number of DTY',
+      icon: ArrowPathIcon,
+      link: "/dty-lot-number-explanation"
+    },
+    {
       name: 'POY',
-      description: 'Explore Latest DTY Floor Status with details of materials and production flow',
+      description: 'Explore Latest POY Floor Status with details of materials and production flow',
       icon: ArrowPathIcon,
       link: "/poy-floor-status/"
     },
     {
-      name: 'Advanced Security',
-      description: 'Ullam laboriosam est voluptatem maxime ut mollitia commodi. Et dignissimos suscipit perspiciatis.',
+      name: 'POY Machines',
+      description: 'Explore Latest Status of POY Machines with details of materials and production flow',
       icon: ShieldCheckIcon,
+      link: "/poy-floor-status/present-lot-and-transfer-area"
     },
     {
       name: 'Powerful API',

@@ -29,6 +29,7 @@ import Welcome from "../pages/Dashboard/Home/Welcome";
 import MachinesList from "../pages/Dashboard/Machines/MachinesList";
 import DTYMachinesList from "../pages/Dashboard/Machines/DTYMachinesList";
 import POYMachinesList from "../pages/Dashboard/Machines/POYMachinesList";
+import DTYLotNoExplanation from "../pages/DTY/DTYLotNoExplanation/DTYLotNoExplanation";
 
 export const router = createBrowserRouter([
     {
@@ -86,6 +87,10 @@ export const router = createBrowserRouter([
             {
                 path: "/dty-process-parameters/add-new-parameter",
                 element: <PrivateRoute><CheckingRoute><AddNewParamStatic/></CheckingRoute></PrivateRoute>
+            },
+            {
+                path: "/dty-lot-number-explanation",
+                element: <DTYLotNoExplanation />
             },
             {
                 path: "/poy-floor-status",
