@@ -4,10 +4,15 @@ import gearStopped from "../../../images/gear stopped.png";
 import dtyBobbin from "../../../images/dty bobbin.jpg";
 import poyBobbin from "../../../images/poy bobbin.jpg";
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import DTYLotNoExpModal from './../LotNoExplModal/DTYLotNoExpModal';
+import { explainTheLot } from '../../../redux/features/dtyLotNoExplanation/dtyLotNoExplSlice';
 
 const DTYMachineCard = ({ mcInfo, DTYInfo, POYInfo, params }) => {
+  const dispatch = useDispatch();
   const { machineDisplayMode } = useSelector(state => state.dtyMachines);
+  const { explainedLot } = useSelector(state => state.dtyLotNoExplanation);
+
 
   if (machineDisplayMode === "OnlyMachineNo") {
     return <div className='mx-auto'>
@@ -28,7 +33,10 @@ const DTYMachineCard = ({ mcInfo, DTYInfo, POYInfo, params }) => {
       <div className="flex flex-1 flex-col justify-between bg-white p-6">
         <div className="flex-1">
           <p className="text-sm font-medium text-cyan-600">
-            POY {POYInfo.POYDenier}/{POYInfo.Filaments} to DTY {DTYInfo.DTYType}, ({DTYInfo.LotNo})
+            POY {POYInfo.POYDenier}/{POYInfo.Filaments} to DTY {DTYInfo.DTYType},
+            <label onClick={() => dispatch(explainTheLot(DTYInfo.LotNo))} htmlFor="dtyLotNoExplanation" className='cursor-pointer'>
+              ({DTYInfo.LotNo})
+            </label>
           </p>
           <div className="mt-2 block text-sm lg:text-base">
             <p className="text-base lg:text-xl font-semibold text-gray-900">Machine #{mcInfo.DTYMCNo}/{mcInfo.Side} | {mcInfo.Brand} | {parseInt((POYInfo.POYDenier * mcInfo.TotalSpindles * params.MCSpeed * 0.00016) / params.DR)} kgs/day</p>
@@ -72,6 +80,11 @@ const DTYMachineCard = ({ mcInfo, DTYInfo, POYInfo, params }) => {
         }
 
       </div>
+
+      {
+        explainedLot &&
+        <DTYLotNoExpModal />
+      }
     </div>
   );
 };

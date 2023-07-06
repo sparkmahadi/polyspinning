@@ -2,10 +2,11 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getPoyMcDataFromLot, removePoyMachine } from '../../../redux/features/poyMachinesFromPresentLot/poyMCsFromPLotSlice';
+import Spinner from '../../../components/Spinner/Spinner';
 
 const POYMachinesList = () => {
     const dispatch = useDispatch();
-  const { machineDataFromLot: data, selectedFilters, isLoading, isError, error } = useSelector(state => state.poyMachinesFromLot);
+    const { machineDataFromLot: data, selectedFilters, isLoading, isError, error } = useSelector(state => state.poyMachinesFromLot);
 
     const handleDeleteMachine = (id) => {
         const confirm = window.confirm("Are you sure to delete this machine?");
@@ -18,7 +19,10 @@ const POYMachinesList = () => {
         dispatch(getPoyMcDataFromLot());
     }, [dispatch])
 
-    console.log(data);
+    if (isLoading) {
+        return <Spinner></Spinner>
+    }
+
     return (
         <div>
 

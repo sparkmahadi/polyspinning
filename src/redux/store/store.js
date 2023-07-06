@@ -7,16 +7,18 @@ import dtyParametersSlice from "../features/dtyProcessParameters/dtyParametersSl
 import dtyMachinesSlice from "../features/dtyMachines/dtyMachinesSlice";
 import dtyMachineUpdatesSlice from "../features/dtyMachineUpdates/dtyMachineUpdatesSlice";
 import dashboardSlice from "../features/dashboard/dashboardSlice";
+import dtyLotNoExplSlice from "../features/dtyLotNoExplanation/dtyLotNoExplSlice";
 
 const store = configureStore({
     reducer: {
         dtyPresentLotAndTransfer: dtyPresentLotSlice,
         dtyMachinesFromLot: dtyMCsFromPLotSlice,
         dtyProcessParameters: dtyParametersSlice,
-        dtyMachines : dtyMachinesSlice,
+        dtyMachines: dtyMachinesSlice,
         dtyMachineUpdates: dtyMachineUpdatesSlice,
         poyMachinesFromLot: poyMCsFromPLotSlice,
         inputExcelFiles: inputExcelSlice,
+        dtyLotNoExplanation: dtyLotNoExplSlice,
         dashboard: dashboardSlice,
     }
 });
