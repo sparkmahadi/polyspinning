@@ -1,32 +1,33 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+    currentLot: '',
     explainedLot: {},
 };
 
 const chipsCode = [
-    "Direct",
-    "CMFC",
-    "Fuzian Jinlun",
-    "Indorama",
-    "Recron",
-    "Hunvira",
-    "PT.Sulindafin",
-    "Xiaman Xianglu",
-    "Eslon",
-    "Chung Sing",
-    "Tairilin",
-    "Huvis",
-    "Jade",
-    "Gatronova",
-    "Toplon",
-    "Modern Syntex Ltd",
-    "Nanlon",
-    "Garden",
-    "Zhejiang Hengyi",
-    "Jiangsu",
-    "Wankai",
-    "Lealea",
+    {name: "Direct", Code: "0"},
+    {name: "CMFC", Code: "1"},
+    {name: "Fuzian Jinlun", Code: "2"},
+    {name: "Indorama", Code: "3"},
+    {name: "Recron", Code: "4"},
+    {name: "Hunvira", Code: ""},
+    {name: "PT.Sulindafin", Code: "5"},
+    {name: "Xiaman Xianglu", Code: "6"},
+    {name: "Eslon", Code: "7"},
+    {name: "Chung Sing", Code: "8"},
+    {name: "Tairilin", Code: "9"},
+    {name: "Huvis", Code: "10"},
+    {name: "Jade", Code: "11"},
+    {name: "Gatronova", Code: ""},
+    {name: "Toplon", Code: "12"},
+    {name: "Modern Syntex Ltd", Code: "13"},
+    {name: "Nanlon", Code: "14"},
+    {name: "Garden", Code: "15"},
+    {name: "Zhejiang Hengyi", Code: "16"},
+    {name: "Jiangsu", Code: "17"},
+    {name: "Wankai", Code: "18"},
+    {name: "Lealea", Code: "19"},
 ];
 
 const DFCode = [
@@ -67,12 +68,21 @@ function findDFFromCode(code) {
     return foundDF ? foundDF.DF : "DF not found";
 }
 
+function findChipsFromCode(code) {
+    const foundDF = chipsCode.find(item => item.Code === code);
+    console.log(code);
+    return foundDF ? foundDF.DF : "Chips not found";
+}
+
 const dtyLotNoExplSlice = createSlice({
     name: "dtyLotNoExplanation",
     initialState,
     reducers: {
         setExplainedLot: (state, action) => {
             state.explainedLot = action.payload;
+        },
+        setCurrentLot: (state, action) => {
+            state.currentLot = action.payload;
         },
         explainTheLot: (state, action) => {
             const splittedLot = (action.payload.split(""));
@@ -89,7 +99,7 @@ const dtyLotNoExplSlice = createSlice({
                 ProductType: PdWiseCode[parseInt(lotBreakdown.ProductType)],
                 DenierFilament: findDFFromCode(lotBreakdown.DenierFilament),
                 IntType: intTypeCode[parseInt(lotBreakdown.IntType)],
-                ChipsName: chipsCode[parseInt(lotBreakdown.ChipsName)],
+                ChipsName: findChipsFromCode(lotBreakdown.ChipsName),
                 Serial: lotBreakdown.Serial,
             };
             console.log(lotExplanation);
@@ -100,5 +110,5 @@ const dtyLotNoExplSlice = createSlice({
     extraReducers: (builder) => { }
 });
 
-export const { setExplainedLot, explainTheLot } = dtyLotNoExplSlice.actions;
+export const { setExplainedLot, explainTheLot, setCurrentLot } = dtyLotNoExplSlice.actions;
 export default dtyLotNoExplSlice.reducer;

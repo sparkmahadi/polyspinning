@@ -34,7 +34,7 @@ const DTYMachineCard = ({ mcInfo, DTYInfo, POYInfo, params }) => {
         <div className="flex-1">
           <p className="text-sm font-medium text-cyan-600">
             POY {POYInfo.POYDenier}/{POYInfo.Filaments} to DTY {DTYInfo.DTYType},
-            <label onClick={() => dispatch(explainTheLot(DTYInfo.LotNo))} htmlFor="dtyLotNoExplanation" className='cursor-pointer'>
+            <label onClick={() => dispatch(explainTheLot(DTYInfo.LotNo))} htmlFor="dtyLotNoExplanation" className='cursor-pointer underline'>
               ({DTYInfo.LotNo})
             </label>
           </p>
