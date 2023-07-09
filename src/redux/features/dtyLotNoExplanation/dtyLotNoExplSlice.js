@@ -6,28 +6,28 @@ const initialState = {
 };
 
 const chipsCode = [
-    {name: "Direct", Code: "0"},
-    {name: "CMFC", Code: "1"},
-    {name: "Fuzian Jinlun", Code: "2"},
-    {name: "Indorama", Code: "3"},
-    {name: "Recron", Code: "4"},
-    {name: "Hunvira", Code: ""},
-    {name: "PT.Sulindafin", Code: "5"},
-    {name: "Xiaman Xianglu", Code: "6"},
-    {name: "Eslon", Code: "7"},
-    {name: "Chung Sing", Code: "8"},
-    {name: "Tairilin", Code: "9"},
-    {name: "Huvis", Code: "10"},
-    {name: "Jade", Code: "11"},
-    {name: "Gatronova", Code: ""},
-    {name: "Toplon", Code: "12"},
-    {name: "Modern Syntex Ltd", Code: "13"},
-    {name: "Nanlon", Code: "14"},
-    {name: "Garden", Code: "15"},
-    {name: "Zhejiang Hengyi", Code: "16"},
-    {name: "Jiangsu", Code: "17"},
-    {name: "Wankai", Code: "18"},
-    {name: "Lealea", Code: "19"},
+    {name: "Direct", Code: "00"},
+    {name: "CMFC", Code: "11"},
+    {name: "Fuzian Jinlun", Code: "02"},
+    {name: "Indorama", Code: "03"},
+    {name: "Recron", Code: "04"},
+    {name: "Hunvira", Code: "05"},
+    {name: "PT.Sulindafin", Code: "06"},
+    {name: "Xiaman Xianglu", Code: "07"},
+    {name: "Eslon", Code: "08"},
+    {name: "Chung Sing", Code: "09"},
+    {name: "Tairilin", Code: "10"},
+    {name: "Huvis", Code: "11"},
+    {name: "Jade", Code: "12"},
+    {name: "Gatronova", Code: "13"},
+    {name: "Toplon", Code: "14"},
+    {name: "Modern Syntex Ltd", Code: "15"},
+    {name: "Nanlon", Code: "16"},
+    {name: "Garden", Code: "17"},
+    {name: "Zhejiang Hengyi", Code: "18"},
+    {name: "Jiangsu", Code: "19"},
+    {name: "Wankai", Code: "20"},
+    {name: "Lealea", Code: "21"},
 ];
 
 const DFCode = [
@@ -69,9 +69,8 @@ function findDFFromCode(code) {
 }
 
 function findChipsFromCode(code) {
-    const foundDF = chipsCode.find(item => item.Code === code);
-    console.log(code);
-    return foundDF ? foundDF.DF : "Chips not found";
+    const foundChips = chipsCode.find(item => item.Code === code);
+    return foundChips ? foundChips.name : "Chips not found";
 }
 
 const dtyLotNoExplSlice = createSlice({
@@ -85,6 +84,7 @@ const dtyLotNoExplSlice = createSlice({
             state.currentLot = action.payload;
         },
         explainTheLot: (state, action) => {
+            state.currentLot = action.payload;
             const splittedLot = (action.payload.split(""));
             const [ProductType, DF1, DF2, IntType, ChipsName1, ChipsName2, Serial1, Serial2] = splittedLot;
             const lotBreakdown = {

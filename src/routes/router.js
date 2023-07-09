@@ -30,6 +30,7 @@ import MachinesList from "../pages/Dashboard/Machines/MachinesList";
 import DTYMachinesList from "../pages/Dashboard/Machines/DTYMachinesList";
 import POYMachinesList from "../pages/Dashboard/Machines/POYMachinesList";
 import DTYLotNoExplanation from "../pages/DTY/DTYLotNoExplanation/DTYLotNoExplanation";
+import UsersList from "../pages/Dashboard/Users/UsersList";
 
 export const router = createBrowserRouter([
     {
@@ -149,6 +150,10 @@ export const router = createBrowserRouter([
             {
                 path: "/dashboard/machines/poy-machines-list",
                 element: <CheckingRoute><POYMachinesList/></CheckingRoute>
+            },
+            {
+                path: "/dashboard/users",
+                element: <CheckingRoute><UsersList/></CheckingRoute>
             },
         ]
     }

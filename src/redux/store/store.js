@@ -8,6 +8,7 @@ import dtyMachinesSlice from "../features/dtyMachines/dtyMachinesSlice";
 import dtyMachineUpdatesSlice from "../features/dtyMachineUpdates/dtyMachineUpdatesSlice";
 import dashboardSlice from "../features/dashboard/dashboardSlice";
 import dtyLotNoExplSlice from "../features/dtyLotNoExplanation/dtyLotNoExplSlice";
+import usersSlice from "../features/users/usersSlice";
 
 const store = configureStore({
     reducer: {
@@ -20,6 +21,7 @@ const store = configureStore({
         inputExcelFiles: inputExcelSlice,
         dtyLotNoExplanation: dtyLotNoExplSlice,
         dashboard: dashboardSlice,
+        users: usersSlice,
     }
 });
 

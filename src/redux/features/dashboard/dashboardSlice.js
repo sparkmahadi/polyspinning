@@ -4,7 +4,7 @@ const initialState={
     isSidebarOpen: false,
 }
 
-const dashboadSlice = createSlice({
+const dashboardSlice = createSlice({
     name: "dashboard",
     initialState,
     reducers:{
@@ -14,5 +14,5 @@ const dashboadSlice = createSlice({
     },
 })
 
-export const { setSidebarOpen } = dashboadSlice.actions;
-export default dashboadSlice.reducer;
+export const { setSidebarOpen } = dashboardSlice.actions;
+export default dashboardSlice.reducer;
