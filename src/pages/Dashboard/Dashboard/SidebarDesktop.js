@@ -1,4 +1,5 @@
 import React from 'react';
+import logo from "../../../images/polyspinning logo.png"
 import { Link, NavLink } from 'react-router-dom';
 
 const SidebarDesktop = ({navigation, classNames}) => {
@@ -10,8 +11,8 @@ const SidebarDesktop = ({navigation, classNames}) => {
               <div className="flex flex-shrink-0 items-center px-4">
                 <img
                   className="h-8 w-auto"
-                  src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=300"
-                  alt="Your Company"
+                  src={logo}
+                  alt="PolySpinning"
                 />
               </div>
               <nav className="mt-5 flex-1 space-y-1 px-2">

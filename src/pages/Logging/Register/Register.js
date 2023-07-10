@@ -25,6 +25,9 @@ const Register = () => {
         const password = form.password.value;
         const accountType = form.accountType.value;
 
+        // we have to check in database first before registering in firebase
+        // will write the code later
+
         createNewUser(email, password)
             .then(r => {
                 const user = r.user;
@@ -57,13 +60,6 @@ const Register = () => {
 
     const saveUser = (name, email, accountType) => {
         const user = { name, email, accountType, verified: false };
-        // fetch('http://localhost:5000/api/v1/users', {
-        //     method: 'POST',
-        //     headers: {
-        //         'content-type': 'application/json'
-        //     },
-        //     body: JSON.stringify(user)
-        // })
         axios.post("/api/v1/users", user)
             .then(res => res.json())
             .then(data => {
