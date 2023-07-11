@@ -1,25 +1,16 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useMemo } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import logo from "../../../images/polyspinning logo.png"
 import { Bars3Icon, CalendarIcon, ChartBarIcon, FolderIcon, HomeIcon, InboxIcon, UsersIcon, XMarkIcon,} from '@heroicons/react/24/outline';
 import SidebarMobile from './SidebarMobile';
 import SidebarDesktop from './SidebarDesktop';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSidebarOpen } from '../../../redux/features/dashboard/dashboardSlice';
+import { setNavItems, setSidebarOpen } from '../../../redux/features/dashboard/dashboardSlice';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
     const dispatch = useDispatch();
-    const {isSidebarOpen} = useSelector(state => state.dashboard);
-    console.log(isSidebarOpen);
-
-    const navigation = [
-        { name: 'Back to Home', link: '/', icon: HomeIcon, current: true },
-        { name: 'Users', link: 'users', icon: UsersIcon, current: false },
-        { name: 'Machines', link: 'machines', icon: CalendarIcon, current: false },
-        { name: 'Products', link: 'products', icon: FolderIcon, current: false },
-        { name: 'Documents', link: 'documents', icon: InboxIcon, current: false },
-        { name: 'Reports', link: 'reports', icon: ChartBarIcon, current: false },
-    ]
+    const {isSidebarOpen, navItems} = useSelector(state => state.dashboard);
 
     function classNames(...classes) {
         return classes.filter(Boolean).join(' ')
@@ -81,11 +72,11 @@ const Dashboard = () => {
                                         />
                                     </div>
 
-                                    <SidebarMobile navigation={navigation} classNames={classNames}></SidebarMobile>
+                                    <SidebarMobile classNames={classNames}></SidebarMobile>
 
                                 </div>
                                 <div className="flex flex-shrink-0 border-t border-indigo-800 p-4">
-                                    <a href="/" className="group block flex-shrink-0">
+                                    <Link to={'/'} className="group block flex-shrink-0">
                                         <div className="flex items-center">
                                             <div>
                                                 <img
@@ -99,7 +90,7 @@ const Dashboard = () => {
                                                 <p className="text-sm font-medium text-indigo-200 group-hover:text-white">View profile</p>
                                             </div>
                                         </div>
-                                    </a>
+                                    </Link>
                                 </div>
                             </Dialog.Panel>
                         </Transition.Child>
@@ -110,7 +101,7 @@ const Dashboard = () => {
                 </Dialog>
             </Transition.Root>
 
-            <SidebarDesktop navigation={navigation} classNames={classNames} />
+            <SidebarDesktop classNames={classNames} />
         </>
     );
 };
