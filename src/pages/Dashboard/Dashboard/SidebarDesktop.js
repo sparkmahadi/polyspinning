@@ -1,13 +1,9 @@
 import React from 'react';
 import logo from "../../../images/polyspinning logo.png"
-import {  Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { setActiveNav } from '../../../redux/features/dashboard/dashboardSlice';
+import {  Link, useLocation } from 'react-router-dom';
 
-const SidebarDesktop = ({classNames}) => {
-  const dispatch = useDispatch();
-  
-  const {activeNav, navItems: navigation} = useSelector(state => state.dashboard);
+const SidebarDesktop = ({classNames, navigation}) => {
+  const {pathname} = useLocation();
   
     return (
         <div className="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
@@ -24,11 +20,10 @@ const SidebarDesktop = ({classNames}) => {
               <nav className="mt-5 flex-1 space-y-1 px-2">
                 {navigation.map((item) => (
                   <Link
-                  onClick={()=>dispatch(setActiveNav(item.name))}
                     key={item.name}
                     to={item.link}
                     className={classNames(
-                      item.name === activeNav ? 'bg-indigo-800 text-white' : 'text-white hover:bg-indigo-600 hover:bg-opacity-75',
+                      pathname.includes(item.link) ? 'bg-indigo-800 text-white' : 'text-white hover:bg-indigo-600 hover:bg-opacity-75',
                       'group flex items-center px-2 py-2 text-sm font-medium rounded-md'
                     )}
                   >

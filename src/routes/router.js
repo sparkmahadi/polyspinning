@@ -31,6 +31,7 @@ import DTYMachinesList from "../pages/Dashboard/Machines/DTYMachinesList";
 import POYMachinesList from "../pages/Dashboard/Machines/POYMachinesList";
 import DTYLotNoExplanation from "../pages/DTY/DTYLotNoExplanation/DTYLotNoExplanation";
 import UsersList from "../pages/Dashboard/Users/UsersList";
+import InputDTYProductionReport from "../pages/InputExcelData/InputDTYProductionReport";
 
 export const router = createBrowserRouter([
     {
@@ -39,6 +40,10 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: '/',
+                element: <Home></Home>
+            },
+            {
+                path: '/home',
                 element: <Home></Home>
             },
             {
@@ -111,7 +116,11 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/upload/excel",
-                element: <PrivateRoute><CheckingRoute><InputExcelData /></CheckingRoute></PrivateRoute>
+                element: <PrivateRoute><CheckingRoute><InputExcelData /></CheckingRoute></PrivateRoute>,
+            },
+            {
+                path: "/upload/excel/dty-production-report",
+                element: <PrivateRoute><CheckingRoute><InputDTYProductionReport /></CheckingRoute></PrivateRoute>
             },
             {
                 path: "/upload/excel/download-file-uploading-formats",

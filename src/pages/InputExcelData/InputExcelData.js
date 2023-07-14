@@ -10,11 +10,12 @@ import { toast } from 'react-hot-toast';
 import { addMachine, getMcDataFromLot, updateMachine } from '../../redux/features/dtyMachinesFromPresentLot/dtyMCsFromPLotSlice';
 import DisplayDtyParameters from './DisplayDtyParameters';
 import DisplayDTYPresentLot from './DisplayDTYPresentLot';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PresentLotInstruction from '../../components/DTY/FileInstructions/PresentLotInstruction';
 
 const InputExcelData = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const fileInputRef = useRef(null);
   const { excelData, fileTypeInfo } = useSelector(state => state.inputExcelFiles);
   const { machineDataFromLot: existingArr, isLoading, isPosting, isError, error, postMachineSuccess, updateMachineSuccess } = useSelector(state => state.dtyMachinesFromLot);
@@ -26,19 +27,19 @@ const InputExcelData = () => {
     // console.log(file);
     const reader = new FileReader();
 
-    if(file){
+    if (file) {
       reader.onload = (event) => {
         const workbook = read(event.target.result, { type: 'binary' });
         const worksheetName = workbook.SheetNames[0]; // Assuming the first sheet
         const worksheet = workbook.Sheets[worksheetName];
         const data = utils.sheet_to_json(worksheet, { header: 1, });
-  
+
         console.log(data); // Output the extracted data
         dispatch(setExcelData(data));
         // e.target.value = '';
       };
       reader.readAsBinaryString(file);
-    } else{
+    } else {
       console.log('No file is selected');
     }
   };
@@ -83,6 +84,10 @@ const InputExcelData = () => {
     return <Uploading></Uploading>
   };
 
+  if (fileTypeInfo === "DTYProductionReport") {
+navigate('/upload/excel/dty-production-report')
+  }
+
   return (
     <div className='min-h-screen'>
       <h5 className='text-center text-lg pt-5'>Upload Your data from excel file by selecting the category of data.</h5>
@@ -126,7 +131,7 @@ const InputExcelData = () => {
 
         {
           fileTypeInfo === "DTYPresentLotAndTransferArea" &&
-          <PresentLotInstruction/>
+          <PresentLotInstruction />
         }
 
       </div>

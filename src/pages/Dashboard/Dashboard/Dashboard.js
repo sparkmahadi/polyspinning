@@ -1,20 +1,32 @@
-import React, { Fragment, useEffect, useMemo } from 'react';
+import React, { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import logo from "../../../images/polyspinning logo.png"
-import { Bars3Icon, CalendarIcon, ChartBarIcon, FolderIcon, HomeIcon, InboxIcon, UsersIcon, XMarkIcon,} from '@heroicons/react/24/outline';
+import { Bars3Icon, CalendarIcon, ChartBarIcon, FolderIcon, HomeIcon, InboxIcon, UsersIcon, XMarkIcon, } from '@heroicons/react/24/outline';
 import SidebarMobile from './SidebarMobile';
 import SidebarDesktop from './SidebarDesktop';
 import { useDispatch, useSelector } from 'react-redux';
-import { setNavItems, setSidebarOpen } from '../../../redux/features/dashboard/dashboardSlice';
+import { setSidebarOpen } from '../../../redux/features/dashboard/dashboardSlice';
 import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
     const dispatch = useDispatch();
-    const {isSidebarOpen, navItems} = useSelector(state => state.dashboard);
+    const { isSidebarOpen } = useSelector(state => state.dashboard);
+
+    const navigation = [
+        { name: 'Back to Home', link: '/home', icon: HomeIcon },
+        { name: 'Users', link: 'users', icon: UsersIcon },
+        { name: 'Machines', link: 'machines', icon: CalendarIcon },
+        { name: 'Products', link: 'products', icon: FolderIcon },
+        { name: 'Documents', link: 'documents', icon: InboxIcon },
+        { name: 'Reports', link: 'reports', icon: ChartBarIcon },
+    ]
 
     function classNames(...classes) {
         return classes.filter(Boolean).join(' ')
     }
+    // useEffect(()=>{
+    //     dispatch(setNavItems(navigation));
+    // },[dispatch]);
 
     return (
         <>
@@ -72,7 +84,7 @@ const Dashboard = () => {
                                         />
                                     </div>
 
-                                    <SidebarMobile classNames={classNames}></SidebarMobile>
+                                    <SidebarMobile classNames={classNames} navigation={navigation}></SidebarMobile>
 
                                 </div>
                                 <div className="flex flex-shrink-0 border-t border-indigo-800 p-4">
@@ -101,7 +113,7 @@ const Dashboard = () => {
                 </Dialog>
             </Transition.Root>
 
-            <SidebarDesktop classNames={classNames} />
+            <SidebarDesktop classNames={classNames} navigation={navigation}/>
         </>
     );
 };
