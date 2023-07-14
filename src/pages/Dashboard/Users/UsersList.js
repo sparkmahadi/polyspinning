@@ -8,11 +8,11 @@ import { deleteUser } from '../../../redux/features/users/apiCalls';
 
 const UsersList = () => {
     const dispatch = useDispatch();
-    const {users, isLoading, isError} = useSelector(state => state.users);
+    const { users, isLoading, isError } = useSelector(state => state.users);
 
     const handleVerifyUser = (email, name) => {
         const agree = window.confirm(`Are you sure to verifiy '${name}' with email: '${email}'?`);
-        
+
         if (agree) {
             dispatch(verifyUser(email));
         }
@@ -33,8 +33,9 @@ const UsersList = () => {
             {
                 isLoading && <div className="custom-align"><Spinner></Spinner></div>
             }
+            <h3 className='text-lg xl:text-xl font-semibold my-2 text-center'>List of Users</h3>
             <div className="overflow-x-auto">
-                <table className="lg:table lg:w-full">
+                <table className="lg:table lg:w-full hidden lg:block">
 
                     <thead>
                         <tr>
@@ -67,6 +68,32 @@ const UsersList = () => {
 
                     </tbody>
                 </table>
+
+                {/* mobile and tab view */}
+                <div className="lg:hidden mx-auto">
+                    <div className='grid grid-cols-1 gap-3'>
+                        {
+                            users?.map((user, i) => 
+                            <div className='border rounded-lg p-2 shadow-lg mx-auto w-3/4' key={user._id}>
+                                <p className='mb-2'>Serial: {i + 1}</p>
+                                <p className='mb-2 flex gap-2 items-center'>Name: {user.name} <span className='text-sky-600'>{user.verified ? <MdVerified /> : undefined}</span></p>
+                                <p className='mb-2'>Email: {user.email}</p>
+                                <p className='mb-2'>Account Type: {user.accountType}</p>
+                                <p className='mb-2 flex gap-2 items-center' onClick={() => handleVerifyUser(user.email, user.name)}>
+                                    Verification:
+                                    <button disabled={user.verified} className='btn-xs btn btn-primary'>{user.verified ? 'Verified' : 'Verify'}</button>
+                                </p>
+                                <p className='mb-2 flex gap-2 items-center'>
+                                    Actions:
+                                    <button onClick={() => handleDeleteUser(user)} className='btn btn-xs btn-error'>
+                                        Delete
+                                    </button>
+                                </p>
+                            </div>)
+                        }
+
+                    </div>
+                </div>
             </div>
         </div>
     );
