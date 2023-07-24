@@ -13,7 +13,7 @@ const Navbar = () => {
     { name: 'DTY', href: '/dty-floor-status' },
     { name: 'POY', href: '/poy-floor-status' },
     { name: 'Dashboard', href: '/dashboard' },
-    { name: 'Company', href: '#' },
+    { name: 'Blogs', href: '/blogs' },
   ]
 
   if (loading) {

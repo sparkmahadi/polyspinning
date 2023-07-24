@@ -32,6 +32,9 @@ import POYMachinesList from "../pages/Dashboard/Machines/POYMachinesList";
 import DTYLotNoExplanation from "../pages/DTY/DTYLotNoExplanation/DTYLotNoExplanation";
 import UsersList from "../pages/Dashboard/Users/UsersList";
 import InputDTYProductionReport from "../pages/InputExcelData/InputDTYProductionReport";
+import Blogs from "../pages/Blogs/Blogs";
+import Article from './../pages/Blogs/Article';
+import CreateArticle from "../pages/Blogs/CreateArticle";
 
 export const router = createBrowserRouter([
     {
@@ -137,6 +140,18 @@ export const router = createBrowserRouter([
             {
                 path: "/reset-password",
                 element: <ResetPassword />
+            },
+            {
+                path: "/blogs",
+                element: <Blogs />
+            },
+            {
+                path: "/blogs/article/:id",
+                element: <Article />
+            },
+            {
+                path: "/blogs/create-new-article",
+                element: <CreateArticle />
             },
         ]
     },

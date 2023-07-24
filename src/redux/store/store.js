@@ -9,6 +9,7 @@ import dtyMachineUpdatesSlice from "../features/dtyMachineUpdates/dtyMachineUpda
 import dashboardSlice from "../features/dashboard/dashboardSlice";
 import dtyLotNoExplSlice from "../features/dtyLotNoExplanation/dtyLotNoExplSlice";
 import usersSlice from "../features/users/usersSlice";
+import blogsSlice from "../features/blogs/blogsSlice";
 
 const store = configureStore({
     reducer: {
@@ -22,6 +23,7 @@ const store = configureStore({
         dtyLotNoExplanation: dtyLotNoExplSlice,
         dashboard: dashboardSlice,
         users: usersSlice,
+        blogs: blogsSlice,
     }
 });
 
