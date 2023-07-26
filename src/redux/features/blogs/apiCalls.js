@@ -6,21 +6,25 @@ export const fetchBlogs = async () => {
     return data.data;
 }
 
-// export const updateUserVerification = async (email) =>{
-//     const data = await axios.put(`/api/v1/users/${email}`, { verified: true });
-//     if (data.data.modifiedCount > 0) {
-//         toast.success(`${email} is verified successfully`);
-//     }
-//     else {
-//         toast.error("Nothing to update!!!")
-//     }
-//     return email;
-// }
+export const postBlog = async (article) => {
+    const data = await axios.post("/api/v1/blogs", article);
+    if (data.data.acknowledged) {
+        toast.success(`Inserted New Blog #${article.title}`, { id: article.title });
+    }
+    return article;
+}
 
-// export const deleteUser = async (id) => {
-//     const data = await axios.delete(`/api/v1/users/${id}`);
-//     if(data.data.deletedCount > 0){
-//         toast.success(`User #${id} is deleted successfully!!!`);
-//     }
-//     return data.data;
-// }
+export const modifyArticleData = async (article) => {
+    const data = await axios.put("/api/v1/blogs", article);
+    if (data.data.acknowledged) {
+        toast.success(`Updated Blog #${article.title}`, { id: "updated" + article.title });
+    }
+}
+
+export const deleteArticle = async (id) => {
+    const data = await axios.delete(`/api/v1/blogs/${id}`);
+    if(data.data.deletedCount > 0){
+        toast.success(`Article #${id} is deleted successfully!!!`);
+    }
+    return id;
+}

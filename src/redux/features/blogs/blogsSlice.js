@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { fetchBlogs } from "./apiCalls";
+import { deleteArticle, fetchBlogs, modifyArticleData, postBlog } from "./apiCalls";
 
 const initialState = {
     blogs: [],
@@ -28,17 +28,22 @@ export const getBlogs = createAsyncThunk("blogs/getBlogs", async () => {
     return blogsData;
 })
 
-// export const verifyUser = createAsyncThunk("users/verifyUser", async (email, thunkAPI) => {
-//     const userData = updateUserVerification(email);
-//     // thunkAPI.dispatch(getUsers());
-//     return userData;
-// })
+export const addBlog = createAsyncThunk("blogs/addBlog", async (article, thunkAPI) => {
+    const blogData = postBlog(article);
+    thunkAPI.dispatch(getBlogs);
+    return blogData;
+})
 
-// export const removeUser = createAsyncThunk("users/removeUser", async (id, thunkAPI) => {
-//     const userData = deleteUser(id);
-//     thunkAPI.dispatch(getUsers());
-//     return userData;
-// })
+export const updateArticle = createAsyncThunk("blogs/updateArticle", async (article) => {
+    const blogData = modifyArticleData(article);
+    return blogData;
+})
+
+export const removeArticle = createAsyncThunk("blogs/removeArticle", async (id, thunkAPI) => {
+    const blogData = deleteArticle(id);
+    // thunkAPI.dispatch(getBlogs);
+    return blogData;
+})
 
 const blogsSlice = createSlice({
     name: "blogs",
@@ -50,37 +55,56 @@ const blogsSlice = createSlice({
         setArticle: (state, action) => {
             state.article = action.payload;
         },
-        addArticleLevel: (state, action) => {
-            const { level } = action.payload;
-            if (level === 2) {
+        addArticleLevel2: (state, action) => {
+            const childObj = action.payload;
+            if (Array.isArray(state.article.detail)) {
                 state.article.detail.push(action.payload);
+            } else {
+                state.article.detail = [childObj];
             }
         },
         addArticleLevel3: (state, action) => {
             const { parentObj, childObj, indexOfParentObj } = action.payload;
-            // const updatedDetailArray = [...state.article.detail];
-            console.log("result", state.article.detail[indexOfParentObj].detail);
-            if(state.article.detail[indexOfParentObj].detail?.length){
-                childObj.item = state.article.detail[indexOfParentObj].detail.length + 1;
-                console.log('sum', state.article.detail[indexOfParentObj].detail.length + 1);
+            const lvl1Data = state.article.detail[indexOfParentObj];
+            if (Array.isArray(lvl1Data.detail)) {
+                childObj.item = lvl1Data.detail.length + 1;
                 state.article.detail[indexOfParentObj].detail.push(childObj);
             } else {
                 childObj.item = 1;
                 state.article.detail[indexOfParentObj].detail = [childObj];
             }
         },
+        addArticleLevel4: (state, action) => {
+            const { parentObj, childObj, indexOfParentObj, indexOfGrandParentObj } = action.payload;
+            const lvl2Data = state.article.detail[indexOfGrandParentObj].detail[indexOfParentObj];
+            if (Array.isArray(lvl2Data?.detail)) {
+                childObj.item = lvl2Data?.detail?.length + 1;
+                state.article.detail[indexOfGrandParentObj].detail[indexOfParentObj].detail.push(childObj);
+            } else {
+                childObj.item = 1;
+                state.article.detail[indexOfGrandParentObj].detail[indexOfParentObj].detail = [childObj];
+            }
+        },
         addArticleSectionToLvl2: (state, action) => {
-            const {level} = action.payload;
+            const { level } = action.payload;
             if (level === 2) {
                 state.article.detail.push(action.payload);
             }
         },
         addArticleSectionToLvl3: (state, action) => {
             const newObj = action.payload;
-            const {level, level2Index} = newObj;
+            const { level, level2Index } = newObj;
             if (level === 3) {
                 newObj.item = state.article.detail[level2Index]?.detail?.length + 1;
                 state.article.detail[level2Index]?.detail.push(action.payload);
+            }
+        },
+        addArticleSectionToLvl4: (state, action) => {
+            const newObj = action.payload;
+            const { level, level2Index, level3Index } = newObj;
+            if (level === 4) {
+                newObj.item = state.article.detail[level2Index]?.detail[level3Index]?.detail.length + 1;
+                state.article.detail[level2Index]?.detail[level3Index]?.detail.push(action.payload);
             }
         },
         deleteArticleSectionOfLvl2: (state, action) => {
@@ -93,31 +117,57 @@ const blogsSlice = createSlice({
             const obj = action.payload;
             const { item, level2Index } = obj;
             const newState = deepCopy(state.article);
-      
+
             if (newState?.detail[level2Index]?.detail) {
-              newState.detail[level2Index].detail = newState.detail[level2Index].detail.filter(
-                obj => obj.item !== item
-              );
+                newState.detail[level2Index].detail = newState.detail[level2Index].detail.filter(
+                    obj => obj.item !== item
+                );
+            }
+            state.article = newState;
+        },
+        deleteArticleSectionOfLvl4: (state, action) => {
+            const obj = action.payload;
+            const { item, level2Index, level3Index } = obj;
+
+            // Create a deep copy of the state to avoid direct mutation
+            const newState = deepCopy(state.article);
+
+            if (newState?.detail[level2Index]?.detail?.[level3Index]?.detail) {
+                newState.detail[level2Index].detail[level3Index].detail = newState?.detail[level2Index]?.detail[level3Index].detail.filter(
+                    obj => obj.item !== item
+                );
             }
             state.article = newState;
         },
         addTitleToLvl1: (state, action) => {
-            const title = action.payload;
-        },
-        addTitleToLvl2: (state, action) => {
-            const title = action.payload;
-        },
-        addTitleToLvl3: (state, action) => {
-            const title = action.payload;
+            state.article.title = action.payload;
         },
         addDetailToLvl1: (state, action) => {
-            const Detail = action.payload;
+            state.article.detail = action.payload;
+        },
+        addTitleToLvl2: (state, action) => {
+            const { title, objIndex } = action.payload;
+            state.article.detail[objIndex].title = title;
         },
         addDetailToLvl2: (state, action) => {
-            const Detail = action.payload;
+            const { detail, objIndex } = action.payload;
+            state.article.detail[objIndex].detail = detail;
+        },
+        addTitleToLvl3: (state, action) => {
+            const { title, parentIndex, childIndex } = action.payload;
+            state.article.detail[parentIndex].detail[childIndex].title = title;
         },
         addDetailToLvl3: (state, action) => {
-            const Detail = action.payload;
+            const { detail, parentIndex, childIndex } = action.payload;
+            state.article.detail[parentIndex].detail[childIndex].detail = detail;
+        },
+        addTitleToLvl4: (state, action) => {
+            const { title, grandParentIndex, parentIndex, childIndex } = action.payload;
+            state.article.detail[grandParentIndex].detail[parentIndex].detail[childIndex].title = title;
+        },
+        addDetailToLvl4: (state, action) => {
+            const { detail, grandParentIndex, parentIndex, childIndex } = action.payload;
+            state.article.detail[grandParentIndex].detail[parentIndex].detail[childIndex].detail = detail;
         },
     },
     extraReducers: (builder) => {
@@ -136,12 +186,48 @@ const blogsSlice = createSlice({
             state.isError = true;
             state.error = action.error.message;
         })
+        
+        builder.addCase(addBlog.pending, (state, action) => {
+            state.isLoading = true;
+            state.isError = false;
+        })
+        builder.addCase(addBlog.fulfilled, (state, action) => {
+            state.blogs.push(action.payload);
+            state.isLoading = false;
+            state.isError = false;
+        })
+        builder.addCase(addBlog.rejected, (state, action) => {
+            state.blogs = [];
+            state.isLoading = false;
+            state.isError = true;
+            state.error = action.error.message;
+        })
 
+        builder.addCase(removeArticle.pending, (state, action) => {
+            state.isLoading = true;
+            state.isError = false;
+        })
+        builder.addCase(removeArticle.fulfilled, (state, action) => {
+            console.log("id", action.payload);
+            state.blogs = state.blogs?.filter(blog => blog._id !== action.payload);
+            state.isLoading = false;
+            state.isError = false;
+        })
+        builder.addCase(removeArticle.rejected, (state, action) => {
+            state.blogs = [];
+            state.isLoading = false;
+            state.isError = true;
+            state.error = action.error.message;
+        })
     }
 })
 
-export const { setBlogDetails, setArticle, addArticleSectionToLvl2, deleteArticleSectionOfLvl2, addArticleSectionToLvl3, deleteArticleSectionOfLvl3, addArticleLevel3,
-addTitleToLvl1, addTitleToLvl2, addTitleToLvl3,
-addDetailToLvl1, addDetailToLvl2, addDetailToLvl3,
+export const {
+    setBlogDetails, setArticle,
+    addArticleSectionToLvl2, addArticleSectionToLvl3, addArticleSectionToLvl4,
+    deleteArticleSectionOfLvl2, deleteArticleSectionOfLvl3, deleteArticleSectionOfLvl4,
+    addArticleLevel2, addArticleLevel3, addArticleLevel4,
+    addTitleToLvl1, addTitleToLvl2, addTitleToLvl3, addTitleToLvl4,
+    addDetailToLvl1, addDetailToLvl2, addDetailToLvl3, addDetailToLvl4,
 } = blogsSlice.actions;
 export default blogsSlice.reducer;

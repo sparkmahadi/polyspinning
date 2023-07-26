@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
-import { useEffect } from 'react';
 import { AuthContext } from '../../../contexts/UserContext';
 import Spinner from '../../../components/Spinner/Spinner';
 import axios from '../../../utils/axios.config';

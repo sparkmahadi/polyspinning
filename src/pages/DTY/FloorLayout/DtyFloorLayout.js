@@ -13,7 +13,7 @@ const DtyFloorLayout = () => {
                 <div className="hero-content flex-col lg:flex-row-reverse">
                     <img src={dtyMachine} className="lg:w-1/2 rounded-lg shadow-2xl" alt='' />
                     <div>
-                        <h1 className="text-3xl font-bold">Drawn Textured Yarn</h1>
+                        <h1 className="text-xl md:text-2xl lg:text-3xl font-bold">Drawn Textured Yarn</h1>
                         <p className="py-3 lg:text-lg">Drawn Textured Yarn (DTY) is a type of synthetic yarn that undergoes multiple processing steps to enhance its texture and physical properties. Initially, the yarn is drawn to align and orient its fibers, followed by a texturing process that imparts crimp and bulkiness. This crimped structure gives DTY a unique appearance and enables it to mimic the properties of natural fibers like cotton or wool. DTY offers excellent elasticity, softness, and moisture-wicking capabilities, making it ideal for various applications in the textile industry. It is commonly used in the production of fabrics for sportswear, activewear, lingerie, and home textiles. DTY's versatility, combined with its aesthetic appeal and performance attributes, has made it a popular choice among designers and manufacturers worldwide.</p>
                         <div className='md:flex gap-5'>
                             <Link to={'present-lot-and-transfer-area'}>
