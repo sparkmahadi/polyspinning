@@ -1,5 +1,5 @@
 import React from 'react';
-import Level1 from './Levels/Level1';
+import Level1 from '../../../../components/Blogs/Levels/Level1';
 
 const CreateArticle = () => {
    

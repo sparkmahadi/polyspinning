@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import DotsBullet from '../../components/BulletPoints/DotsBullet';
-import ChevronDoubleRegular from '../../components/BulletPoints/ChevronDoubleRegular';
-import FingerPointer from '../../components/BulletPoints/FingerPointer';
-import MinusBulletRegular from '../../components/BulletPoints/MinusBulletRegular';
-import TriangleBullet from '../../components/BulletPoints/TriangleBullet';
-import ArrowHeadBullet from '../../components/BulletPoints/ArrowHeadBullet';
+import DotsBullet from '../../../components/BulletPoints/DotsBullet';
+import ChevronDoubleRegular from '../../../components/BulletPoints/ChevronDoubleRegular';
+import FingerPointer from '../../../components/BulletPoints/FingerPointer';
+import MinusBulletRegular from '../../../components/BulletPoints/MinusBulletRegular';
+import TriangleBullet from '../../../components/BulletPoints/TriangleBullet';
+import ArrowHeadBullet from '../../../components/BulletPoints/ArrowHeadBullet';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBlogDetails } from '../../redux/features/blogs/blogsSlice';
+import { getBlogDetails } from '../../../redux/features/blogs/blogsSlice';
 import { useParams } from 'react-router-dom';
 
 const Article = ({ level = 0 }) => {

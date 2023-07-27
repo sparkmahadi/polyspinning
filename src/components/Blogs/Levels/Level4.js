@@ -43,8 +43,8 @@ const Level4 = ({ parentIndex, parentObj, grandParentIndex }) => {
             <h3 className='text-sm md:text-base lg:text-lg font-semibold mb-2'> Bullet Points Level : {level}</h3>
                 {
                     parentObj?.detail?.map((obj, i) =>
-                        <div key={obj.item}>
-                            <div className='border border-1 p-2 md:p-3 lg:p-5 rounded-lg'>
+                        <div key={obj.item} className={`border border-1 p-2 md:p-3 lg:p-5 rounded-lg ${i>0 ? "mt-2 md:mt-3 lg:mt-5" : undefined}`}>
+                            <div className=''>
                                 <div className='flex justify-between items-center'>
                                     <h5 className='text-sm lg:text-base font-semibold'>Section No: {i + 1}</h5>
                                     <button onClick={() => handleDeleteSection(obj.item, parentIndex)} className="btn btn-xs md:btn-sm">Delete</button>
@@ -68,7 +68,7 @@ const Level4 = ({ parentIndex, parentObj, grandParentIndex }) => {
                 }
                 {
                     Array.isArray(parentObj?.detail) &&
-                    <button onClick={() => handleAddSection(parentObj, parentIndex, grandParentIndex)} className="btn btn-success btn-xs lg:btn-sm my-2 lg:my-3">Add More Section</button>
+                    <button onClick={() => handleAddSection(parentObj, parentIndex, grandParentIndex)} className="btn btn-success btn-xs lg:btn-sm md:mt-3 lg:mt-5">Add More Section</button>
                 }
                 <br />
             </div>

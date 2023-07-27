@@ -32,9 +32,9 @@ import POYMachinesList from "../pages/Dashboard/Machines/POYMachinesList";
 import DTYLotNoExplanation from "../pages/DTY/DTYLotNoExplanation/DTYLotNoExplanation";
 import UsersList from "../pages/Dashboard/Users/UsersList";
 import InputDTYProductionReport from "../pages/InputExcelData/InputDTYProductionReport";
-import Blogs from "../pages/Blogs/Blogs";
-import Article from './../pages/Blogs/Article';
-import CreateArticle from "../pages/Blogs/CreateArticle";
+import Blogs from './../pages/Blogs/Blogs';
+import Article from "../pages/Blogs/Articles/Article";
+import CreateArticle from "../pages/Blogs/Articles/CreateArticle/CreateArticle";
 
 export const router = createBrowserRouter([
     {
