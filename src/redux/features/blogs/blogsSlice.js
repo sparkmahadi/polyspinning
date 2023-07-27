@@ -226,7 +226,7 @@ const blogsSlice = createSlice({
             state.isError = false;
         })
         builder.addCase(getBlogDetails.fulfilled, (state, action) => {
-            state.blogDetails.push(action.payload);
+            state.blogDetails = [action.payload];
             state.isLoading = false;
             state.isError = false;
         })

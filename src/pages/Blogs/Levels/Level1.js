@@ -9,7 +9,7 @@ const Level1 = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { article } = useSelector(state => state.blogs);
-    const { title, detail, item } = article;
+    const {item } = article;
 
     const handleAddLevel = (level, item) => {
         console.log(level);
@@ -27,23 +27,24 @@ const Level1 = () => {
 
     return (
         <div>
-            <div className='p-5 border border-1'>
+            <div className='p-2 md:p-3 lg:p-5 border border-1 rounded-lg'>
                 <div>
-                    <h2 className='text-lg font-semibold'> Bullet Points Level : {level}</h2>
-                    <div className='border border-1 max-w-lg p-5 m-2 rounded-lg'>
-                        <div className='flex justify-between items-center'>
-                            <h5>Section No: {1}</h5>
-                        </div>
-                        <label className='text-lg font-semibold'>Title:</label>
+                    <h3 className='text-sm md:text-base lg:text-lg font-semibold mb-2'> Bullet Points Level : {level}</h3>
+                    <div className='border border-1 p-2 md:p-3 lg:p-5 rounded-lg'>
+                    <div className='flex justify-between items-center'>
+                                <h5 className='text-sm lg:text-base font-semibold'>Section No: {1}</h5>
+                                <button className="btn btn-xs btn-disabled md:btn-sm">Delete</button>
+                            </div>
+                        <label className='text-sm lg:text-base'>Title:</label>
                         <br />
-                        <input onBlur={(e) => dispatch(addTitleToLvl1(e.target.value))} className="input input-bordered w-full max-w-md" type="text" name={`title-main`} />
+                        <input onBlur={(e) => dispatch(addTitleToLvl1(e.target.value))} className="input input-bordered input-xs md:input-sm lg:input-md w-full md:my-2" type="text" name={`title-main`} />
                         <br />
                         {
                             Array.isArray(article.detail) ||
                             <>
-                                <label className='text-lg font-semibold'>Details:</label>
+                                <label className='text-sm lg:text-base'>Details:</label>
                                 <br />
-                                <input onBlur={(e) => dispatch(addDetailToLvl1(e.target.value))} className="input input-bordered w-full max-w-md" type="text" name={`detail-main`} />
+                                <input onBlur={(e) => dispatch(addDetailToLvl1(e.target.value))} className="input input-bordered input-xs md:input-sm lg:input-md w-full md:my-2" type="text" name={`detail-main`} />
                             </>
 
                         }
@@ -51,14 +52,14 @@ const Level1 = () => {
                 </div>
 
                 <div>
-                    <button onClick={() => handleAddLevel(level + 1, item)} className="btn btn-primary btn-sm mr-3">Add Level {level + 1} Here</button>
+                    <button onClick={() => handleAddLevel(level + 1, item)} className="btn btn-primary btn-xs md:btn-sm mt-2 md:mt-3">Add Level {level + 1} Here</button>
                 </div>
                 {
                     Array.isArray(article.detail) &&
                     <Level2 />
                 }
             </div>
-            <button onClick={handleSubmitArticle} className="btn btn-primary btn-sm">Submit</button>
+            <button onClick={handleSubmitArticle} className="btn btn-primary btn-sm mt-2 md:mt-3 lg:mt-5">Submit</button>
         </div>
     );
 

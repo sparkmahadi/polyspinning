@@ -48,31 +48,31 @@ const Level2 = () => {
     }
 
     return (
-        <div className={`p-5 border border-1 ml-20 rounded-lg`}>
+        <div className={`p-2 md:p-3 lg:p-5 border border-1 ml-8 md:ml-12 lg:ml-20 mt-2 md:mt-3 rounded-lg`}>
             <div>
-                <h2 className='text-lg font-semibold'> Bullet Points Level : {level}</h2>
+                <h3 className='text-sm md:text-base lg:text-lg font-semibold mb-2'> Bullet Points Level : {level}</h3>
                 {
                     detail?.map((obj, i) =>
-                        <div key={obj.item} className='border border-1 max-w-lg p-5 m-2 rounded-lg'>
+                        <div key={obj.item} className='border border-1 p-2 md:p-3 lg:p-5 rounded-lg'>
                             <div className='flex justify-between items-center'>
-                                <h5>Section No: {i + 1}</h5>
-                                <button onClick={() => handleDeleteSection(obj.item)} className="btn btn-xs">Delete</button>
+                                <h5 className='text-sm lg:text-base font-semibold'>Section No: {i + 1}</h5>
+                                <button onClick={() => handleDeleteSection(obj.item)} className="btn btn-xs md:btn-sm">Delete</button>
                             </div>
-                            <label className='text-lg font-semibold'>Title:</label>
+                            <label className='text-sm lg:text-base'>Title:</label>
                             <br />
-                            <input onBlur={(e) => handleAddValuesToLvl2(e, 'title', i)} className="input input-bordered w-full max-w-md" type="text" name={`title-${i}`} />
+                            <input onBlur={(e) => handleAddValuesToLvl2(e, 'title', i)} className="input input-bordered input-xs md:input-sm lg:input-md w-full md:my-2" type="text" name={`title-${i}`} />
                             <br />
                             {
                                 Array.isArray(obj?.detail) ||
                                 <>
-                                    <label className='text-lg font-semibold'>Details:</label>
+                                    <label className='text-sm lg:text-base'>Details:</label>
                                     <br />
-                                    <input onBlur={(e) => handleAddValuesToLvl2(e, 'detail', i)} className="input input-bordered w-full max-w-md" type="text" name={`detail-${i}`} />
+                                    <input onBlur={(e) => handleAddValuesToLvl2(e, 'detail', i)} className="input input-bordered input-xs md:input-sm lg:input-md w-full md:my-2" type="text" name={`detail-${i}`} />
                                 </>
                             }
 
-                            <div className='mt-3'>
-                                <button onClick={() => handleAddLevel3(level + 1, obj, i)} className="btn btn-primary btn-sm mr-3">Add Level {level + 1} Here</button>
+                            <div className=''>
+                                <button onClick={() => handleAddLevel3(level + 1, obj, i)} className="btn btn-primary btn-xs md:btn-sm mt-2 md:mt-3">Add Level {level + 1} Here</button>
                             </div>
 
                             {
@@ -81,10 +81,9 @@ const Level2 = () => {
                         </div>
                     )
                 }
-                <br />
 
                 <div>
-                    <button onClick={() => handleAddSection()} className="btn btn-success btn-sm mr-3">Add More Section</button>
+                    <button onClick={() => handleAddSection()} className="btn btn-success btn-xs lg:btn-sm my-2 lg:my-3">Add More Section</button>
                 </div>
             </div>
 

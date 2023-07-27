@@ -31,13 +31,13 @@ const Blogs = () => {
 
     return (
         <div className='mx-auto max-w-md px-6 sm:max-w-3xl lg:max-w-7xl lg:px-8'>
-            <h3 className='text-center className="text-xl md:text-2xl lg:text-3xl font-bold pt-5'>Important Blogs</h3>
+            <h3 className='text-center text-xl md:text-2xl lg:text-3xl font-bold pt-5'>Important Blogs</h3>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>
                 {
                     blogs.map((blog, index) =>
                         <div key={index} className="card lg:w-96 bg-base-100 shadow-xl">
                             <div className="card-body">
-                                <h2 className="card-title">{blog.title}</h2>
+                                <h2 className="card-title text-lg md:text-xl lg:text-2xl">{blog.title}</h2>
                                 <ul>
                                     {
                                         Array.isArray(blog?.detail) &&

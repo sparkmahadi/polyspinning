@@ -60,7 +60,7 @@ const DTYMachineFilter = () => {
     }
 
     return (
-        <div className=" shadow p-2 lg:p-5 rounded-lg bg-white mx-auto">
+        <div className=" shadow p-2 md:p-3 lg:p-5 rounded-lg bg-white mx-auto">
 
             <div className="">
                 <h4 className="font-medium lg:text-lg pb-2">

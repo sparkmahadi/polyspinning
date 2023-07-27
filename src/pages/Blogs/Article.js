@@ -16,15 +16,17 @@ const Article = ({ level = 0 }) => {
 
   useEffect(() => {
     dispatch(getBlogDetails(id));
-  }, [id, dispatch])
+  }, [id])
+
+  console.log(blogDetails);
 
   const renderContent = (data, currentLevel) => {
     return data.map((item, index) => {
       const newLevel = currentLevel + 1;
       return (
-        <div key={index} className={`px-16 py-2 bg-base-200 rounded-lg`}>
+        <div key={index} className={`pl-3 md:pl-5 lg:px-16 lg:py-2 bg-base-200 rounded-lg`}>
           <li className='flex items-center gap-3'>
-            <div className='w-8 h-8 pb-9'>
+            <div className='w-6 h-6 lg:w-8 lg:h-8 pb-2 lg:pb-9'>
               {newLevel === 1 && <DotsBullet />}
               {newLevel === 2 && <ChevronDoubleRegular />}
               {newLevel === 3 && <ArrowHeadBullet />}
@@ -33,9 +35,9 @@ const Article = ({ level = 0 }) => {
               {newLevel === 6 && <TriangleBullet />}
             </div>
             <h2
-              className={`font-bold mb-2 ${newLevel === 1 ? 'text-3xl' : ''
-                } ${newLevel === 2 ? 'text-2xl font-semibold' : ''} ${newLevel === 3 ? 'text-xl font-semibold' : ''
-                } ${newLevel === 4 ? 'text-lg font-semibold' : ''} ${newLevel === 5 ? 'text-base font-semibold' : ''
+              className={`font-bold my-1 lg:mb-2 ${newLevel === 1 ? 'text-xl md:text-2xl lg:text-3xl' : ''
+                } ${newLevel === 2 ? 'text-lg md:text-xl lg:text-2xl font-semibold' : ''} ${newLevel === 3 ? 'text-base md:text-lg lg:text-xl font-semibold' : ''
+                } ${newLevel === 4 ? 'text-sm md:text-sm lg:text-base font-semibold' : ''} ${newLevel === 5 ? 'text-xs md:text-sm lg:text-base font-semibold' : ''
                 }`}
             >
               {item.title} :
@@ -45,9 +47,9 @@ const Article = ({ level = 0 }) => {
             <div>{renderContent(item.detail, newLevel)}</div>
           ) : (
             <p
-              className={`text-gray-700 ${newLevel === 1 ? 'text-2xl' : ''
-                } ${newLevel === 2 ? 'text-xl' : ''} ${newLevel === 3 ? 'text-lg' : ''
-                } ${newLevel === 4 ? 'text-base' : ''}`}
+              className={`text-gray-700 ${newLevel === 1 ? 'text-lg md:text-xl lg:text-2xl' : ''
+                } ${newLevel === 2 ? 'text-base md:text-lg lg:text-xl' : ''} ${newLevel === 3 ? 'text-sm md:text-base lg:text-lg' : ''
+                } ${newLevel === 4 ? 'text-xs md:text-sm lg:text-base' : ''} ${newLevel === 5 ? 'text-xs md:text-sm lg:text-base' : ''}`}
             >
               {item.detail}
             </p>
