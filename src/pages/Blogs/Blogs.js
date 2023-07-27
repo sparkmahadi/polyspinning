@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBlogs, removeArticle, setBlogDetails } from '../../redux/features/blogs/blogsSlice';
+import { getBlogs, removeArticle } from '../../redux/features/blogs/blogsSlice';
 import { AuthContext } from './../../contexts/UserContext';
 import Spinner from '../../components/Spinner/Spinner';
 import useCheckAccType from '../../hooks/useCheckAccType';
@@ -58,7 +58,7 @@ const Blogs = () => {
                                 </ul>
                                 <div className='flex gap-5 '>
                                     <div className="card-actions justify-end">
-                                        <Link to={`/blogs/article/${blog._id}`} onClick={() => dispatch(setBlogDetails([blog]))}><button className="btn btn-primary btn-sm">See Details</button></Link>
+                                        <Link to={`/blogs/article/${blog._id}`}><button className="btn btn-primary btn-sm">See Details</button></Link>
                                     </div>
 
                                     {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import DotsBullet from '../../components/BulletPoints/DotsBullet';
 import ChevronDoubleRegular from '../../components/BulletPoints/ChevronDoubleRegular';
 import FingerPointer from '../../components/BulletPoints/FingerPointer';
@@ -6,11 +6,17 @@ import MinusBulletRegular from '../../components/BulletPoints/MinusBulletRegular
 import TriangleBullet from '../../components/BulletPoints/TriangleBullet';
 import ArrowHeadBullet from '../../components/BulletPoints/ArrowHeadBullet';
 import { useDispatch, useSelector } from 'react-redux';
+import { getBlogDetails } from '../../redux/features/blogs/blogsSlice';
+import { useParams } from 'react-router-dom';
 
 const Article = ({ level = 0 }) => {
   const dispatch = useDispatch();
-  const {blogDetails} = useSelector(state => state.blogs);
-  console.log(blogDetails);
+  const { blogDetails } = useSelector(state => state.blogs);
+  const {id} = useParams();
+
+  useEffect(() => {
+    dispatch(getBlogDetails(id));
+  }, [id, dispatch])
 
   const renderContent = (data, currentLevel) => {
     return data.map((item, index) => {
@@ -27,13 +33,10 @@ const Article = ({ level = 0 }) => {
               {newLevel === 6 && <TriangleBullet />}
             </div>
             <h2
-              className={`font-bold mb-2 ${
-                newLevel === 1 ? 'text-3xl' : ''
-              } ${newLevel === 2 ? 'text-2xl font-semibold' : ''} ${
-                newLevel === 3 ? 'text-xl font-semibold' : ''
-              } ${newLevel === 4 ? 'text-lg font-semibold' : ''} ${
-                newLevel === 5 ? 'text-base font-semibold' : ''
-              }`}
+              className={`font-bold mb-2 ${newLevel === 1 ? 'text-3xl' : ''
+                } ${newLevel === 2 ? 'text-2xl font-semibold' : ''} ${newLevel === 3 ? 'text-xl font-semibold' : ''
+                } ${newLevel === 4 ? 'text-lg font-semibold' : ''} ${newLevel === 5 ? 'text-base font-semibold' : ''
+                }`}
             >
               {item.title} :
             </h2>
@@ -42,11 +45,9 @@ const Article = ({ level = 0 }) => {
             <div>{renderContent(item.detail, newLevel)}</div>
           ) : (
             <p
-              className={`text-gray-700 ${
-                newLevel === 1 ? 'text-2xl' : ''
-              } ${newLevel === 2 ? 'text-xl' : ''} ${
-                newLevel === 3 ? 'text-lg' : ''
-              } ${newLevel === 4 ? 'text-base' : ''}`}
+              className={`text-gray-700 ${newLevel === 1 ? 'text-2xl' : ''
+                } ${newLevel === 2 ? 'text-xl' : ''} ${newLevel === 3 ? 'text-lg' : ''
+                } ${newLevel === 4 ? 'text-base' : ''}`}
             >
               {item.detail}
             </p>

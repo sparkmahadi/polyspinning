@@ -6,6 +6,11 @@ export const fetchBlogs = async () => {
     return data.data;
 }
 
+export const fetchBlogDetails = async (id) => {
+    const data = await axios.get(`/api/v1/blogs/${id}`);
+    return data.data;
+}
+
 export const postBlog = async (article) => {
     const data = await axios.post("/api/v1/blogs", article);
     if (data.data.acknowledged) {

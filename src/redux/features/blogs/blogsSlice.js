@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { deleteArticle, fetchBlogs, modifyArticleData, postBlog } from "./apiCalls";
+import { deleteArticle, fetchBlogDetails, fetchBlogs, modifyArticleData, postBlog } from "./apiCalls";
 
 const initialState = {
     blogs: [],
-    blogDetails: {},
+    blogDetails: [],
     postUserSuccess: false,
     updateUserSuccess: false,
     isLoading: false,
@@ -28,6 +28,11 @@ export const getBlogs = createAsyncThunk("blogs/getBlogs", async () => {
     return blogsData;
 })
 
+export const getBlogDetails = createAsyncThunk("blogs/getBlogDetails", async (id) => {
+    const blogData = fetchBlogDetails(id);
+    return blogData;
+})
+
 export const addBlog = createAsyncThunk("blogs/addBlog", async (article, thunkAPI) => {
     const blogData = postBlog(article);
     thunkAPI.dispatch(getBlogs);
@@ -49,9 +54,6 @@ const blogsSlice = createSlice({
     name: "blogs",
     initialState,
     reducers: {
-        setBlogDetails: (state, action) => {
-            state.blogDetails = action.payload;
-        },
         setArticle: (state, action) => {
             state.article = action.payload;
         },
@@ -208,7 +210,6 @@ const blogsSlice = createSlice({
             state.isError = false;
         })
         builder.addCase(removeArticle.fulfilled, (state, action) => {
-            console.log("id", action.payload);
             state.blogs = state.blogs?.filter(blog => blog._id !== action.payload);
             state.isLoading = false;
             state.isError = false;
@@ -219,11 +220,27 @@ const blogsSlice = createSlice({
             state.isError = true;
             state.error = action.error.message;
         })
+        
+        builder.addCase(getBlogDetails.pending, (state, action) => {
+            state.isLoading = true;
+            state.isError = false;
+        })
+        builder.addCase(getBlogDetails.fulfilled, (state, action) => {
+            state.blogDetails.push(action.payload);
+            state.isLoading = false;
+            state.isError = false;
+        })
+        builder.addCase(getBlogDetails.rejected, (state, action) => {
+            state.blogDetails = [];
+            state.isLoading = false;
+            state.isError = true;
+            state.error = action.error.message;
+        })
     }
 })
 
 export const {
-    setBlogDetails, setArticle,
+    setArticle,
     addArticleSectionToLvl2, addArticleSectionToLvl3, addArticleSectionToLvl4,
     deleteArticleSectionOfLvl2, deleteArticleSectionOfLvl3, deleteArticleSectionOfLvl4,
     addArticleLevel2, addArticleLevel3, addArticleLevel4,
