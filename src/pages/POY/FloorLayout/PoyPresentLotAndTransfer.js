@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { findPoyWinder, getPoyMcDataFromLot, setSelectedFiltersPOY } from '../../../redux/features/poyMachinesFromPresentLot/poyMCsFromPLotSlice';
 import Spinner from '../../../components/Spinner/Spinner';
+import { pageHeadings, shadowRound, tdPadding } from '../../../customClasses/CustomClasses';
 
 const PoyPresentLotAndTransfer = () => {
 
@@ -67,17 +68,13 @@ const PoyPresentLotAndTransfer = () => {
   }
 
   return (
-    <div className="overflow-x-auto">
+    <div className="max-w-7xl mx-auto">
       <span className="loading loading-spinner loading-lg z-50"></span>
-      <h5 className='lg:text-xl font-semibold text-center py-5'>Present POY Floor Status</h5>
+      <h5 className={`${pageHeadings} pt-5`}>Present POY Floor Status</h5>
 
-      <div className='flex justify-center'>
-        <Link to={'/poy-floor-status/denierwise-poy-lines'}><button className='btn btn-primary btn-sm'>Show Denierwise Data</button></Link>
-      </div>
-
-      <div className='flex justify-center'>
-        <div className="w-full md:w-2/3 shadow p-5 rounded-lg bg-white">
-          <div className="flex items-center justify-between mt-4">
+      <div className={`flex justify-center mx-2 my-5 ${shadowRound}`}>
+        <div className={`w-full p-5 rounded-lg bg-white`}>
+          <div className="flex items-center justify-between">
             <p className="font-medium">Filters</p>
             <button
               className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-800 text-sm font-medium rounded-md"
@@ -143,48 +140,55 @@ const PoyPresentLotAndTransfer = () => {
           </div>
         </div>
       </div>
-      <table className="table w-full max-w-sm mx-auto">
-        <thead>
-          <tr>
-            {properties?.map((spec, index) => (
-              <td key={index}>{spec}</td>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {existingArrWithoutId
-            ?.filter((machine) => {
-              if (
-                (selectedFilters.lineNo === 'All' ||
-                  machine['LineNo.'] === selectedFilters.lineNo) &&
-                (selectedFilters.denier === 'All' ||
-                  machine.Denier === selectedFilters.denier) &&
-                (selectedFilters.filaments === 'All' ||
-                  machine.Filaments === selectedFilters.filaments) &&
-                (selectedFilters.poyBobbin === 'All' ||
-                  machine['POYBobbin'] === selectedFilters.poyBobbin)
-              ) {
-                return true;
-              }
-              return false;
-            })
-            .map((machine, index) => (
-              <tr key={index}>
-                {Object.values(machine)?.map((sp, i) => (
-                  <td key={i}>{sp}</td>
-                ))}
-                <td>
-                  <Link
-                    onClick={() => dispatch(findPoyWinder(machine['WinderNo']))}
-                    to={`/poy-winders/${machine['WinderNo']}`}
-                  >
-                    <button className="btn btn-primary btn-sm">Edit</button>
-                  </Link>
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
+
+      <div className='overflow-auto mx-1'>
+        <table className="table w-full mx-auto text-sm">
+          <thead>
+            <tr>
+              {properties?.map((spec, index) => (
+                <td className={tdPadding} key={index}>{spec}</td>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {existingArrWithoutId
+              ?.filter((machine) => {
+                if (
+                  (selectedFilters.lineNo === 'All' ||
+                    machine['LineNo.'] === selectedFilters.lineNo) &&
+                  (selectedFilters.denier === 'All' ||
+                    machine.Denier === selectedFilters.denier) &&
+                  (selectedFilters.filaments === 'All' ||
+                    machine.Filaments === selectedFilters.filaments) &&
+                  (selectedFilters.poyBobbin === 'All' ||
+                    machine['POYBobbin'] === selectedFilters.poyBobbin)
+                ) {
+                  return true;
+                }
+                return false;
+              })
+              .map((machine, index) => (
+                <tr key={index}>
+                  {Object.values(machine)?.map((sp, i) => (
+                    <td className={tdPadding} key={i}>{sp}</td>
+                  ))}
+                  <td>
+                    <Link
+                      onClick={() => dispatch(findPoyWinder(machine['WinderNo']))}
+                      to={`/poy-winders/${machine['WinderNo']}`}
+                    >
+                      <button className="btn btn-primary btn-xs">Edit</button>
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className='flex justify-center mt-2 lg:mt-5'>
+        <Link to={'/poy-floor-status/denierwise-poy-lines'}><button className='btn btn-primary btn-sm'>Show Denierwise Data</button></Link>
+      </div>
     </div>
   );
 };

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import Spinner from '../../../components/Spinner/Spinner';
 import LoadingCustom from '../../../components/Spinner/LoadingCustom';
 import DataLoading from '../../../components/Spinner/DataLoading';
+import { defaultContainer, shadowRound } from '../../../customClasses/CustomClasses';
 
 const DtyProcessParams = () => {
   const { dtyProcessParameters, isLoading } = useSelector(state => state.dtyProcessParameters);
@@ -34,17 +35,15 @@ const DtyProcessParams = () => {
   }
 
   return (
-    <div className="overflow-x-auto pt-10">
+    <div className={defaultContainer}>
       {
         dtyProcessParameters.length &&
-        <>
-          <div className='flex justify-center'><Link to={'add-new-parameter'}><button className='btn btn-primary mb-5'>Add New Parameter</button></Link></div>
-
-          <table className="table w-full hidden lg:block">
+        <div className='overflow-auto'>
+          <table className="table w-full hidden md:block text-sm">
             <thead>
               <tr>
                 {properties?.map((spec, i) =>
-                  <td key={i}>{spec}</td>
+                  <td className='p-1 lg:p-3' key={i}>{spec}</td>
                 )}
               </tr>
             </thead>
@@ -54,7 +53,7 @@ const DtyProcessParams = () => {
                   <tr key={i}>
                     {
                       properties?.map((param, i) =>
-                        <td key={i}>{paramDetail[param]}</td>
+                        <td className='p-1 lg:p-3' key={i}>{paramDetail[param]}</td>
                       )
                     }
                   </tr>
@@ -65,15 +64,15 @@ const DtyProcessParams = () => {
 
           {/* for mobiles */}
 
-          <div className="grid lg:grid-cols-3 lg:hidden gap-5">
+          <div className="grid lg:grid-cols-3 md:hidden gap-5">
             {dtyProcessParameters?.map((item, i) => (
-              <div key={i} className="card w-96 bg-base-100 shadow-xl p-3">
+              <div key={i} className={`card w-96 bg-base-100 p-3 ${shadowRound}`}>
                 <div className="card-body">
                   <div>
                     <h3>SL: {i + 1}</h3>
                     {Object.entries(item).map(([key, value]) => (
-                      <p key={key}>
-                        {key}: {value}
+                      <p key={key} className='pb-1'>
+                        <span className='font-semibold'>{key}</span>: {value}
                       </p>
                     ))}
                   </div>
@@ -82,9 +81,11 @@ const DtyProcessParams = () => {
             ))}
           </div>
 
-        </>
+        </div>
       }
-
+      <div className='flex justify-center'>
+        <Link to={'add-new-parameter'}><button className='btn btn-primary mt-5'>Add New Parameter</button></Link>
+      </div>
     </div>
   );
 };
