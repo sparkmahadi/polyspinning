@@ -20,6 +20,7 @@ export const postBlog = async (article) => {
 }
 
 export const modifyArticleData = async (article) => {
+    console.log(article);
     const data = await axios.put("/api/v1/blogs", article);
     if (data.data.acknowledged) {
         toast.success(`Updated Blog #${article.title}`, { id: "updated" + article.title });

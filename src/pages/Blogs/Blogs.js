@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBlogs, removeArticle } from '../../redux/features/blogs/blogsSlice';
+import { getBlogs, removeArticle, setArticle } from '../../redux/features/blogs/blogsSlice';
 import { AuthContext } from './../../contexts/UserContext';
 import Spinner from '../../components/Spinner/Spinner';
 import useCheckAccType from '../../hooks/useCheckAccType';
@@ -15,8 +15,6 @@ const Blogs = () => {
     useEffect(() => {
         dispatch(getBlogs());
     }, [dispatch])
-
-    console.log(blogs);
 
     const handleDeleteArticle = (id, title) => {
         const confirm = window.confirm(`Are you sure to delete this blog titled "${title}"??`);
@@ -75,7 +73,7 @@ const Blogs = () => {
             </div>
 
             <div className='text-center pt-5 md:pt-10'>
-                <Link to={'/blogs/create-new-article'}><button className="btn btn-sm btn-primary">Create New Article</button></Link>
+                <Link onClick={()=>dispatch(setArticle({}))} to={'/blogs/create-new-article'}><button className="btn btn-sm btn-primary">Create New Article</button></Link>
             </div>
         </div>
     );

@@ -87,6 +87,17 @@ const blogsSlice = createSlice({
                 state.article.detail[indexOfGrandParentObj].detail[indexOfParentObj].detail = [childObj];
             }
         },
+        deleteArticleLevel2: (state, action) =>{
+            state.article.detail = "";
+        },
+        deleteArticleLevel3: (state, action) =>{
+            const parentIndex = action.payload;
+            state.article.detail[parentIndex].detail = "";
+        },
+        deleteArticleLevel4: (state, action) =>{
+            const {parentIndex, grandParentIndex} = action.payload;
+            state.article.detail[grandParentIndex].detail[parentIndex].detail = "";
+        },
         addArticleSectionToLvl2: (state, action) => {
             const { level } = action.payload;
             if (level === 2) {
@@ -244,6 +255,7 @@ export const {
     addArticleSectionToLvl2, addArticleSectionToLvl3, addArticleSectionToLvl4,
     deleteArticleSectionOfLvl2, deleteArticleSectionOfLvl3, deleteArticleSectionOfLvl4,
     addArticleLevel2, addArticleLevel3, addArticleLevel4,
+    deleteArticleLevel2, deleteArticleLevel3, deleteArticleLevel4,
     addTitleToLvl1, addTitleToLvl2, addTitleToLvl3, addTitleToLvl4,
     addDetailToLvl1, addDetailToLvl2, addDetailToLvl3, addDetailToLvl4,
 } = blogsSlice.actions;

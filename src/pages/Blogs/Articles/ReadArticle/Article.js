@@ -1,24 +1,22 @@
 import React, { useEffect } from 'react';
-import DotsBullet from '../../../components/BulletPoints/DotsBullet';
-import ChevronDoubleRegular from '../../../components/BulletPoints/ChevronDoubleRegular';
-import FingerPointer from '../../../components/BulletPoints/FingerPointer';
-import MinusBulletRegular from '../../../components/BulletPoints/MinusBulletRegular';
-import TriangleBullet from '../../../components/BulletPoints/TriangleBullet';
-import ArrowHeadBullet from '../../../components/BulletPoints/ArrowHeadBullet';
+import DotsBullet from '../../../../components/BulletPoints/DotsBullet';
+import ChevronDoubleRegular from '../../../../components/BulletPoints/ChevronDoubleRegular';
+import FingerPointer from '../../../../components/BulletPoints/FingerPointer';
+import MinusBulletRegular from '../../../../components/BulletPoints/MinusBulletRegular';
+import TriangleBullet from '../../../../components/BulletPoints/TriangleBullet';
+import ArrowHeadBullet from '../../../../components/BulletPoints/ArrowHeadBullet';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBlogDetails } from '../../../redux/features/blogs/blogsSlice';
-import { useParams } from 'react-router-dom';
+import { getBlogDetails } from '../../../../redux/features/blogs/blogsSlice';
+import { Link, useParams } from 'react-router-dom';
 
 const Article = ({ level = 0 }) => {
   const dispatch = useDispatch();
   const { blogDetails } = useSelector(state => state.blogs);
-  const {id} = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
     dispatch(getBlogDetails(id));
   }, [id])
-
-  console.log(blogDetails);
 
   const renderContent = (data, currentLevel) => {
     return data.map((item, index) => {
@@ -62,6 +60,7 @@ const Article = ({ level = 0 }) => {
   return (
     <div className="container mx-auto">
       {renderContent(blogDetails, level)}
+      <Link to={`/blogs/article/edit/${id}`}><button className="btn btn-primary btn-sm my-2 md:my-3 lg:my-5">Edit Article</button></Link>
     </div>
   );
 };

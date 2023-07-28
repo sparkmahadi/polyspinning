@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { addArticleSectionToLvl3, addDetailToLvl3, addTitleToLvl3, deleteArticleSectionOfLvl3, addArticleLevel4 } from '../../../redux/features/blogs/blogsSlice';
+import { addArticleSectionToLvl3, addDetailToLvl3, addTitleToLvl3, deleteArticleSectionOfLvl3, addArticleLevel4, deleteArticleLevel3 } from '../../../redux/features/blogs/blogsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Level4 from './Level4';
+import { FaTrash } from 'react-icons/fa';
+import { RxCrossCircled } from 'react-icons/rx';
 
 const level = 3;
 let length = 1;
@@ -42,24 +44,31 @@ const Level3 = ({ parentIndex, parentObj }) => {
     return (
         <div className={`p-2 md:p-3 lg:p-5 border border-1 ml-8 md:ml-12 lg:ml-20 mt-2 md:mt-3 rounded-lg`}>
             <div>
-            <h3 className='text-sm md:text-base lg:text-lg font-semibold mb-2'> Bullet Points Level : {level}</h3>
+                <div className='flex justify-between items-center mb-2'>
+                    <h3 className='text-base md:text-lg lg:text-xl font-semibold'> Bullet Points Level : {level}</h3>
+                    <button onClick={() => dispatch(deleteArticleLevel3(parentIndex))}>
+                        <FaTrash className='w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 hover:text-red-500' />
+                    </button>
+                </div>
                 {
                     parentObj?.detail?.map((obj, i) =>
-                        <div className={`border border-1 p-2 md:p-3 lg:p-5 rounded-lg ${i>0 ? "mt-2 md:mt-3 lg:mt-5" : undefined}`} key={obj.item}>
+                        <div className={`border border-1 p-2 md:p-3 lg:p-5 rounded-lg ${i > 0 ? "mt-2 md:mt-3 lg:mt-5" : undefined}`} key={obj.item}>
                             <div>
                                 <div className='flex justify-between items-center lg:mb-2'>
                                     <h5 className='text-sm lg:text-base font-semibold'>Section No: {i + 1}</h5>
-                                    <button onClick={() => handleDeleteSection(obj.item, parentIndex)} className="btn btn-xs md:btn-sm">Delete</button>
+                                    <button onClick={() => handleDeleteSection(obj.item, parentIndex)}>
+                                        <RxCrossCircled className='w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 hover:text-red-500' />
+                                    </button>
                                 </div>
                                 <label className='text-sm lg:text-base'>Title:</label>
-                                <input onBlur={(e) => handleAddValuesToLvl3(e, 'title', i)} className="input input-bordered input-xs md:input-sm lg:input-md w-full md:my-2" type="text" name={`title-${i}`} />
+                                <input onBlur={(e) => handleAddValuesToLvl3(e, 'title', i)} className="input input-bordered input-xs md:input-sm lg:input-md w-full md:my-2" type="text" name={`title-${i}`} defaultValue={obj.title} />
                                 <br />
                                 {
                                     Array.isArray(obj?.detail) ||
                                     <>
                                         <label className='text-sm lg:text-base'>Details:</label>
                                         <br />
-                                        <input onBlur={(e) => handleAddValuesToLvl3(e, 'detail', i)} className="input input-bordered input-xs md:input-sm lg:input-md w-full md:my-2" type="text" name={`detail-${i}`} />
+                                        <input onBlur={(e) => handleAddValuesToLvl3(e, 'detail', i)} className="input input-bordered input-xs md:input-sm lg:input-md w-full md:my-2" type="text" name={`detail-${i}`} defaultValue={obj.detail} />
                                     </>
                                 }
                             </div>
@@ -74,7 +83,7 @@ const Level3 = ({ parentIndex, parentObj }) => {
                 }
                 {
                     Array.isArray(parentObj?.detail) &&
-                    <button onClick={() => handleAddSection(parentObj, parentIndex)} className="btn btn-success btn-xs lg:btn-sm md:mt-3 lg:mt-5">Add More Section</button>
+                    <button onClick={() => handleAddSection(parentObj, parentIndex)} className="btn btn-success btn-xs lg:btn-sm mt-2 md:mt-3 lg:mt-5">Add More Section</button>
                 }
                 <br />
             </div>

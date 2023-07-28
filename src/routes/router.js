@@ -33,8 +33,9 @@ import DTYLotNoExplanation from "../pages/DTY/DTYLotNoExplanation/DTYLotNoExplan
 import UsersList from "../pages/Dashboard/Users/UsersList";
 import InputDTYProductionReport from "../pages/InputExcelData/InputDTYProductionReport";
 import Blogs from './../pages/Blogs/Blogs';
-import Article from "../pages/Blogs/Articles/Article";
+import Article from "../pages/Blogs/Articles/ReadArticle/Article";
 import CreateArticle from "../pages/Blogs/Articles/CreateArticle/CreateArticle";
+import EditArticle from "../pages/Blogs/Articles/EditArticle/EditArticle";
 
 export const router = createBrowserRouter([
     {
@@ -148,6 +149,10 @@ export const router = createBrowserRouter([
             {
                 path: "/blogs/article/:id",
                 element: <Article />
+            },
+            {
+                path: "/blogs/article/edit/:id",
+                element: <EditArticle />
             },
             {
                 path: "/blogs/create-new-article",
