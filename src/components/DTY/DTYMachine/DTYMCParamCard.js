@@ -5,18 +5,16 @@ import dtyBobbin from "../../../images/dty bobbin.jpg";
 import { useDispatch, useSelector } from 'react-redux';
 import { setParamModalData } from '../../../redux/features/dtyProcessParameters/dtyParametersSlice';
 import DTYMCParamModal from './DTYMCParamModal';
+import { shadowRound } from '../../../customClasses/CustomClasses';
 
 const DTYMCParamCard = ({ mcDetails }) => {
     const dispatch = useDispatch();
     const { paramModalData } = useSelector(state => state.dtyProcessParameters)
-    // if (mcDetails) {
-    //     console.log(Object.keys(mcDetails));
-    // }
     const {
         _id, POYType, POYLine, DTYMCNo, DTYType, DTYColor, LotNo, ChipsName, MCSpeed, DR, SOF, TOF, DY, Shaft2B, CPM, DEV, PH, SH, EDraw, AirPressure, IntJetType, OilerRpm, OilType, Axial, Stroke, DTYTubeColor, CustomerName, StartDate, StopDate, Quantity, Remarks, uploadedAt, message } = mcDetails;
     return (
-        <div className="card w-96 bg-base-100 shadow-xl">
-            <figure><img src={mcDetails.message ? gearStopped : runningGears} alt="Shoes" /></figure>
+        <div className={`card xl:w-96 bg-base-100 ${shadowRound}`}>
+            <figure><img src={mcDetails.message ? gearStopped : runningGears} alt="status" /></figure>
 
             {
                 mcDetails.message ?

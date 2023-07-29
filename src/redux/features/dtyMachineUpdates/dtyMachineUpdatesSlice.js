@@ -11,7 +11,7 @@ const initialState = {
 };
 
 export const addDtyMachineUpdates = createAsyncThunk("dtyMachineUpdates/addMachineUpdates", async(updateInfo)=>{
-    const machineData = postDtyMachineUpdate(updateInfo.machineData, updateInfo.changedProps);
+    const machineData = postDtyMachineUpdate(updateInfo);
     return machineData;
 })
 

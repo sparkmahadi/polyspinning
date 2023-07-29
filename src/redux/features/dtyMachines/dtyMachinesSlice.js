@@ -18,6 +18,7 @@ const initialState = {
     propsForSearch: [],
     searchedProp: "notSelected",
     detailedMachine: {},
+    detailedMCForCompare: {},
     enableEditing: false,
     postMachineSuccess: false,
     updateMachineSuccess: false,
@@ -37,14 +38,18 @@ export const getDtyMachineDetails = createAsyncThunk("dtyMachines/getDtyMachineD
     return machineData;
 })
 
+export const getDtyMCDetailForComparison = createAsyncThunk("dtyMachines/getDtyMCDetailForComparison", async (machineWithSide) => {
+    const machineData = fetchDtyMachineDetails(machineWithSide);
+    return machineData;
+})
+
 export const getDtyMachinesBySearch = createAsyncThunk("dtyMachines/getDtyMachineBySearch", async (searchData) => {
     const machines = fetchDtyMachinesBySearch(searchData);
     return machines;
 })
 
 export const updateDtyMachine = createAsyncThunk("dtyMachines/updateDtyMachine", async (updateInfo, thunkAPI) => {
-    // console.log("updateInfo", updateInfo);
-    const machineData = modifyDtyMachine(updateInfo.DTYMCNo, updateInfo.Side, updateInfo.changedProperties);
+    const machineData = modifyDtyMachine(updateInfo.DTYMCNo, updateInfo.Side, updateInfo.updatedMCDetail);
     thunkAPI.dispatch(getDtyMachines);
     return machineData;
 })
@@ -125,7 +130,23 @@ const dtyMachinesSlice = createSlice({
             state.isError = false;
         })
         builder.addCase(getDtyMachineDetails.rejected, (state, action) => {
-            state.detailedMachine = [];
+            state.detailedMachine = {};
+            state.isLoading = false;
+            state.isError = true;
+            state.error = action.error.message;
+        })
+
+        builder.addCase(getDtyMCDetailForComparison.pending, (state, action) => {
+            state.isLoading = true;
+            state.isError = false;
+        })
+        builder.addCase(getDtyMCDetailForComparison.fulfilled, (state, action) => {
+            state.detailedMCForCompare = action.payload;
+            state.isLoading = false;
+            state.isError = false;
+        })
+        builder.addCase(getDtyMCDetailForComparison.rejected, (state, action) => {
+            state.detailedMCForCompare = {};
             state.isLoading = false;
             state.isError = true;
             state.error = action.error.message;

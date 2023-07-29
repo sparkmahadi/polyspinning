@@ -1,12 +1,13 @@
-import { format } from 'date-fns';
+
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addLotData } from '../../redux/features/dtyPresentLotAndTransfer/dtyPresentLotSlice';
 import { toast } from 'react-hot-toast';
 import { addMachine, updateDtyMachineLot, updateMachine } from '../../redux/features/dtyMachinesFromPresentLot/dtyMCsFromPLotSlice';
-import { addDtyMachineUpdates } from '../../redux/features/dtyMachineUpdates/dtyMachineUpdatesSlice';
 import { setExcelData } from '../../redux/features/inputExcelFiles/inputExcelSlice';
 import { useNavigate } from 'react-router-dom';
+import { compareObjsForChangedProps, getCurrentTimeAndDate } from '../../logics/findingFunctions';
+import { getDTYPresentLotProps } from '../../logics/getProperties';
 
 const DisplayDTYPresentLot = () => {
     const dispatch = useDispatch();
@@ -17,16 +18,8 @@ const DisplayDTYPresentLot = () => {
     const specsTitles = excelData[0];
     const specsDetails = excelData.slice(1);
 
-    const properties = [
-        "DTYMCNo",
-        "ProductType",
-        "POYLine",
-        "DTYBobbinColor",
-        "PresentLotNo",
-        "AirPress",
-        "INTJet",
-        "InspectionArea"
-    ];
+    const timeAndDate = getCurrentTimeAndDate();
+    const properties = getDTYPresentLotProps();
 
     const extractMcDetails = (dataArray, existingArr) => {
         const dynamicObjects = [];
@@ -96,16 +89,14 @@ const DisplayDTYPresentLot = () => {
             if (!element2) {
                 console.log(`inserting new machine. Machine no: ${element1.DTYMCNo}`);
                 toast.loading(`inserting new machine. Machine no: # ${element1.DTYMCNo}`, { id: element1.DTYMCNo })
-                
+
                 dispatch(addMachine(element1));
                 dispatch(updateDtyMachineLot(element1));
-                // return { message: "Post the new machine", machineData: element1, toastId: element1.DTYMCNo };
             }
             if (element2) {
-                const changedProps = compareObjects(element1WithoutId, element2);
+                const changedProps = compareObjsForChangedProps(element1WithoutId, element2, properties);
                 if (changedProps.length === 1 && changedProps[0] === "_id") {
                     console.log('only id changed');
-                    // return { message: "Only Object ID is changed" };
                 }
                 else {
                     if (Object.entries(changedProps).length > 0) {
@@ -113,35 +104,18 @@ const DisplayDTYPresentLot = () => {
                         toast.success(`Changed (${changedProps}) of Machine No: ${element2.DTYMCNo}`, { id: element2.DTYMCNo })
 
                         const updateInfo = { machineData: element1, changedProps };
+                        // console.log("element1", element1, "element2", element2, changedProps);
                         dispatch(updateMachine(updateInfo));
-                        dispatch(addDtyMachineUpdates(updateInfo));
                         dispatch(updateDtyMachineLot(element1));
-                        // return { message: "Update the Machine Details", machineData: element1, changedProps, toastId: element2.DTYMCNo }
-
                     }
                 }
             }
             toast.success("Everything is up to date", { id: "Warning" });
         }
-
-        // return { message: "All properties of all machines are same" }; // All elements are equal
     };
 
-    function compareObjects(object1, object2) {
-        const changedProperties = [];
-
-        for (const elem of properties) {
-            if (object1[elem] !== object2[elem]) {
-                changedProperties.push(elem);
-            }
-        }
-        return changedProperties;
-    }
-
     const handleUpload = () => {
-
-        const dateTime = format(new Date(), "Pp");
-        const lotData = { specsTitles, specsDetails, uploadedAt: dateTime };
+        const lotData = { specsTitles, specsDetails, uploadedAt: timeAndDate };
         dispatch(addLotData(lotData));
 
         extractMcDetails(specsDetails, existingArr);

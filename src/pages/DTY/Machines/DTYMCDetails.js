@@ -17,8 +17,12 @@ import { toast } from 'react-hot-toast';
 import { AuthContext } from '../../../contexts/UserContext';
 import useCheckAccType from '../../../hooks/useCheckAccType';
 import UpdatingOtherMachineModal from '../../../components/DTY/UpdatingOtherMachineModal/UpdatingOtherMachineModal';
+import { addDtyMachineUpdates } from './../../../redux/features/dtyMachineUpdates/dtyMachineUpdatesSlice';
+import { compareNestedObjsForChangedProps, getMCUpdatedProps } from '../../../logics/findingFunctions';
+import { format } from 'date-fns';
 
 const DTYMCDetails = () => {
+    const timeAndDate = format(new Date(), "Pp");
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { detailedMachine, isLoading, isError, enableEditing } = useSelector(state => state.dtyMachines);
@@ -77,7 +81,7 @@ const DTYMCDetails = () => {
     const propArrays = [mcInfoProps, DTYInfoProps, POYInfoProps, paramsProps];
 
     const onSubmit = (data) => {
-        console.log("data", data);
+        // console.log("data", data);
         const updatedObj = {};
 
         for (let i = 0; i < propNames.length; i++) {
@@ -94,13 +98,16 @@ const DTYMCDetails = () => {
         console.log("updatedObj", updatedObj);
 
         const { _id, updatedAt, ...oldObj } = detailedMachine;
-        console.log("changed data", data);
-        const changedProperties = compareObjects(oldObj, updatedObj);
-        console.log(changedProperties);
-        if (Object.entries(changedProperties).length) {
-            const updateInfo = { DTYMCNo: detailedMachine.mcInfo.DTYMCNo, Side: detailedMachine.mcInfo.Side, changedProperties };
-            console.log("updateInfo", updateInfo);
+        const updatedMCDetail = compareObjects(oldObj, updatedObj);
+        console.log(updatedMCDetail);
+        if (Object.entries(updatedMCDetail).length) {
+            const updateInfo = { DTYMCNo: detailedMachine.mcInfo.DTYMCNo, Side: detailedMachine.mcInfo.Side, updatedMCDetail };
             dispatch(updateDtyMachine(updateInfo));
+
+            const propertiesToCompare = ["mcInfo", "DTYInfo", "POYInfo", "params"];
+            const changedProps = compareNestedObjsForChangedProps(updatedObj, oldObj, propertiesToCompare);
+            const updatedPropertyRemarks = getMCUpdatedProps(updatedObj, oldObj, changedProps);
+            dispatch(addDtyMachineUpdates({machineData: updatedObj, updatedProperties: updatedPropertyRemarks, updatedFrom: "Manually Machine Updated", updatedAt: timeAndDate}));
         }
         else {
             toast.success("Nothing to update", { id: "updated Machine" });
@@ -123,7 +130,7 @@ const DTYMCDetails = () => {
         return changedProps;
     }
 
-    if (isLoading) {
+    if (isLoading || loading) {
         return <Spinner></Spinner>
     }
 
@@ -186,11 +193,9 @@ const DTYMCDetails = () => {
                             const prop = detailedMachine[elem];
                             updateInfo.Props[elem] = prop;
                         }
-                        // console.log(updateInfo);
                     } else {
                         const prop = detailedMachine[propTypeToSet];
                         updateInfo.Props = { [propTypeToSet]: prop };
-                        // console.log(updateInfo);
                     }
 
                     dispatch(updateOtherMC(updateInfo));
@@ -213,11 +218,9 @@ const DTYMCDetails = () => {
                                 const prop = detailedMachine[elem];
                                 updateInfoWithSide.Props[elem] = prop;
                             }
-                            // console.log(updateInfoWithSide);
                         } else {
                             const prop = detailedMachine[propTypeToSet];
                             updateInfoWithSide.Props = { [propTypeToSet]: prop };
-                            // console.log(updateInfoWithSide);
                         }
                         dispatch(updateOtherMC(updateInfoWithSide));
                     });
@@ -321,7 +324,6 @@ const DTYMCDetails = () => {
                                 <div className='mb-5'>
                                     <h3 className="text-xl font-bold mb-2">Update Info:</h3>
                                     <div className='lg:flex flex-row-reverse justify-center items-center'>
-                                        {/* <img className='lg:w-52 mx-auto' src={poyPackage} alt="" /> */}
                                         <table className="table-auto w-full">
                                             <tbody>
                                                 {Object?.entries(detailedMachine?.updatedAt).map(([key, value]) => (
