@@ -22,8 +22,8 @@ const PoyPresentLotAndTransfer = () => {
     "POY Bobbin",
     "POY Color",
     "Status",
-    "ChipsName",
     "Updated On",
+    "ChipsName",
     "Actions"
   ]
 

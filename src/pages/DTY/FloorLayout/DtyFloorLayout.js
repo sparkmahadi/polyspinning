@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import dtyMachine from "../../../images/dty-machine.jpg"
+import FloorLayout from './FloorLayout';
 
 const DtyFloorLayout = () => {
 
@@ -39,6 +40,8 @@ const DtyFloorLayout = () => {
         <Link to={'dty-machines-with-parameters'}><button className='btn btn-primary normal-case btn-sm'>All Machines With Latest Parameters</button></Link>
         <Link to={'dty-machine-updates'}><button className='btn btn-primary normal-case btn-sm'>DTY Machine Updates</button></Link>
       </div>
+
+      <FloorLayout/>
     </div>
   );
 };
